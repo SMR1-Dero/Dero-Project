@@ -91,7 +91,7 @@ def getpoint_tomato(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupp
     pointi=None
     distance=None
     gray,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)#0,80,80,255,255,255
-    circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,2,minDist=15,param1=50,param2=30,minRadius=20,maxRadius=25)#hier aanpassingen aan maken voor filtering
+    circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,2,minDist=15,param1=50,param2=30,minRadius=17,maxRadius=23)#hier aanpassingen aan maken voor filtering
     #print(circles)
     if circles is not None:
         circles = np.uint16(np.around(circles))
@@ -243,7 +243,7 @@ def make_3D_point(x, y, pipeline, mtx, dist):
     # Get the depth value at the pixel coordinates
     depth = depth_frame.get_distance(int(pts_undistorted[0][0][0]), int(pts_undistorted[0][0][1]))
     # Convert the pixel coordinates to the camera coordinate system
-    point = rs.rs2_deproject_pixel_to_point(depth_intrin, [pts_undistorted[0][0][0], pts_undistorted[0][0][1]], depth)
+    point = rs.rs2_deproject_pixel_to_point(depth_intrin, [(pts_undistorted[0][0][0]), (pts_undistorted[0][0][1])], (depth*1000))
 
     return point
 def read_cal():
@@ -256,7 +256,7 @@ def main():
     # Initialize Camera Intel Realsense
     pipeline=initizalize_rs()
     #create trackbar and images
-    calibrate_camera(pipeline)
+    #calibrate_camera(pipeline)
     mtx,dist=read_cal()
     crop=[[(75),(425),(140),(365)],[(75),(425),(385),(615)],[(0),(780),(0),(1280)]]
     makeframe()
