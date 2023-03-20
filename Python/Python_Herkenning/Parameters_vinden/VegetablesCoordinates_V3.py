@@ -10,6 +10,7 @@ import numpy as np
 import time
 import copy
 from realsense_depth import *
+from ..Database import vegetable_db
 
 
 def show_distance(event, x, y, args, params):
