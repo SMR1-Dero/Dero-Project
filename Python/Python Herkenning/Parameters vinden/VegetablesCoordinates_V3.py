@@ -222,7 +222,7 @@ def calibrate_camera(pipeline, chessboard_size=(17, 12), square_size=20):
 
             if len(objpoints) >= 10:
                 ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray_image.shape[::-1], None, None)
-                f=open('Calibration.txt','a')
+                f=open('Calibration1.txt','a')
                 f.truncate(0)
                 np.savetxt(f, mtx,delimiter=',')
                 f.write("\n")
@@ -247,7 +247,7 @@ def make_3D_point(x, y, pipeline, mtx, dist):
 
     return point
 def read_cal():
-    with open('Calibration.txt', 'r') as f:
+    with open('Calibration1.txt', 'r') as f:
         mtx = np.loadtxt(f, max_rows=3,delimiter=',')
         dist = np.loadtxt(f, max_rows=1,delimiter=',')
     return mtx,dist
@@ -256,7 +256,7 @@ def main():
     # Initialize Camera Intel Realsense
     pipeline=initizalize_rs()
     #create trackbar and images
-    #calibrate_camera(pipeline)
+    calibrate_camera(pipeline)
     mtx,dist=read_cal()
     crop=[[(75),(425),(140),(365)],[(75),(425),(385),(615)],[(0),(780),(0),(1280)]]
     makeframe()
