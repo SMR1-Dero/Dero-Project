@@ -217,14 +217,20 @@ def calibrate_camera(pipeline, chessboard_size=(17, 12), square_size=20):
             cv2.drawChessboardCorners(color_image, chessboard_size, corners, ret)
             cv2.imshow('Chessboard', color_image)
             cv2.waitKey(500)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
             if len(objpoints) >= 10:
                 ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray_image.shape[::-1], None, None)
-                return mtx, dist
-
-        cv2.imshow('Chessboard', color_image)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+                f=open('Calibration.txt','a')
+                f.truncate(0)
+                np.savetxt(f, mtx,delimiter=',')
+                f.write("\n")
+                np.savetxt(f, dist,delimiter=',')
+                f.write("\n")
+                f.close()
+                cv2.destroyAllWindows()
+                break
 
 def make_3D_point(x, y, pipeline, mtx, dist):
     # Get the depth frame
@@ -240,13 +246,18 @@ def make_3D_point(x, y, pipeline, mtx, dist):
     point = rs.rs2_deproject_pixel_to_point(depth_intrin, [pts_undistorted[0][0][0], pts_undistorted[0][0][1]], depth)
 
     return point
-
+def read_cal():
+    with open('Calibration.txt', 'r') as f:
+        mtx = np.loadtxt(f, max_rows=3,delimiter=',')
+        dist = np.loadtxt(f, max_rows=1,delimiter=',')
+    return mtx,dist
 
 def main():
     # Initialize Camera Intel Realsense
     pipeline=initizalize_rs()
-    mtx,dist=calibrate_camera(pipeline)
     #create trackbar and images
+    calibrate_camera(pipeline)
+    mtx,dist=read_cal()
     crop=[[(75),(425),(140),(365)],[(75),(425),(385),(615)],[(0),(780),(0),(1280)]]
     makeframe()
     while True:
