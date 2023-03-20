@@ -91,7 +91,7 @@ def getpoint_tomato(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupp
     pointi=None
     distance=None
     gray,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)#0,80,80,255,255,255
-    circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,2,minDist=15,param1=50,param2=30,minRadius=17,maxRadius=23)#hier aanpassingen aan maken voor filtering
+    circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,2,minDist=15,param1=50,param2=30,minRadius=15,maxRadius=25)#hier aanpassingen aan maken voor filtering
     #print(circles)
     if circles is not None:
         circles = np.uint16(np.around(circles))
@@ -222,7 +222,7 @@ def calibrate_camera(pipeline, chessboard_size=(17, 12), square_size=20):
 
             if len(objpoints) >= 10:
                 ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray_image.shape[::-1], None, None)
-                f=open('Calibration1.txt','a')
+                f=open('Calibration_one.txt','a')
                 f.truncate(0)
                 np.savetxt(f, mtx,delimiter=',')
                 f.write("\n")
@@ -233,6 +233,7 @@ def calibrate_camera(pipeline, chessboard_size=(17, 12), square_size=20):
                 break
 
 def make_3D_point(x, y, pipeline, mtx, dist):
+    cam1=[584.87,603.59,930]#y,x,z
     # Get the depth frame
     depth_frame = pipeline.wait_for_frames().get_depth_frame()
     # Get the intrinsics of the depth frame
@@ -243,11 +244,12 @@ def make_3D_point(x, y, pipeline, mtx, dist):
     # Get the depth value at the pixel coordinates
     depth = depth_frame.get_distance(int(pts_undistorted[0][0][0]), int(pts_undistorted[0][0][1]))
     # Convert the pixel coordinates to the camera coordinate system
-    point = rs.rs2_deproject_pixel_to_point(depth_intrin, [(pts_undistorted[0][0][0]), (pts_undistorted[0][0][1])], (depth*1000))
-
+    point = rs.rs2_deproject_pixel_to_point(depth_intrin, [(pts_undistorted[0][0][0]), (pts_undistorted[0][0][1])], depth)#x,y,z
+    print(point)
+    point=[-point[1]*1000-cam1[0],-point[0]*1000-cam1[1],-point[2]*1000]
     return point
 def read_cal():
-    with open('Calibration1.txt', 'r') as f:
+    with open('Calibration_one.txt', 'r') as f:
         mtx = np.loadtxt(f, max_rows=3,delimiter=',')
         dist = np.loadtxt(f, max_rows=1,delimiter=',')
     return mtx,dist
@@ -256,7 +258,7 @@ def main():
     # Initialize Camera Intel Realsense
     pipeline=initizalize_rs()
     #create trackbar and images
-    calibrate_camera(pipeline)
+    #calibrate_camera(pipeline)
     mtx,dist=read_cal()
     crop=[[(75),(425),(140),(365)],[(75),(425),(385),(615)],[(0),(780),(0),(1280)]]
     makeframe()
