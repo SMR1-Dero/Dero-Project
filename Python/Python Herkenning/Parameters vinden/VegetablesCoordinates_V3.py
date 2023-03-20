@@ -233,7 +233,7 @@ def calibrate_camera(pipeline, chessboard_size=(17, 12), square_size=20):
                 break
 
 def make_3D_point(x, y, pipeline, mtx, dist):
-    cam1=[584.87,603.59,930]#y,x,z
+    cam1=[584.87,603.59,927]#y,x,z
     # Get the depth frame
     depth_frame = pipeline.wait_for_frames().get_depth_frame()
     # Get the intrinsics of the depth frame
@@ -246,7 +246,7 @@ def make_3D_point(x, y, pipeline, mtx, dist):
     # Convert the pixel coordinates to the camera coordinate system
     point = rs.rs2_deproject_pixel_to_point(depth_intrin, [(pts_undistorted[0][0][0]), (pts_undistorted[0][0][1])], depth)#x,y,z
     print(point)
-    point=[-point[1]*1000-cam1[0],-point[0]*1000-cam1[1],-point[2]*1000]
+    point=[(-point[1]*1000)-cam1[0],(-point[0]*1000)-cam1[1],(point[2]*1000)-cam1[2]]
     return point
 def read_cal():
     with open('Calibration_one.txt', 'r') as f:
