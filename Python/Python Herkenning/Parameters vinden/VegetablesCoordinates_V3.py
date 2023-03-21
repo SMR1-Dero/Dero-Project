@@ -179,6 +179,36 @@ def getpoint_paprika(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvup
     print(coordinates)
 
     return color_frame,coordinates,mask2
+
+def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3):
+    coordinates=[]
+    cx=0
+    cy=0
+    pointi=(10,10)
+    distance=None
+    mask,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)
+    for c in cnts:
+        area= cv2.contourArea(c)
+        if area>1000:
+            M = cv2.moments(c)
+            #print ("Area=",area)
+            # Calculate the moments
+            if M['m00'] != 0:
+                cx = int(M['m10']/M['m00'])
+                cy = int(M['m01']/M['m00'])
+                cv2.circle(color_frame, (cx, cy), 7, (0, 0, 255), -1)
+                pointi=(cx,cy)
+                #bepalen van afstand en pixel coordinaat
+                distance = mean_distance(depth_frame,pointi)
+                coordinates.append([pointi,distance])
+                #tekenen van centrun en contour
+                cv2.putText(color_frame, "{}mm".format(distance), (pointi[0], pointi[1] - 20), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 2)
+                epsilon = 0.005 * cv2.arcLength(c, True)
+                approx = cv2.approxPolyDP(c, epsilon, True)
+                cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
+    print(coordinates)
+
+    return color_frame,coordinates,mask
 def draw_original(original,coordinates,xcorrect,ycorrect):
     cv2.circle(original,(coordinates[0][0][0]+xcorrect,coordinates[0][0][1]+ycorrect),1,(0,255,0),2)
     return original
@@ -191,6 +221,11 @@ def initizalize_rs():
     # Start streaming
     pipeline.start(config)
     return pipeline 
+def read_cal():
+    with open('Calibration_one.txt', 'r') as f:
+        mtx = np.loadtxt(f, max_rows=3,delimiter=',')
+        dist = np.loadtxt(f, max_rows=1,delimiter=',')
+    return mtx,dist
 def calibrate_camera(pipeline, chessboard_size=(17, 12), square_size=20):
     objp = np.zeros((chessboard_size[0] * chessboard_size[1], 3), np.float32)
     objp[:, :2] = np.mgrid[0:chessboard_size[0], 0:chessboard_size[1]].T.reshape(-1, 2) * square_size
@@ -248,11 +283,6 @@ def make_3D_point(x, y, pipeline, mtx, dist):
     print(point)
     point=[(-point[1]*1000)-cam1[0],(-point[0]*1000)-cam1[1],(point[2]*1000)-cam1[2]]
     return point
-def read_cal():
-    with open('Calibration_one.txt', 'r') as f:
-        mtx = np.loadtxt(f, max_rows=3,delimiter=',')
-        dist = np.loadtxt(f, max_rows=1,delimiter=',')
-    return mtx,dist
 
 def main():
     # Initialize Camera Intel Realsense
