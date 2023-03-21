@@ -298,7 +298,7 @@ def main():
         #get depth and color frame
         depth_cut,color_cut,org=getframe(pipeline,crop[2])
         #Use filters and circle detection to get center coordinate
-        madeframe,coor,gray=getpoint_tomato(depth_cut,color_cut,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)
+        madeframe,coor,gray=getpoint_round(depth_cut,color_cut,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)
         if coor != []:
             point=make_3D_point(coor[0][0][0]+crop[2][2], coor[0][0][1]+crop[2][0],pipeline,mtx,dist)
             print("3D Point in robot arm coordinates:", point)
