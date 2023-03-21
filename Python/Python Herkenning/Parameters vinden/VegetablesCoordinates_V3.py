@@ -114,7 +114,7 @@ def getpoint_notround_withstem(depth_frame,color_frame,hsvunder1,hsvunder2,hsvun
     loc1=[]
     pointi=(10,10)
     distance=None
-    mask,cnts=image_edits(color_frame,0,80,30,255,255,255)#0,80,30,255,255,255
+    mask,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)#0,80,30,255,255,255
     mask2,cnts2=image_edits(color_frame,10,60,0,35,200,255)#10,60,0,35,200,255
     for i in cnts2:
         area= cv2.contourArea(i)
@@ -179,7 +179,6 @@ def getpoint_notround_withstem(depth_frame,color_frame,hsvunder1,hsvunder2,hsvun
     print(coordinates)
 
     return color_frame,coordinates,mask2
-
 def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3):
     coordinates=[]
     cx=0
@@ -208,6 +207,20 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
                 cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
     return color_frame,coordinates,mask
 
+def getpoint(depth_frame,color_frame,vegetable):
+    shape = vegetable["product_shape"]
+    min_size = vegetable["product_minSize"]
+    max_size = vegetable["product_maxSize"]
+    hsv_range = map(int, vegetable["product_HSVRange"].split(","))
+
+    if (shape == "Round"):
+        image_with_points,pickup_coordinates,gray_image=getpoint_round(depth_frame,color_frame,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5])
+    elif (shape == "Not round"):
+        image_with_points,pickup_coordinates,gray_image=getpoint_notround(depth_frame,color_frame,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5])
+    elif (shape == "Not round with stem"):
+        image_with_points,pickup_coordinates,gray_image=getpoint_notround_withstem(depth_frame,color_frame,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5])
+    
+    return image_with_points,pickup_coordinates,gray_image
 
 def draw_original(original,coordinates,xcorrect,ycorrect):
     cv2.circle(original,(coordinates[0][0][0]+xcorrect,coordinates[0][0][1]+ycorrect),1,(0,255,0),2)
