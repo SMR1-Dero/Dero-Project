@@ -207,20 +207,25 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
                 cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
     return color_frame,coordinates,mask
 
-def getpoint(depth_frame,color_frame,vegetable):
+def getpoint(pipeline, vegetable):
+    crop=[[(75),(425),(140),(365)],[(75),(425),(385),(615)],[(0),(780),(0),(1280)]]
+
     shape = vegetable["product_shape"]
     min_size = vegetable["product_minSize"]
     max_size = vegetable["product_maxSize"]
     hsv_range = map(int, vegetable["product_HSVRange"].split(","))
+    crate_number = vegetable["crateNumber"]
+
+    depth_cut,color_cut,orginal_color_frame=getframe(pipeline,crop[crate_number-1])
 
     if (shape == "Round"):
-        image_with_points,pickup_coordinates,gray_image=getpoint_round(depth_frame,color_frame,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5])
+        image_with_points,pickup_coordinates,gray_image=getpoint_round(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5])
     elif (shape == "Not round"):
-        image_with_points,pickup_coordinates,gray_image=getpoint_notround(depth_frame,color_frame,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5])
+        image_with_points,pickup_coordinates,gray_image=getpoint_notround(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5])
     elif (shape == "Not round with stem"):
-        image_with_points,pickup_coordinates,gray_image=getpoint_notround_withstem(depth_frame,color_frame,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5])
+        image_with_points,pickup_coordinates,gray_image=getpoint_notround_withstem(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5])
     
-    return image_with_points,pickup_coordinates,gray_image
+    return image_with_points,pickup_coordinates,gray_image,crop[crate_number-1],orginal_color_frame
 
 def draw_original(original,coordinates,xcorrect,ycorrect):
     cv2.circle(original,(coordinates[0][0][0]+xcorrect,coordinates[0][0][1]+ycorrect),1,(0,255,0),2)
@@ -304,31 +309,29 @@ def read_cal():
         dist = np.loadtxt(f, max_rows=1,delimiter=',')
     return mtx,dist
 
-def main():
+def main(debug=False):
     # Initialize Camera Intel Realsense
     pipeline=initizalize_rs()
     #create trackbar and images
     #calibrate_camera(pipeline)
     mtx,dist=read_cal()
-    crop=[[(75),(425),(140),(365)],[(75),(425),(385),(615)],[(0),(780),(0),(1280)]]
     makeframe()
     while True:
         #read info from trackbars
         hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3=readtrackbar()
-        #get depth and color frame
-        depth_cut,color_cut,org=getframe(pipeline,crop[0])
         #Use filters and circle detection to get center coordinate
-        madeframe,coor,gray=getpoint_round(depth_cut,color_cut,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)
-        if coor != []:
-            point=make_3D_point(coor[0][0][0]+crop[0][2], coor[0][0][1]+crop[0][0],pipeline,mtx,dist)
+        image_with_points,pickup_coordinates,gray_image,crop,original_color_frame=getpoint(pipeline,vegetable)
+        if pickup_coordinates != []:
+            point=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline,mtx,dist)
             print("3D Point in robot arm coordinates:", point)
             #print(coor[0][0][0])
             #show edited and original frame with contours and center
-            org_draw=draw_original(org, coor,crop[1][2],crop[1][0])
-            org_draw=draw_original(org, coor,320,240)
-            cv2.imshow("Origineel frame", org_draw)
-        cv2.imshow("bewerkt frame", madeframe)
-        cv2.imshow("Grijs frame",gray)
+            original_with_points=draw_original(original_color_frame, pickup_coordinates,crop[2],crop[0])
+            if debug:
+                cv2.imshow("Origineel frame", original_with_points)
+        if debug:
+            cv2.imshow("bewerkt frame", image_with_points)
+            cv2.imshow("Grijs frame",gray_image)
         cv2.waitKey(100)
         key = cv2.waitKey(1)
         if key == 27:  # ESC
