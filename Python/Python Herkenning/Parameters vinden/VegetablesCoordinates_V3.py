@@ -222,7 +222,7 @@ def calibrate_camera(pipeline, chessboard_size=(17, 12), square_size=20):
 
             if len(objpoints) >= 10:
                 ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray_image.shape[::-1], None, None)
-                f=open('Calibration_one.txt','a')
+                f=open('Calibration_two.txt','a')
                 f.truncate(0)
                 np.savetxt(f, mtx,delimiter=',')
                 f.write("\n")
@@ -233,7 +233,8 @@ def calibrate_camera(pipeline, chessboard_size=(17, 12), square_size=20):
                 break
 
 def make_3D_point(x, y, pipeline, mtx, dist):
-    cam1=[584.87,603.59,927]#y,x,z
+    cam1=[584.87,603.59,927]
+    cam2=[-633,439.93,960.87]
     # Get the depth frame
     depth_frame = pipeline.wait_for_frames().get_depth_frame()
     # Get the intrinsics of the depth frame
@@ -246,10 +247,11 @@ def make_3D_point(x, y, pipeline, mtx, dist):
     # Convert the pixel coordinates to the camera coordinate system
     point = rs.rs2_deproject_pixel_to_point(depth_intrin, [(pts_undistorted[0][0][0]), (pts_undistorted[0][0][1])], depth)#x,y,z
     print(point)
-    point=[(-point[1]*1000)-cam1[0],(-point[0]*1000)-cam1[1],(point[2]*1000)-cam1[2]]
+    #point=[(-point[1]*1000)-cam1[0],(-point[0]*1000)-cam1[1],(point[2]*1000)-cam1[2]]
+    point=[-(point[1]*1000)+cam2[0],-(-point[0]*1000)+cam2[1],(point[2]*1000)-cam2[2]]
     return point
 def read_cal():
-    with open('Calibration_one.txt', 'r') as f:
+    with open('Calibration_two.txt', 'r') as f:
         mtx = np.loadtxt(f, max_rows=3,delimiter=',')
         dist = np.loadtxt(f, max_rows=1,delimiter=',')
     return mtx,dist
@@ -266,11 +268,11 @@ def main():
         #read info from trackbars
         hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3=readtrackbar()
         #get depth and color frame
-        depth_cut,color_cut,org=getframe(pipeline,crop[2])
+        depth_cut,color_cut,org=getframe(pipeline,crop[0])
         #Use filters and circle detection to get center coordinate
         madeframe,coor,gray=getpoint_tomato(depth_cut,color_cut,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)
         if coor != []:
-            point=make_3D_point(coor[0][0][0]+crop[2][2], coor[0][0][1]+crop[2][0],pipeline,mtx,dist)
+            point=make_3D_point(coor[0][0][0]+crop[0][2], coor[0][0][1]+crop[0][0],pipeline,mtx,dist)
             print("3D Point in robot arm coordinates:", point)
             #print(coor[0][0][0])
             #show edited and original frame with contours and center
