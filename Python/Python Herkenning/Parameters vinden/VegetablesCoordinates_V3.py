@@ -235,10 +235,31 @@ def initizalize_rs():
     config = rs.config()
     config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
     config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
-
+    
     # Start streaming
     pipeline.start(config)
     return pipeline
+
+    # use the serial number of the camera to determine which camera is where
+    # # Configure the first pipeline to stream depth frames with the serial number filter
+    # pipeline1 = rs.pipeline()
+    # config1 = rs.config()
+    # config1.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
+    # config1.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+    # serial_number1 = "839512061465" # Replace this with the serial number of your camera
+    # config1.enable_device(serial_number1)
+    # pipeline1.start(config1)
+    
+    # # Configure the second pipeline to stream depth frames with the serial number filter
+    # pipeline2 = rs.pipeline()
+    # config2 = rs.config()
+    # config2.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
+    # config2.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+    # serial_number2 = "839512061465" # Replace this with the serial number of your camera
+    # config2.enable_device(serial_number2)
+    # pipeline2.start(config2)
+    # Start streaming
+    #return pipeline1,pipeline2
 def read_cal():
     with open('Calibration_one.txt', 'r') as f:
         mtx = np.loadtxt(f, max_rows=3,delimiter=',')
