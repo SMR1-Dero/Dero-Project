@@ -20,7 +20,6 @@ vegetabledict = {
     "product_maxSize": ""
 }
 
-
 def show_distance(event, x, y, args, params):
     global point
     point = (x, y)
@@ -239,7 +238,7 @@ def getpoint(pipeline, vegetable):
 def draw_original(original,coordinates,xcorrect,ycorrect):
     cv2.circle(original,(coordinates[0][0][0]+xcorrect,coordinates[0][0][1]+ycorrect),1,(0,255,0),2)
     return original
-def initizalize_rs():
+def initizalize_rs(pl):
     # pipeline = rs.pipeline()
     # config = rs.config()
     # config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
@@ -251,24 +250,26 @@ def initizalize_rs():
 
     # use the serial number of the camera to determine which camera is where
     # Configure the first pipeline to stream depth frames with the serial number filter
-    pipeline1 = rs.pipeline()
-    config1 = rs.config()
-    config1.enable_stream(rs.stream.depth, 1280, 720, rs.format.z16, 30)
-    config1.enable_stream(rs.stream.color, 1280, 720, rs.format.bgr8, 30)
-    serial_number1 = "839512061465" # Replace this with the serial number of your camera
-    config1.enable_device(serial_number1)
-    pipeline1.start(config1)
+    if pl==1:
+        pipeline = rs.pipeline()
+        config1 = rs.config()
+        config1.enable_stream(rs.stream.depth, 1280, 720, rs.format.z16, 30)
+        config1.enable_stream(rs.stream.color, 1280, 720, rs.format.bgr8, 30)
+        serial_number1 = "839512061465" # Replace this with the serial number of your camera
+        config1.enable_device(serial_number1)
+        pipeline.start(config1)
     
     # Configure the second pipeline to stream depth frames with the serial number filter
-    pipeline2 = rs.pipeline()
-    config2 = rs.config()
-    config2.enable_stream(rs.stream.depth,1280, 720, rs.format.z16, 30)
-    config2.enable_stream(rs.stream.color,1280, 720, rs.format.bgr8, 30)
-    serial_number2 = "211122062283" # Replace this with the serial number of your camera
-    config2.enable_device(serial_number2)
-    pipeline2.start(config2)
+    if pl==2:
+        pipeline = rs.pipeline()
+        config2 = rs.config()
+        config2.enable_stream(rs.stream.depth,1280, 720, rs.format.z16, 30)
+        config2.enable_stream(rs.stream.color,1280, 720, rs.format.bgr8, 30)
+        serial_number2 = "211122062283" # Replace this with the serial number of your camera
+        config2.enable_device(serial_number2)
+        pipeline.start(config2)
     #Start streaming
-    return pipeline1,pipeline2
+    return pipeline
 def read_cal(pl):
     if pl==1:
         with open('Calibration_one.txt', 'r') as f:
@@ -368,8 +369,8 @@ def make_3D_point(x, y, pipeline, mtx, dist):
 
 def main(debug=False):
     # Initialize Camera Intel Realsense
-    pipeline1,pipeline2=initizalize_rs()
-    pl=2
+    pipeline1=initizalize_rs(1)
+    #pipeline2=initizalize_rs(2)
     #create trackbar and images
     #calibrate_camera(pipeline2,pl)
     mtx,dist=read_cal(pl)
