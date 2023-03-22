@@ -1,0 +1,241 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #111;
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    justify-items: center;
+    align-items: center;
+    margin-top: 50px;
+  }
+
+  /* Navigation */
+  .navButton a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    background-color: #333;
+    transition: transform 0.5s;
+    border-radius: 5px;
+  }
+
+  .navButton:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .long-button {
+    height: 300px;
+    width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 10px;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    background-image: url("https://www.agroboca.com/uploads/producers/364/h-1.comprar-frutas-verduras-online.jpg");
+    background-size: cover;
+    cursor: pointer; /* Add cursor: pointer to make the box tappable */
+  }
+  
+  .box {
+    height: 300px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 10px;
+    transition: transform 0.5s, box-shadow 0.5s;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  /* Item 1: Curry Madras ----------------------------------------------------------------------------------------*/
+  button[type="CurryMadras"] {
+    background-image: url('https://github.com/ItsJarik/CobotHMI/blob/main/CurryMadras.jpg?raw=true');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.5s, box-shadow 0.5s;
+  }
+  
+  button[type="CurryMadras"]:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.4);
+  }
+
+/* Item 2: Groene Curry --------------------------------------------------------------------------------------------*/
+button[type="GroeneCurry"] {
+    background-image: url('https://github.com/ItsJarik/CobotHMI/blob/main/GroeneCurry.jpg?raw=true');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.5s, box-shadow 0.5s;
+  }
+  
+  button[type="GroeneCurry"]:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.4);
+  }
+
+/* Item 3: Tomaten Soep --------------------------------------------------------------------------------------------*/
+button[type="TomatenSoep"] {
+    background-image: url('https://github.com/ItsJarik/CobotHMI/blob/main/TomatenSoep.jpg?raw=true');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.5s, box-shadow 0.5s;
+  }
+  
+  button[type="TomatenSoep"]:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.4);
+  }
+
+/* Item 4: Courgette Soep -------------------------------------------------------------------------------------------*/
+button[type="CourgetteSoep"] {
+    background-image: url('https://github.com/ItsJarik/CobotHMI/blob/main/CourgetteSoep.jpg?raw=true');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.5s, box-shadow 0.5s;
+  }
+  
+  button[type="CourgetteSoep"]:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.4);
+  }
+
+/* Item 5: Couscous --------------------------------------------------------------------------------------------*/
+button[type="Couscous"] {
+    background-image: url('https://github.com/ItsJarik/CobotHMI/blob/main/Couscous.jpg?raw=true');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.5s, box-shadow 0.5s;
+  }
+  
+  button[type="Couscous"]:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.4);
+  }
+
+/* Item 6: Erwten Soep --------------------------------------------------------------------------------------------*/
+button[type="ErwtenSoep"] {
+    background-image: url('https://github.com/ItsJarik/CobotHMI/blob/main/ErwtenSoep.jpg?raw=true');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.5s, box-shadow 0.5s;
+  }
+  
+  button[type="ErwtenSoep"]:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.4);
+  }
+
+/* Item 7: Lasagne --------------------------------------------------------------------------------------------*/
+button[type="Lasagne"] {
+    background-image: url('https://github.com/ItsJarik/CobotHMI/blob/main/Lasagne.jpg?raw=true');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.5s, box-shadow 0.5s;
+  }
+  
+  button[type="Lasagne"]:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.4);
+  }
+
+/* Item 8: Mexicaanse Wraps --------------------------------------------------------------------------------------------*/
+button[type="MexicaanseWraps"] {
+    background-image: url('https://github.com/ItsJarik/CobotHMI/blob/main/MexicaanseWraps.jpg?raw=true');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.5s, box-shadow 0.5s;
+  }
+  
+  button[type="MexicaanseWraps"]:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.4);
+  }
+
+/* Item 9: Pompoen Soep --------------------------------------------------------------------------------------------*/
+button[type="PompoenSoep"] {
+    background-image: url('https://github.com/ItsJarik/CobotHMI/blob/main/PompoenSoep.jpg?raw=true');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.5s, box-shadow 0.5s;
+  }
+  
+  button[type="PompoenSoep"]:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.4);
+  }
+
+ /* Grid Subtext */
+.subtitle {
+    color: #fff;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 50px;
+  }

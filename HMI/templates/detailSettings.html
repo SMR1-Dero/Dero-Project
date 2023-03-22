@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styleSettings.css') }}">
+  </head>
+  <body>
+    <div class="container">
+
+      <div class="header">
+        <h1>{{title}} Settings</h1>
+      </div>
+
+      <!-- Navigation Bar -->
+      <div class="btn-container">
+        
+        <form action="/detailView" method="post">
+          <input type="hidden" name="title" value={{title}}>
+          <input type="hidden" name="package" value={{package}}>
+          <input type="hidden" name="link" value={{link}}>
+          <button type="submit" class="btn">Back</button>
+        </form>
+        
+      </div>
+      
+      <form method="POST" action="{{ url_for('updateJsonData') }}" class="grid">
+        <!-- Product Array -->
+        {% for item in items %}
+          {% if item.package == package %}
+            {% for product in item.products %}
+              <div class="grid-item">
+                <img src="{{ product.product_image }}" alt="{{ product.product_name }}">
+                <a>{{ product.product_name }}</a>
+                <input type="hidden" name="id" value="{{ product.id }}">
+                <input type="hidden" name="product_name" value="{{ product.product_name }}">
+                <input type="hidden" name="product_image" value="{{ product.product_image }}">
+                <input type="hidden" name="product_package" value="{{ product.product_package }}">
+                <input type="hidden" name="crateNumber" value="{{ product.crateNumber }}">
+                <input type="hidden" name="isActive" value="{{ product.isActive }}">
+                <input type="hidden" name="product_shape" value="{{ product.product_shape }}">
+                <input type="hidden" name="product_HSVRange" value="{{ product.product_HSVRange }}">
+                <input type="hidden" name="product_minSize" value="{{ product.product_minSize }}">
+                <input type="hidden" name="product_maxSize" value="{{ product.product_maxSize }}">
+                <label>
+                  <input type="checkbox" name="is-active" {% if product.isActive %}checked{% endif %}>
+                  Active
+                </label>
+                <br>
+                <label>
+                  Crate Number:
+                  <input type="text" name="crate-number" value="{{ product.crateNumber }}">
+                </label>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+
+        <button type="submit">Save</button>
+      </form>
+
+    </div>
+
+  </body>
+</html>

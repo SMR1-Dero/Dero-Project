@@ -1,0 +1,135 @@
+{
+    "items": [
+      {
+        "package": "CurryMadras",
+        "products": [
+          {
+            "id": "1_1",
+            "product_name": "Curry Madras Saus",
+            "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/CurryMadrasSaus.jpg?raw=true",
+            "product_package": "Curry Madras",
+            "crateNumber": "2",
+            "isActive": false,
+            "product_shape": "Not round",
+            "product_HSVRange": "",
+            "product_minSize": "",
+            "product_maxSize": ""
+          },
+          {
+            "id": "1_2",
+            "product_name": "Kokosmelk",
+            "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/Kokosmelk.jpg?raw=true",
+            "product_package": "Curry Madras",
+            "crateNumber": "2",
+            "isActive": false,
+            "product_shape": "Not round",
+            "product_HSVRange": "",
+            "product_minSize": "",
+            "product_maxSize": ""
+          },
+          {
+            "id": "1_3",
+            "product_name": "Peper",
+            "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Peper.png?raw=true",
+            "product_package": "Curry Madras",
+            "crateNumber": "2",
+            "isActive": false,
+            "product_shape": "Not round",
+            "product_HSVRange": "",
+            "product_minSize": "",
+            "product_maxSize": ""
+          },
+          {
+            "id": "1_4",
+            "product_name": "Ui",
+            "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Uien.jpg?raw=true",
+            "product_package": "Curry Madras",
+            "crateNumber": "2",
+            "isActive": false,
+            "product_shape": "Not round",
+            "product_HSVRange": "",
+            "product_minSize": "",
+            "product_maxSize": ""
+          },
+          {
+            "id": "1_5",
+            "product_name": "Limoen",
+            "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Limoen.png?raw=true",
+            "product_package": "Curry Madras",
+            "crateNumber": "2",
+            "isActive": false,
+            "product_shape": "Not round",
+            "product_HSVRange": "",
+            "product_minSize": "",
+            "product_maxSize": ""
+          },
+          {
+            "id": "1_6",
+            "product_name": "Bloemkool",
+            "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/bloemkool.png?raw=true",
+            "product_package": "Curry Madras",
+            "crateNumber": "2",
+            "isActive": false,
+            "product_shape": "Not round",
+            "product_HSVRange": "",
+            "product_minSize": "",
+            "product_maxSize": ""
+          },
+          {
+            "id": "1_7",
+            "product_name": "Tomaat",
+            "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
+            "product_package": "Curry Madras",
+            "crateNumber": "1",
+            "isActive": "on",
+            "product_shape": "Round",
+            "product_HSVRange": [0,80,80,255,255,255],
+            "product_minSize": "",
+            "product_maxSize": ""
+          },
+          {
+            "id": "1_8",
+            "product_name": "Tomaat",
+            "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
+            "product_package": "Curry Madras",
+            "crateNumber": "1",
+            "isActive": "on",
+            "product_shape": "Round",
+            "product_HSVRange": [0,80,80,255,255,255],
+            "product_minSize": "",
+            "product_maxSize": ""
+          },
+          {
+            "id": "1_9",
+            "product_name": "Paprika",
+            "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Paprika.png?raw=true",
+            "product_package": "Curry Madras",
+            "crateNumber": "2",
+            "isActive": "on",
+            "product_shape": "Not round with stem",
+            "product_HSVRange": [0,80,30,255,255,255],
+            "product_minSize": "",
+            "product_maxSize": ""
+          }
+        ]
+      },
+      {
+        "package": "TomatenSoep",
+        "products": [
+          {
+            "id": "89379832",
+            "product_name": "Tomaat",
+            "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
+            "product_package": "Tomaten Soep",
+            "crateNumber": "2",
+            "isActive": "on",
+            "product_shape": "Round",
+            "product_HSVRange": "",
+            "product_minSize": "",
+            "product_maxSize": ""
+          }
+        ]
+      }
+    ]
+  }
+  

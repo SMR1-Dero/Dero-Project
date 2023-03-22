@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Glassy Look Interface with Coordinates</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styleCoordinaten.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+      #coordinates {
+          font-family: Arial, sans-serif;
+          font-size: 24px;
+          color: #333;
+          background-color: #f7f7f7;
+          padding: 10px;
+          border-radius: 5px;
+          box-shadow: 0px 0px 10px #ddd;
+          text-align: center;
+      }
+  </style>
+
+  </head>
+  <body>
+    <div class="container">
+
+      <img src="https://www.agroboca.com/uploads/producers/364/h-1.comprar-frutas-verduras-online.jpg" class="long-button">
+
+        <!-- Navigation Bar -->
+        <div class="navButton">
+            <a href="{{ url_for('routeView') }}">Automatic</a>
+            <a href="{{ url_for('routeManualPicker') }}">Manual</a>
+        </div>
+
+      <div class="back-btn">
+        <a href="/">Start Progam Stick</a>
+        <a href="/">Auto Remote Activate</a>
+        <a href="/">Pause</a>
+        <a href="/">Back</a>
+      </div>
+
+      <div class="content">
+        <form action="/testPosition" method="post">
+          <input type="hidden" name="value" value="hoverGet">
+          <button type="submit">Hover Get</button>
+        </form>
+        <form action="/testPosition" method="post">
+          <input type="hidden" name="value" value="get">
+          <button type="submit">Get</button>
+        </form>
+        <form action="/testPosition" method="post">
+          <input type="hidden" name="value" value="hoverDrop">
+          <button type="submit">Hover Drop</button>
+        </form>
+        <form action="/testPosition" method="post">
+          <input type="hidden" name="value" value="drop">
+          <button type="submit">Drop</button>
+        </form>
+
+        <form action="/testPosition" method="post">
+          <input type="hidden" name="value" value="suction1drop">
+          <button type="submit">Suction1drop</button>
+        </form>
+        <form action="/testPosition" method="post">
+          <input type="hidden" name="value" value="suction2drop">
+          <button type="submit">Suction2drop</button>
+        </form>
+
+        <form action="/testPosition" method="post">
+          <input type="hidden" name="value" value="suction1get">
+          <button type="submit">Suction1get</button>
+        </form>
+        <form action="/testPosition" method="post">
+          <input type="hidden" name="value" value="suction2get">
+          <button type="submit">Suction2get</button>
+        </form>
+
+      </div>
+
+      <div class="content">
+        <form action="/move_robot" method="post">
+          <label for="x">X:</label>
+          <input type="text" name="x" id="x">
+          <label for="y">Y:</label>
+          <input type="text" name="y" id="y">
+          <label for="z">Z:</label>
+          <input type="text" name="z" id="z">
+          <label for="rx">rX:</label>
+          <input type="text" name="rx" id="rx">
+          <label for="ry">rY:</label>
+          <input type="text" name="ry" id="ry">
+          <label for="rz">rZ:</label>
+          <input type="text" name="rz" id="rz">
+          <button type="submit">Move</button>
+        </form>
+      </div>
+
+      <div class="I/O">
+        <form action="/setOutput", method="post">
+          <label for="mode">Output:</label>
+          <select name="mode" id="mode">
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+          <label for="status">Status:</label>
+          <select name="status" id="status">
+            <option value="1">ON</option>
+            <option value="0">OFF</option>
+          </select>
+          <button type="submit">Set</button>
+        </form>
+      </div>
+
+    </div>
+
+  </body>
+</html>

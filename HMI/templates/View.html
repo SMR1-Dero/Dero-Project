@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fresh Packages Picker</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/testView.css') }}">
+</head>
+<body>
+	<div class="container">
+
+        <img src="https://www.agroboca.com/uploads/producers/364/h-1.comprar-frutas-verduras-online.jpg" class="long-button">
+
+        <!-- Navigation Bar -->
+        <div class="navButton">
+            <a href="{{ url_for('routeView') }}">Automatic</a>
+            <a href="{{ url_for('routeManualPicker') }}">Manual</a>
+        </div>
+
+		<div class="content">
+			
+			<div>
+                <form action="/detailView" method="post" class="box box1">
+                    <input type="hidden" name="title" value="Curry Madras">
+                    <input type="hidden" name="package" value="CurryMadras">
+                    <input type="hidden" name="link" value="static/json/database.json">
+                    <button type="CurryMadras" class="box-btn"></button>
+                </form>
+                <p class="subtitle">Curry Madras</p>
+			</div>
+
+            <div>
+                <form action="/detailView" method="post" class="box box2">
+                    <input type="hidden" name="title" value="Groene Curry">
+                    <button type="GroeneCurry" class="box-btn"></button>
+                </form>
+                <p class="subtitle">Groen Curry</p>
+			</div>
+
+			<div>
+                <form action="/detailView" method="post" class="box box3">
+                    <input type="hidden" name="title" value="Tomaten Soep">
+                    <input type="hidden" name="package" value="TomatenSoep">
+                    <input type="hidden" name="link" value="static/json/database.json">
+                    <button type="TomatenSoep" class="box-btn"></button>
+                </form>
+                <p class="subtitle">Tomaten Soep</p>
+			</div>
+
+            <div>
+                <form action="/detailView" method="post" class="box box4">
+                    <input type="hidden" name="title" value="Courgette Soep">
+                    <button type="CourgetteSoep" class="box-btn"></button>
+                </form>
+                <p class="subtitle">Courgette Soep</p>
+			</div>
+
+            <div>
+                <form action="/detailView" method="post" class="box box5">
+                    <input type="hidden" name="title" value="Couscous">
+                    <button type="Couscous" class="box-btn"></button>
+                </form>
+                <p class="subtitle">Couscous</p>
+			</div>
+
+            <div>
+                <form action="/detailView" method="post" class="box box6">
+                    <input type="hidden" name="title" value="Erwten Soep">
+                    <button type="ErwtenSoep" class="box-btn"></button>
+                </form>
+                <p class="subtitle">Ertwen Soep</p>
+			</div>
+
+            <div>
+                <form action="/detailView" method="post" class="box box7">
+                    <input type="hidden" name="title" value="Lasagne">
+                    <button type="Lasagne" class="box-btn"></button>
+                </form>
+                <p class="subtitle">Lasagne</p>
+			</div>
+
+            <div>
+                <form action="/detailView" method="post" class="box box8">
+                    <input type="hidden" name="title" value="Mexicaanse Wraps">
+                    <button type="MexicaanseWraps" class="box-btn"></button>
+                </form>
+                <p class="subtitle">Mexicaanse Wraps</p>
+			</div>
+
+      		<div>
+                <form action="/detailView" method="post" class="box box9">
+                    <input type="hidden" name="title" value="Pompoen Soep">
+                    <button type="PompoenSoep" class="box-btn"></button>
+                </form>
+                <p class="subtitle">Pompoen Soep</p>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>
