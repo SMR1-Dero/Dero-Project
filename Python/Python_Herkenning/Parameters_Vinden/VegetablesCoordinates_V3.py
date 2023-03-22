@@ -333,7 +333,7 @@ def calibrate_camera(pipeline,pl ,chessboard_size=(17, 12), square_size=20):
                 break
 
 def make_3D_point(x, y, pipeline, mtx, dist):
-    cam1=[455.32,462.32,964]
+    cam1=[-642.56,277.4,976.87]
     cam2=[-642.56,277.4,976.87]
     # Get the depth frame
     depth_frame = pipeline.wait_for_frames().get_depth_frame()
@@ -363,7 +363,7 @@ def make_3D_point(x, y, pipeline, mtx, dist):
     # Convert the pixel coordinates to the camera coordinate system
     point = rs.rs2_deproject_pixel_to_point(depth_intrin, [(pts_undistorted[0][0][0]), (pts_undistorted[0][0][1])], depth)#x,y,z
     print(point)
-    #point=[(-point[1]*1000)-cam1[0],(-point[0]*1000)-cam1[1],(point[2]*1000)-cam1[2]]
+    #point=[(-point[1]*1000)-cam1[0],(-point[0]*1000)+cam1[1],(point[2]*1000)-cam1[2]]
     point=[-(point[1]*1000)+cam2[0],(-point[0]*1000)+cam2[1],(point[2]*1000)-cam2[2]]
     return point
 
