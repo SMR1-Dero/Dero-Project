@@ -9,10 +9,14 @@ import pyrealsense2 as rs
 import time
 import copy
 from realsense_depth import *
+
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
 from Python.Python_Herkenning.Parameters_Vinden.VegetablesCoordinates_V3 import *
 
 
-app = Flask(__name__, template_folder=r'C:\Users\Jarik\OneDrive\Bureaublad\CobotConnection\templates')
+app = Flask(__name__, template_folder=r'C:\Users\Jarik\OneDrive\Documenten\GitHub\Dero-Project\HMI\templates')
 app.static_folder = 'static'
 
 # -----------------------------------------------------------
@@ -248,7 +252,8 @@ hoverBox = [511.01 , -212.48 , topPlane , rx , ry , rz_boxSide]
 def Start():
 
     # Open Pipline
-    pipeline=initizalize_rs()
+    pl=1
+    pipeline1=initizalize_rs(pl)
 
     # Open JSON
     with open('static/json/database.json', 'r') as f:
@@ -256,7 +261,6 @@ def Start():
 
     # Get Package Name
     package = request.form['package']
-    #getVegetable = [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
 
     for product in data["items"]:
         if product["package"] == package:
@@ -275,9 +279,9 @@ def Start():
                         #read info from trackbars
                         hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3=readtrackbar()
                         #Use filters and circle detection to get center coordinate
-                        image_with_points,pickup_coordinates,gray_image,crop,original_color_frame=getpoint(pipeline,item)
+                        image_with_points,pickup_coordinates,gray_image,crop,original_color_frame=getpoint(pipeline1,item)
                         if pickup_coordinates != []:
-                            getVegetable=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline,mtx,dist)
+                            getVegetable=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline1,mtx,dist)
                             print("3D Point in robot arm coordinates:", getVegetable)
                             #print(coor[0][0][0])
                             #show edited and original frame with contours and center

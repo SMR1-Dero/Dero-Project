@@ -366,7 +366,6 @@ def make_3D_point(x, y, pipeline, mtx, dist):
     point=[-(point[1]*1000)+cam2[0],(-point[0]*1000)+cam2[1],(point[2]*1000)-cam2[2]]
     return point
 
-
 def main(debug=False):
     # Initialize Camera Intel Realsense
     pl=1
@@ -403,5 +402,5 @@ def main(debug=False):
     cv2.destroyAllWindows()
     # Stop streaming
     pipeline1.stop()
-    pipeline2.stop()
-main(debug=True)
+    #pipeline2.stop()
+#main(debug=True)
