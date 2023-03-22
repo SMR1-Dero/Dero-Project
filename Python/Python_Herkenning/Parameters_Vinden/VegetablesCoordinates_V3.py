@@ -402,6 +402,6 @@ def main(debug=False):
             #        break
     cv2.destroyAllWindows()
     # Stop streaming
-    pipeline1.stop()
-    pipeline2.stop()
-main(debug=True)
+    #pipeline1.stop()
+    #pipeline2.stop()
+#main(debug=True)
