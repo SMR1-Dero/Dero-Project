@@ -216,7 +216,7 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
     return color_frame,coordinates,mask
 
 def getpoint(pipeline, vegetable):
-    crop=[[],[],[(0),(680),(630),(1100)],[(0),(680),(170),(630)],[(0),(720),(0),(1280)]]
+    crop=[[(20),(700),(600),(1075)],[(20),(680),(150),(600)],[(0),(680),(630),(1100)],[(0),(680),(170),(630)],[(0),(720),(0),(1280)]]
 
 
     shape = vegetable["product_shape"]
@@ -273,11 +273,11 @@ def initizalize_rs(pl):
     return pipeline
 def read_cal(pl):
     if pl==1:
-        with open('Python\Python_Herkenning\Parameters_Vinden\Calibration_one.txt', 'r') as f:
+        with open('Calibration_one.txt', 'r') as f:
             mtx = np.loadtxt(f, max_rows=3,delimiter=',')
             dist = np.loadtxt(f, max_rows=1,delimiter=',')
     if pl==2:
-        with open('Python\Python_Herkenning\Parameters_Vinden\Calibration_two.txt', 'r') as f:
+        with open('Calibration_two.txt', 'r') as f:#'Python\Python_Herkenning\Parameters_Vinden\Calibration_two.txt'
             mtx = np.loadtxt(f, max_rows=3,delimiter=',')
             dist = np.loadtxt(f, max_rows=1,delimiter=',')
     return mtx,dist
@@ -369,20 +369,24 @@ def make_3D_point(x, y, pipeline, mtx, dist):
 
 def main(debug=False):
     # Initialize Camera Intel Realsense
-    pl=2
-    #pipeline1=initizalize_rs(pl)
-    pipeline2=initizalize_rs(pl)
+    pipeline1=initizalize_rs(1)
+    pipeline2=initizalize_rs(2)
     #create trackbar and images
     #calibrate_camera(pipeline2,pl)
-    mtx,dist=read_cal(pl)
     makeframe()
     while True:
+        pl=1
+        if (pl==1):
+            pipeline=pipeline1
+        elif(pl==2):
+            pipeline=pipeline2
+        mtx,dist=read_cal(pl)
         #read info from trackbars
         hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3=readtrackbar()
         #Use filters and circle detection to get center coordinate
-        image_with_points,pickup_coordinates,gray_image,crop,original_color_frame=getpoint(pipeline1,vegetabledict)
+        image_with_points,pickup_coordinates,gray_image,crop,original_color_frame=getpoint(pipeline,vegetabledict)
         if pickup_coordinates != []:
-            point=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline1,mtx,dist)
+            point=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline,mtx,dist)
             print("3D Point in robot arm coordinates:", point)
             #print(coor[0][0][0])
             #show edited and original frame with contours and center
