@@ -187,7 +187,7 @@ def getLiveInformation():
 def updateJsonData():
 
     # Load JSON data from file
-    with open('static/json/database.json', 'r') as f:
+    with open('HMI\static\json\database.json', 'r') as f:
         data = json.load(f)
 
     # Get the new values from the form
@@ -218,7 +218,7 @@ def updateJsonData():
             break
 
     # Save the updated JSON data back to the file
-    with open('static/json/database.json', 'w') as f:
+    with open('HMI\static\json\database.json', 'w') as f:
         json.dump(data, f, indent=2)
 
     # Redirect back to the items grid
@@ -252,11 +252,11 @@ hoverBox = [511.01 , -212.48 , topPlane , rx , ry , rz_boxSide]
 def Start():
 
     # Open Pipline
-    pl=1
+    pl=2
     pipeline1=initizalize_rs(pl)
 
     # Open JSON
-    with open('static/json/database.json', 'r') as f:
+    with open('HMI\static\json\database.json', 'r') as f:
         data = json.load(f)
 
     # Get Package Name
@@ -270,10 +270,10 @@ def Start():
                     # Code For CameraShit
                     got_frame = 0
                     # Initialize Camera Intel Realsense
-        
+                
                     #create trackbar and images
                     #calibrate_camera(pipeline)
-                    mtx,dist=read_cal()
+                    mtx,dist=read_cal(pl)
                     makeframe()
                     while True:
                         #read info from trackbars
@@ -301,13 +301,24 @@ def Start():
                         asyncio.run(position(hoverCrate1, 0))
                     if item["crateNumber"] == "2":
                         asyncio.run(position(hoverCrate2, 0))
+                    if item["crateNumber"] == "3":
+                        asyncio.run(position(hoverCrate3, 0))
+                    if item["crateNumber"] == "4":
+                        asyncio.run(position(hoverCrate4, 0))
                     # Get Coordinate Pick Up
                     getVegetable = [getVegetable[0] , getVegetable[1] , getVegetable[2] , rx , -27.99 , rz_crateSide]
                     asyncio.run(position(getVegetable, 1))
                     # Turn On Suction
                     asyncio.run(setSuctionCup1(1))
                     # Get Coordinate Crate Hover
-                    asyncio.run(position(hoverCrate1, 0))
+                    if item["crateNumber"] == "1":
+                        asyncio.run(position(hoverCrate1, 0))
+                    if item["crateNumber"] == "2":
+                        asyncio.run(position(hoverCrate2, 0))
+                    if item["crateNumber"] == "3":
+                        asyncio.run(position(hoverCrate3, 0))
+                    if item["crateNumber"] == "4":
+                        asyncio.run(position(hoverCrate4, 0))
                     # Get Coordinate Box Hover
                     asyncio.run(position(hoverBox, 1))
                     # Get Coordinate Box Place
@@ -316,8 +327,9 @@ def Start():
                     asyncio.run(setSuctionCup1(0))
                     # Get Coordinate Box Hover
                     asyncio.run(position(hoverBox, 0))
-        
-                 
+
+    pipeline1.stop()    
+
     return Response(status=204)
 
 if __name__ == '__main__':

@@ -216,13 +216,14 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
     return color_frame,coordinates,mask
 
 def getpoint(pipeline, vegetable):
-    crop=[[(75),(425),(140),(365)],[(75),(425),(385),(615)],[(0),(720),(0),(1280)]]
+    crop=[[],[],[(0),(680),(630),(1100)],[(0),(680),(170),(630)],[(0),(720),(0),(1280)]]
+
 
     shape = vegetable["product_shape"]
     min_size = vegetable["product_minSize"]
     max_size = vegetable["product_maxSize"]
     hsv_range = vegetable["product_HSVRange"]
-    crate_number = 3#int(vegetable["crateNumber"])
+    crate_number = int(vegetable["crateNumber"])
 
     depth_cut,color_cut,orginal_color_frame=getframe(pipeline,crop[crate_number-1])
 
@@ -250,7 +251,7 @@ def initizalize_rs(pl):
 
     # use the serial number of the camera to determine which camera is where
     # Configure the first pipeline to stream depth frames with the serial number filter
-    if pl==1:
+    if (pl==1):
         pipeline = rs.pipeline()
         config1 = rs.config()
         config1.enable_stream(rs.stream.depth, 1280, 720, rs.format.z16, 30)
@@ -260,7 +261,7 @@ def initizalize_rs(pl):
         pipeline.start(config1)
     
     # Configure the second pipeline to stream depth frames with the serial number filter
-    if pl==2:
+    elif (pl==2):
         pipeline = rs.pipeline()
         config2 = rs.config()
         config2.enable_stream(rs.stream.depth,1280, 720, rs.format.z16, 30)
@@ -272,11 +273,11 @@ def initizalize_rs(pl):
     return pipeline
 def read_cal(pl):
     if pl==1:
-        with open('Calibration_one.txt', 'r') as f:
+        with open('Python\Python_Herkenning\Parameters_Vinden\Calibration_one.txt', 'r') as f:
             mtx = np.loadtxt(f, max_rows=3,delimiter=',')
             dist = np.loadtxt(f, max_rows=1,delimiter=',')
     if pl==2:
-        with open('Calibration_two.txt', 'r') as f:
+        with open('Python\Python_Herkenning\Parameters_Vinden\Calibration_two.txt', 'r') as f:
             mtx = np.loadtxt(f, max_rows=3,delimiter=',')
             dist = np.loadtxt(f, max_rows=1,delimiter=',')
     return mtx,dist
@@ -332,7 +333,7 @@ def calibrate_camera(pipeline,pl ,chessboard_size=(17, 12), square_size=20):
                 break
 
 def make_3D_point(x, y, pipeline, mtx, dist):
-    cam1=[435.32,442.32,964]
+    cam1=[455.32,462.32,964]
     cam2=[-642.56,277.4,976.87]
     # Get the depth frame
     depth_frame = pipeline.wait_for_frames().get_depth_frame()
@@ -366,41 +367,3 @@ def make_3D_point(x, y, pipeline, mtx, dist):
     point=[-(point[1]*1000)+cam2[0],(-point[0]*1000)+cam2[1],(point[2]*1000)-cam2[2]]
     return point
 
-def main(debug=False):
-    # Initialize Camera Intel Realsense
-    pl=1
-    pipeline1=initizalize_rs(pl)
-    #pipeline2=initizalize_rs(2)
-    #create trackbar and images
-    #calibrate_camera(pipeline2,pl)
-    mtx,dist=read_cal(pl)
-    makeframe()
-    while True:
-        #read info from trackbars
-        hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3=readtrackbar()
-        #Use filters and circle detection to get center coordinate
-        image_with_points,pickup_coordinates,gray_image,crop,original_color_frame=getpoint(pipeline1,vegetabledict)
-        if pickup_coordinates != []:
-            point=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline1,mtx,dist)
-            print("3D Point in robot arm coordinates:", point)
-            #print(coor[0][0][0])
-            #show edited and original frame with contours and center
-            original_with_points=draw_original(original_color_frame, pickup_coordinates,crop[0],crop[2])
-            if debug:
-                cv2.imshow("Origineel frame", original_with_points)
-        if debug:
-            cv2.imshow("bewerkt frame", image_with_points)
-            cv2.imshow("Grijs frame",gray_image)
-        cv2.waitKey(100)
-        key = cv2.waitKey(1)
-        if key == 27:  # ESC
-            break
-        #maxheight,pos=find_high_points(depth)
-    key = cv2.waitKey(0)
-        #if key == 27:
-            #        break
-    cv2.destroyAllWindows()
-    # Stop streaming
-    pipeline1.stop()
-    #pipeline2.stop()
-#main(debug=True)
