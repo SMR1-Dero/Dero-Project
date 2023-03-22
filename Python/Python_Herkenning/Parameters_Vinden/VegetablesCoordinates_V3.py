@@ -369,7 +369,8 @@ def make_3D_point(x, y, pipeline, mtx, dist):
 
 def main(debug=False):
     # Initialize Camera Intel Realsense
-    pipeline1=initizalize_rs(1)
+    pl=1
+    pipeline1=initizalize_rs(pl)
     #pipeline2=initizalize_rs(2)
     #create trackbar and images
     #calibrate_camera(pipeline2,pl)
@@ -379,9 +380,9 @@ def main(debug=False):
         #read info from trackbars
         hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3=readtrackbar()
         #Use filters and circle detection to get center coordinate
-        image_with_points,pickup_coordinates,gray_image,crop,original_color_frame=getpoint(pipeline2,vegetabledict)
+        image_with_points,pickup_coordinates,gray_image,crop,original_color_frame=getpoint(pipeline1,vegetabledict)
         if pickup_coordinates != []:
-            point=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline2,mtx,dist)
+            point=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline1,mtx,dist)
             print("3D Point in robot arm coordinates:", point)
             #print(coor[0][0][0])
             #show edited and original frame with contours and center
