@@ -219,13 +219,13 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
     return color_frame,coordinates,mask
 
 def getpoint(pipeline, vegetable):
-    crop=[[(75),(425),(140),(365)],[(75),(425),(385),(615)],[(0),(720),(0),(1280)]]
+    crop=[[(0),(680),(170),(630)],[(0),(680),(630),(1100)],[(0),(720),(0),(1280)]]
 
     shape = vegetable["product_shape"]
     min_size = vegetable["product_minSize"]
     max_size = vegetable["product_maxSize"]
     hsv_range = vegetable["product_HSVRange"]
-    crate_number = 3#int(vegetable["crateNumber"])
+    crate_number =int(vegetable["crateNumber"])
 
     depth_cut,color_cut,orginal_color_frame=getframe(pipeline,crop[crate_number-1])
 
