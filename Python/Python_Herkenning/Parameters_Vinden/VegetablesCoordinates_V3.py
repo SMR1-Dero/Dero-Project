@@ -216,7 +216,7 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
     return color_frame,coordinates,mask
 
 def getpoint(pipeline, vegetable):
-    crop=[[(75),(425),(140),(365)],[(75),(425),(385),(615)],[(0),(720),(0),(1280)]]
+    crop=[[(0),(680),(170),(630)],[(0),(680),(630),(1100)],[(0),(720),(0),(1280)]]
 
     shape = vegetable["product_shape"]
     min_size = vegetable["product_minSize"]
@@ -369,7 +369,7 @@ def make_3D_point(x, y, pipeline, mtx, dist):
 
 def main(debug=False):
     # Initialize Camera Intel Realsense
-    pl=1
+    pl=2
     pipeline1=initizalize_rs(pl)
     #pipeline2=initizalize_rs(2)
     #create trackbar and images
@@ -403,5 +403,5 @@ def main(debug=False):
     cv2.destroyAllWindows()
     # Stop streaming
     pipeline1.stop()
-    pipeline2.stop()
+    #pipeline2.stop()
 main(debug=True)
