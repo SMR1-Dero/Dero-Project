@@ -10,6 +10,18 @@ import numpy as np
 import time
 import copy
 from realsense_depth import *
+vegetabledict = {
+    "id": "1_8",
+    "product_name": "Tomaat",
+    "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
+    "product_package": "Curry Madras",
+    "crateNumber": "1",
+    "isActive": "on",
+    "product_shape": "Round",
+    "product_HSVRange": [0,80,80,255,255,255],
+    "product_minSize": "",
+    "product_maxSize": ""
+}
 
 
 def show_distance(event, x, y, args, params):
@@ -213,8 +225,8 @@ def getpoint(pipeline, vegetable):
     shape = vegetable["product_shape"]
     min_size = vegetable["product_minSize"]
     max_size = vegetable["product_maxSize"]
-    hsv_range = map(int, vegetable["product_HSVRange"].split(","))
-    crate_number = vegetable["crateNumber"]
+    hsv_range = vegetable["product_HSVRange"]
+    crate_number = int(vegetable["crateNumber"])
 
     depth_cut,color_cut,orginal_color_frame=getframe(pipeline,crop[crate_number-1])
 
@@ -231,35 +243,35 @@ def draw_original(original,coordinates,xcorrect,ycorrect):
     cv2.circle(original,(coordinates[0][0][0]+xcorrect,coordinates[0][0][1]+ycorrect),1,(0,255,0),2)
     return original
 def initizalize_rs():
-    pipeline = rs.pipeline()
-    config = rs.config()
-    config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
-    config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+    # pipeline = rs.pipeline()
+    # config = rs.config()
+    # config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
+    # config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
     
-    # Start streaming
-    pipeline.start(config)
-    return pipeline
+    # # Start streaming
+    # pipeline.start(config)
+    # return pipeline
 
     # use the serial number of the camera to determine which camera is where
-    # # Configure the first pipeline to stream depth frames with the serial number filter
-    # pipeline1 = rs.pipeline()
-    # config1 = rs.config()
-    # config1.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
-    # config1.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
-    # serial_number1 = "839512061465" # Replace this with the serial number of your camera
-    # config1.enable_device(serial_number1)
-    # pipeline1.start(config1)
+    # Configure the first pipeline to stream depth frames with the serial number filter
+    pipeline1 = rs.pipeline()
+    config1 = rs.config()
+    config1.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
+    config1.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+    serial_number1 = "839512061465" # Replace this with the serial number of your camera
+    config1.enable_device(serial_number1)
+    pipeline1.start(config1)
     
-    # # Configure the second pipeline to stream depth frames with the serial number filter
-    # pipeline2 = rs.pipeline()
-    # config2 = rs.config()
-    # config2.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
-    # config2.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
-    # serial_number2 = "839512061465" # Replace this with the serial number of your camera
-    # config2.enable_device(serial_number2)
-    # pipeline2.start(config2)
-    # Start streaming
-    #return pipeline1,pipeline2
+    # Configure the second pipeline to stream depth frames with the serial number filter
+    pipeline2 = rs.pipeline()
+    config2 = rs.config()
+    config2.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
+    config2.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+    serial_number2 = "211122062283" # Replace this with the serial number of your camera
+    config2.enable_device(serial_number2)
+    pipeline2.start(config2)
+    #Start streaming
+    return pipeline1,pipeline2
 def read_cal():
     with open('Calibration_one.txt', 'r') as f:
         mtx = np.loadtxt(f, max_rows=3,delimiter=',')
@@ -332,7 +344,7 @@ def read_cal():
 
 def main(debug=False):
     # Initialize Camera Intel Realsense
-    pipeline=initizalize_rs()
+    pipeline1,pipeline2=initizalize_rs()
     #create trackbar and images
     #calibrate_camera(pipeline)
     mtx,dist=read_cal()
@@ -341,9 +353,9 @@ def main(debug=False):
         #read info from trackbars
         hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3=readtrackbar()
         #Use filters and circle detection to get center coordinate
-        image_with_points,pickup_coordinates,gray_image,crop,original_color_frame=getpoint(pipeline,vegetable)
+        image_with_points,pickup_coordinates,gray_image,crop,original_color_frame=getpoint(pipeline1,vegetabledict)
         if pickup_coordinates != []:
-            point=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline,mtx,dist)
+            point=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline1,mtx,dist)
             print("3D Point in robot arm coordinates:", point)
             #print(coor[0][0][0])
             #show edited and original frame with contours and center
@@ -363,5 +375,6 @@ def main(debug=False):
             #        break
     cv2.destroyAllWindows()
     # Stop streaming
-    pipeline.stop()
-main()
+    pipeline1.stop()
+    pipeline2.stop()
+main(debug=True)
