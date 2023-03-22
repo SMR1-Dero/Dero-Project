@@ -208,7 +208,7 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
     return color_frame,coordinates,mask
 
 def getpoint(pipeline, vegetable):
-    crop=[[(75),(425),(140),(365)],[(75),(425),(385),(615)],[(0),(780),(0),(1280)]]
+    crop=[[(75),(425),(140),(365)],[(75),(425),(385),(615)],[(0),(780),(0),(1280)],[(0),(0),(0),(0)],[(0),(780),(0),(1280)]]
 
     shape = vegetable["product_shape"]
     min_size = vegetable["product_minSize"]
