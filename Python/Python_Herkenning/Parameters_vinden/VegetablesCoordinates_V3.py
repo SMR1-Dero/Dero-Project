@@ -1,16 +1,24 @@
-# -*- coding: utf-8 -*-
 """
 Created on Thu Mar 16 19:44:20 2023
-
 @author: joche
 """
 import cv2
 import pyrealsense2 as rs
 import numpy as np
-import time
 import copy
 from realsense_depth import *
-
+vegetabledict = {
+    "id": "1_8",
+    "product_name": "Tomaat",
+    "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
+    "product_package": "Curry Madras",
+    "crateNumber": "1",
+    "isActive": "on",
+    "product_shape": "Round",
+    "product_HSVRange": [0,80,80,255,255,255],
+    "product_minSize": "",
+    "product_maxSize": ""
+}
 
 def show_distance(event, x, y, args, params):
     global point
@@ -91,7 +99,7 @@ def getpoint_round(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvuppe
     pointi=None
     distance=None
     gray,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)#0,80,80,255,255,255
-    circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,2,minDist=15,param1=50,param2=30,minRadius=15,maxRadius=25)#hier aanpassingen aan maken voor filtering
+    circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,2,minDist=15,param1=50,param2=30,minRadius=22,maxRadius=27)#hier aanpassingen aan maken voor filtering
     #print(circles)
     if circles is not None:
         circles = np.uint16(np.around(circles))
@@ -114,7 +122,7 @@ def getpoint_notround_withstem(depth_frame,color_frame,hsvunder1,hsvunder2,hsvun
     loc1=[]
     pointi=(10,10)
     distance=None
-    mask,cnts=image_edits(color_frame,0,80,30,255,255,255)#0,80,30,255,255,255
+    mask,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)#0,80,30,255,255,255
     mask2,cnts2=image_edits(color_frame,10,60,0,35,200,255)#10,60,0,35,200,255
     for i in cnts2:
         area= cv2.contourArea(i)
@@ -179,7 +187,6 @@ def getpoint_notround_withstem(depth_frame,color_frame,hsvunder1,hsvunder2,hsvun
     print(coordinates)
 
     return color_frame,coordinates,mask2
-
 def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3):
     coordinates=[]
     cx=0
@@ -208,25 +215,73 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
                 cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
     return color_frame,coordinates,mask
 
+def getpoint(pipeline, vegetable):
+    crop=[[],[],[(0),(680),(630),(1100)],[(0),(680),(170),(630)],[(0),(720),(0),(1280)]]
+
+
+    shape = vegetable["product_shape"]
+    min_size = vegetable["product_minSize"]
+    max_size = vegetable["product_maxSize"]
+    hsv_range = vegetable["product_HSVRange"]
+    crate_number = int(vegetable["crateNumber"])
+
+    depth_cut,color_cut,orginal_color_frame=getframe(pipeline,crop[crate_number-1])
+
+    if (shape == "Round"):
+        image_with_points,pickup_coordinates,gray_image=getpoint_round(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5])
+    elif (shape == "Not round"):
+        image_with_points,pickup_coordinates,gray_image=getpoint_notround(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5])
+    elif (shape == "Not round with stem"):
+        image_with_points,pickup_coordinates,gray_image=getpoint_notround_withstem(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5])
+    
+    return image_with_points,pickup_coordinates,gray_image,crop[crate_number-1],orginal_color_frame
 
 def draw_original(original,coordinates,xcorrect,ycorrect):
     cv2.circle(original,(coordinates[0][0][0]+xcorrect,coordinates[0][0][1]+ycorrect),1,(0,255,0),2)
     return original
-def initizalize_rs():
-    pipeline = rs.pipeline()
-    config = rs.config()
-    config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
-    config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+def initizalize_rs(pl):
+    # pipeline = rs.pipeline()
+    # config = rs.config()
+    # config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
+    # config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+    
+    # # Start streaming
+    # pipeline.start(config)
+    # return pipeline
 
-    # Start streaming
-    pipeline.start(config)
+    # use the serial number of the camera to determine which camera is where
+    # Configure the first pipeline to stream depth frames with the serial number filter
+    if (pl==1):
+        pipeline = rs.pipeline()
+        config1 = rs.config()
+        config1.enable_stream(rs.stream.depth, 1280, 720, rs.format.z16, 30)
+        config1.enable_stream(rs.stream.color, 1280, 720, rs.format.bgr8, 30)
+        serial_number1 = "839512061465" # Replace this with the serial number of your camera
+        config1.enable_device(serial_number1)
+        pipeline.start(config1)
+    
+    # Configure the second pipeline to stream depth frames with the serial number filter
+    elif (pl==2):
+        pipeline = rs.pipeline()
+        config2 = rs.config()
+        config2.enable_stream(rs.stream.depth,1280, 720, rs.format.z16, 30)
+        config2.enable_stream(rs.stream.color,1280, 720, rs.format.bgr8, 30)
+        serial_number2 = "211122062283" # Replace this with the serial number of your camera
+        config2.enable_device(serial_number2)
+        pipeline.start(config2)
+    #Start streaming
     return pipeline
-def read_cal():
-    with open('Calibration_one.txt', 'r') as f:
-        mtx = np.loadtxt(f, max_rows=3,delimiter=',')
-        dist = np.loadtxt(f, max_rows=1,delimiter=',')
+def read_cal(pl):
+    if pl==1:
+        with open('Python\Python_Herkenning\Parameters_Vinden\Calibration_one.txt', 'r') as f:
+            mtx = np.loadtxt(f, max_rows=3,delimiter=',')
+            dist = np.loadtxt(f, max_rows=1,delimiter=',')
+    if pl==2:
+        with open('Python\Python_Herkenning\Parameters_Vinden\Calibration_two.txt', 'r') as f:
+            mtx = np.loadtxt(f, max_rows=3,delimiter=',')
+            dist = np.loadtxt(f, max_rows=1,delimiter=',')
     return mtx,dist
-def calibrate_camera(pipeline, chessboard_size=(17, 12), square_size=20):
+def calibrate_camera(pipeline,pl ,chessboard_size=(17, 12), square_size=20):
     objp = np.zeros((chessboard_size[0] * chessboard_size[1], 3), np.float32)
     objp[:, :2] = np.mgrid[0:chessboard_size[0], 0:chessboard_size[1]].T.reshape(-1, 2) * square_size
 
@@ -257,19 +312,29 @@ def calibrate_camera(pipeline, chessboard_size=(17, 12), square_size=20):
 
             if len(objpoints) >= 10:
                 ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray_image.shape[::-1], None, None)
-                f=open('Calibration_two.txt','a')
-                f.truncate(0)
-                np.savetxt(f, mtx,delimiter=',')
-                f.write("\n")
-                np.savetxt(f, dist,delimiter=',')
-                f.write("\n")
-                f.close()
-                cv2.destroyAllWindows()
+                if pl ==1:
+                    f=open('Calibration_one.txt','a')
+                    f.truncate(0)
+                    np.savetxt(f, mtx,delimiter=',')
+                    f.write("\n")
+                    np.savetxt(f, dist,delimiter=',')
+                    f.write("\n")
+                    f.close()
+                    cv2.destroyAllWindows()
+                if pl==2:
+                    f=open('Calibration_two.txt','a')
+                    f.truncate(0)
+                    np.savetxt(f, mtx,delimiter=',')
+                    f.write("\n")
+                    np.savetxt(f, dist,delimiter=',')
+                    f.write("\n")
+                    f.close()
+                    cv2.destroyAllWindows()
                 break
 
 def make_3D_point(x, y, pipeline, mtx, dist):
-    cam1=[584.87,603.59,927]
-    cam2=[-633,439.93,960.87]
+    cam1=[-642.56,277.4,976.87]
+    cam2=[-642.56,277.4,976.87]
     # Get the depth frame
     depth_frame = pipeline.wait_for_frames().get_depth_frame()
     # Get the intrinsics of the depth frame
@@ -278,44 +343,55 @@ def make_3D_point(x, y, pipeline, mtx, dist):
     pts = np.array([[x, y]], dtype=np.float32)
     pts_undistorted = cv2.undistortPoints(pts, mtx, dist,P=mtx)
     # Get the depth value at the pixel coordinates
+    # deler=0
+    # height=0
+    # mean_height=0
+    # for i in range(-1,1):
+    #     for j in range(-1,1):
+    #         height=depth_frame.get_distance(int(pts_undistorted[0][0][0]+j), int(pts_undistorted[0][0][1])+i)
+    #         if (height != 0):
+    #             mean_height+=height
+    #             deler+=1
+    #         j+=1
+    #     i+=1
+    # if(deler!=0):
+    #     depth=mean_height/deler
+    # else:
+    #     depth = depth_frame.get_distance(int(pts_undistorted[0][0][0]), int(pts_undistorted[0][0][1]))
+        
     depth = depth_frame.get_distance(int(pts_undistorted[0][0][0]), int(pts_undistorted[0][0][1]))
     # Convert the pixel coordinates to the camera coordinate system
     point = rs.rs2_deproject_pixel_to_point(depth_intrin, [(pts_undistorted[0][0][0]), (pts_undistorted[0][0][1])], depth)#x,y,z
     print(point)
-    #point=[(-point[1]*1000)-cam1[0],(-point[0]*1000)-cam1[1],(point[2]*1000)-cam1[2]]
-    point=[-(point[1]*1000)+cam2[0],-(-point[0]*1000)+cam2[1],(point[2]*1000)-cam2[2]]
+    #point=[(-point[1]*1000)-cam1[0],(-point[0]*1000)+cam1[1],(point[2]*1000)-cam1[2]]
+    point=[-(point[1]*1000)+cam2[0],(-point[0]*1000)+cam2[1],(point[2]*1000)-cam2[2]]
     return point
-def read_cal():
-    with open('Calibration_two.txt', 'r') as f:
-        mtx = np.loadtxt(f, max_rows=3,delimiter=',')
-        dist = np.loadtxt(f, max_rows=1,delimiter=',')
-    return mtx,dist
 
-def main():
+def main(debug=False):
     # Initialize Camera Intel Realsense
-    pipeline=initizalize_rs()
+    pl=2
+    #pipeline1=initizalize_rs(pl)
+    pipeline2=initizalize_rs(pl)
     #create trackbar and images
-    #calibrate_camera(pipeline)
-    mtx,dist=read_cal()
-    crop=[[(75),(425),(140),(365)],[(75),(425),(385),(615)],[(0),(780),(0),(1280)]]
+    #calibrate_camera(pipeline2,pl)
+    mtx,dist=read_cal(pl)
     makeframe()
     while True:
         #read info from trackbars
         hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3=readtrackbar()
-        #get depth and color frame
-        depth_cut,color_cut,org=getframe(pipeline,crop[0])
         #Use filters and circle detection to get center coordinate
-        madeframe,coor,gray=getpoint_round(depth_cut,color_cut,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)
-        if coor != []:
-            point=make_3D_point(coor[0][0][0]+crop[0][2], coor[0][0][1]+crop[0][0],pipeline,mtx,dist)
+        image_with_points,pickup_coordinates,gray_image,crop,original_color_frame=getpoint(pipeline1,vegetabledict)
+        if pickup_coordinates != []:
+            point=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline1,mtx,dist)
             print("3D Point in robot arm coordinates:", point)
             #print(coor[0][0][0])
             #show edited and original frame with contours and center
-            org_draw=draw_original(org, coor,crop[1][2],crop[1][0])
-            org_draw=draw_original(org, coor,320,240)
-            cv2.imshow("Origineel frame", org_draw)
-        cv2.imshow("bewerkt frame", madeframe)
-        cv2.imshow("Grijs frame",gray)
+            original_with_points=draw_original(original_color_frame, pickup_coordinates,crop[0],crop[2])
+            if debug:
+                cv2.imshow("Origineel frame", original_with_points)
+        if debug:
+            cv2.imshow("bewerkt frame", image_with_points)
+            cv2.imshow("Grijs frame",gray_image)
         cv2.waitKey(100)
         key = cv2.waitKey(1)
         if key == 27:  # ESC
@@ -326,5 +402,6 @@ def main():
             #        break
     cv2.destroyAllWindows()
     # Stop streaming
-    pipeline.stop()
-main()
+    pipeline1.stop()
+    pipeline2.stop()
+main(debug=True)
