@@ -95,70 +95,57 @@ body {
   .grid-item:hover .caption {
     opacity: 1; /* show the caption on hover */
   }
+
+  /* Data TableView */
+  .tableview {
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+  }
   
- /* ----------------------------------------------------------------------------------------------------------------- */ 
-
- /* Status Field */
- .robot-info {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f5f5f5;
-  border: 1px solid #ccc;
-  padding: 20px;
-  border-radius: 5px;
-}
-
-.robot-coordinates {
-  flex: 1;
-}
-
-.robot-status {
-  flex: 1;
-}
-
-.robot-coordinates h2,
-.robot-status h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.robot-coordinates p,
-.robot-status p {
-  font-size: 18px;
-  margin-bottom: 5px;
-}
-
-.robot-coordinates p span,
-.robot-status p span {
-  font-weight: bold;
-}
-
-.robot-status p .robot-status-indicator {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.robot-status p .robot-status-text {
-  display: inline-block;
-}
-
-.robot-status p .robot-status-indicator.active {
-  background-color: green;
-}
-
-.robot-status p .robot-status-indicator.inactive {
-  background-color: red;
-}
-
-.robot-speed {
-  font-weight: bold;
-  font-size: 24px;
-  margin-bottom: 5px;
-}
-
-  /* ----------------------------------------------------------------------------------------------------------------- */ 
+  .tableview-header {
+    display: flex;
+    background-color: #ddd;
+    font-weight: bold;
+  }
+  
+  .header-item {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .tableview-row {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .row-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    font-size: 16px;
+    margin: 0 25px; /* Add margin to create space between columns */
+  }
+  
+  
+  .row-item p {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  .coordinate-x,
+  .coordinate-y,
+  .coordinate-z,
+  .coordinate-rx,
+  .coordinate-ry,
+  .coordinate-rz,
+  .robot-speed {
+    font-weight: bold;
+  }
+  

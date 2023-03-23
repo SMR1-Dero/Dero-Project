@@ -14,17 +14,6 @@ body {
   align-items: center;
 }
 
-.header {
-  text-align: center;
-  margin-bottom: 50px;
-}
-
-.header h1 {
-  color: #fff;
-  font-size: 3rem;
-  text-transform: uppercase;
-}
-
 .content {
   margin: 20px 0;
   display: flex;
@@ -33,38 +22,43 @@ body {
   align-items: center;
 }
 
- /* Navigation */
- .navButton a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 1.5rem;
-  padding: 10px 20px;
-  background-color: #333;
-  transition: transform 0.5s;
-  border-radius: 5px;
-}
+  /* Header */
+  .header {
+    font-size: 36px; /* increased font size */
+    font-weight: bold;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-.navButton:hover {
-  transform: translateY(-10px);
-  box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.4);
-}
+  /* Navigation Bar */
+  .btn-container {
+    display: flex;
+    justify-content: center; /* centers the buttons horizontally */
+    align-items: center; /* centers the buttons vertically */
+  }
+  
+  .btn {
+    background-color: #1a75ff;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px 20px;
+    transition: all 0.2s ease-in-out;
+    margin-right: 10px; /* adds some spacing between the buttons */
+  }
+  
+  .btn:hover {
+    background-color: #0077b3;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    transform: translateY(-2px);
+  }
 
-.long-button {
-  height: 300px;
-  width: 900px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  border-radius: 10px;
-  transition: transform 0.5s;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-  background-image: url("https://www.agroboca.com/uploads/producers/364/h-1.comprar-frutas-verduras-online.jpg");
-  background-size: cover;
-  cursor: pointer; /* Add cursor: pointer to make the box tappable */
-}
-
+/*  */ 
 form {
   display: flex;
   flex-direction: row;

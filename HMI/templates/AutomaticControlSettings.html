@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{title}}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styleSettings.css') }}">
+    <title>Automatic Control Settings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/AutomaticControlSettings.css') }}">
   </head>
   <body>
     <div class="container">
 
       <div class="header">
-        <h1>{{title}} Settings</h1>
+        <h1>Product settings</h1>
       </div>
 
       <!-- Navigation Bar -->
       <div class="btn-container">
         
-        <form action="/detailView" method="post">
-          <input type="hidden" name="title" value={{title}}>
+        <form action="/AutomaticControl" method="post">
           <input type="hidden" name="package" value={{package}}>
           <input type="hidden" name="link" value={{link}}>
           <button type="submit" class="btn">Back</button>
@@ -32,31 +31,26 @@
                 <img src="{{ product.product_image }}" alt="{{ product.product_name }}">
                 <a>{{ product.product_name }}</a>
                 <input type="hidden" name="id" value="{{ product.id }}">
-                <input type="hidden" name="product_name" value="{{ product.product_name }}">
-                <input type="hidden" name="product_image" value="{{ product.product_image }}">
                 <input type="hidden" name="product_package" value="{{ product.product_package }}">
-                <input type="hidden" name="crateNumber" value="{{ product.crateNumber }}">
-                <input type="hidden" name="isActive" value="{{ product.isActive }}">
-                <input type="hidden" name="product_shape" value="{{ product.product_shape }}">
-                <input type="hidden" name="product_HSVRange" value="{{ product.product_HSVRange }}">
-                <input type="hidden" name="product_minSize" value="{{ product.product_minSize }}">
-                <input type="hidden" name="product_maxSize" value="{{ product.product_maxSize }}">
                 <label>
-                  <input type="checkbox" name="is-active" {% if product.isActive %}checked{% endif %}>
-                  Active
+                  Active: 
+                  <input type="checkbox" name="isActive" {% if product.isActive %}checked{% endif %} value="true" {% if product.isActive %}checked{% endif %}>
                 </label>
                 <br>
                 <label>
-                  Crate Number:
-                  <input type="text" name="crate-number" value="{{ product.crateNumber }}">
+                  Crate Number: 
+                  <input type="text" name="crateNumber" value="{{ product.crateNumber }}">
                 </label>
               </div>
             {% endfor %}
           {% endif %}
         {% endfor %}
-
+      
         <button type="submit">Save</button>
       </form>
+      
+      
+      
 
     </div>
 

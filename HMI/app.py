@@ -61,17 +61,16 @@ async def setSuctionCup2Test(status):
 
 @app.route('/')
 def routeView():
-        return render_template('View.html')
+        return render_template('Home.html')
 
-@app.route('/manualPicker')
-def routeManualPicker():
-    return render_template('manualView.html')
+@app.route('/ManualControl')
+def ManualControl():
+    return render_template('ManualControl.html')
 
-@app.route('/routeSettingsView', methods=['GET', 'POST'])
-def routeSettingsView():
+@app.route('/AutomaticControlSettings', methods=['GET', 'POST'])
+def AutomaticControlSettings():
 
     # Get Title
-    title = request.form['title']
     package = request.form['package']
     link = request.form['link']
 
@@ -79,13 +78,12 @@ def routeSettingsView():
     with open(link, 'r') as f:
         data = json.load(f)
 
-    return render_template('detailSettings.html', title=title, link=link, package=package, items=data['items'])
+    return render_template('AutomaticControlSettings.html', link=link, package=package, items=data['items'])
 
-@app.route('/detailView', methods=['GET', 'POST'])
-def routeDetailView():
+@app.route('/AutomaticControl', methods=['GET', 'POST'])
+def AutomaticControl():
 
     # Get Title
-    title = request.form['title']
     package = request.form['package']
     link = request.form['link']
 
@@ -93,7 +91,7 @@ def routeDetailView():
     with open(link, 'r') as f:
         data = json.load(f)
 
-    return render_template('detailView.html', title=title, link=link, package=package, items=data['items'])
+    return render_template('AutomaticControl.html', link=link, package=package, items=data['items'])
 
 
 # Move Robot
@@ -175,7 +173,6 @@ def getLiveInformation():
             status_suctionCup1 = bool(await conn.get_value("Ctrl_DO1"))
             status_suctionCup2 = bool(await conn.get_value("Ctrl_DO2"))
             luchtdruk = await conn.get_value("Ctrl_AI0")
-            print(luchtdruk)
         return coordinates, speed, status_suctionCup1, status_suctionCup2
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
@@ -185,51 +182,40 @@ def getLiveInformation():
 
 @app.route('/updateJsonData', methods=['POST'])
 def updateJsonData():
-
     # Load JSON data from file
-    with open('HMI\static\json\database.json', 'r') as f:
+    with open('HMI/static/json/database.json', 'r') as f:
         data = json.load(f)
 
     # Get the new values from the form
     id = request.form['id']
-    product_name = request.form['product_name']
-    product_image = request.form['product_image']
     product_package = request.form['product_package']
-    crate_number = request.form['crateNumber']
-    is_active = request.form.get('isActive', False)
-    product_shape = request.form.get('product_shape', '')
-    product_HSVRange = request.form.get('product_HSVRange', '')
-    product_minSize = request.form.get('product_minSize', '')
-    product_maxSize = request.form.get('product_maxSize', '')
+    crateNumber = request.form['crateNumber']
+    isActive = request.form.get('isActive', False)
 
-    # Find the item in the JSON data
+    # Loop through each package and product
     for item in data['items']:
-        if item['id'] == id:
-            # Update the values
-            item['product_name'] = product_name
-            item['product_image'] = product_image
-            item['product_package'] = product_package
-            item['crateNumber'] = crate_number
-            item['isActive'] = is_active
-            item['product_shape'] = product_shape
-            item['product_HSVRange'] = product_HSVRange
-            item['product_minSize'] = product_minSize
-            item['product_maxSize'] = product_maxSize
-            break
+        if item['package'] == product_package:
+            for product in item['products']:
+                if product['id'] == id:
+                    # Update the values for the matching product
+                    product['crateNumber'] = crateNumber
+                    if isActive == "on":
+                        product['isActive'] = True
+                    else:
+                        product['isActive'] = False
+                    break
 
     # Save the updated JSON data back to the file
-    with open('HMI\static\json\database.json', 'w') as f:
+    with open('HMI/static/json/database.json', 'w') as f:
         json.dump(data, f, indent=2)
 
     # Redirect back to the items grid
     return Response(status=204)
 
 
-@app.route('/StartStream')
-def StartStream():
-    # Initialize Camera Intel Realsense
-    pipeline=initizalize_rs()
-    mtx,dist=calibrate_camera(pipeline)
+
+
+
 
 # Test Variables -------------------------
 x = 0.0

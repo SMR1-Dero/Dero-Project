@@ -2,23 +2,19 @@
 <html>
 <head>
 	<title>Fresh Packages Picker</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/testView.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/Home.css') }}">
 </head>
 <body>
 	<div class="container">
 
-        <img src="https://www.agroboca.com/uploads/producers/364/h-1.comprar-frutas-verduras-online.jpg" class="long-button">
-
-        <!-- Navigation Bar -->
-        <div class="navButton">
-            <a href="{{ url_for('routeView') }}">Automatic</a>
-            <a href="{{ url_for('routeManualPicker') }}">Manual</a>
+        <div class="banner">
+            <img src="https://www.agroboca.com/uploads/producers/364/h-1.comprar-frutas-verduras-online.jpg">
         </div>
 
 		<div class="content">
 			
 			<div>
-                <form action="/detailView" method="post" class="box box1">
+                <form action="/AutomaticControl" method="post" class="box box1">
                     <input type="hidden" name="title" value="Curry Madras">
                     <input type="hidden" name="package" value="CurryMadras">
                     <input type="hidden" name="link" value="HMI\static\json\database.json">
@@ -28,7 +24,7 @@
 			</div>
 
             <div>
-                <form action="/detailView" method="post" class="box box2">
+                <form action="/AutomaticControl" method="post" class="box box2">
                     <input type="hidden" name="title" value="Groene Curry">
                     <input type="hidden" name="package" value="GroeneCurry">
                     <input type="hidden" name="link" value="HMI\static\json\database.json">
@@ -38,7 +34,7 @@
 			</div>
 
 			<div>
-                <form action="/detailView" method="post" class="box box3">
+                <form action="/AutomaticControl" method="post" class="box box3">
                     <input type="hidden" name="title" value="Tomaten Soep">
                     <input type="hidden" name="package" value="TomatenSoep">
                     <input type="hidden" name="link" value="HMI\static\json\database.json">
@@ -48,7 +44,7 @@
 			</div>
 
             <div>
-                <form action="/detailView" method="post" class="box box4">
+                <form action="/AutomaticControl" method="post" class="box box4">
                     <input type="hidden" name="title" value="Courgette Soep">
                     <input type="hidden" name="package" value="CourgetteSoep">
                     <input type="hidden" name="link" value="HMI\static\json\database.json">
@@ -58,7 +54,7 @@
 			</div>
 
             <div>
-                <form action="/detailView" method="post" class="box box5">
+                <form action="/AutomaticControl" method="post" class="box box5">
                     <input type="hidden" name="title" value="Couscous">
                     <input type="hidden" name="package" value="Couscous">
                     <input type="hidden" name="link" value="HMI\static\json\database.json">
@@ -68,7 +64,7 @@
 			</div>
 
             <div>
-                <form action="/detailView" method="post" class="box box6">
+                <form action="/AutomaticControl" method="post" class="box box6">
                     <input type="hidden" name="title" value="Erwten Soep">
                     <input type="hidden" name="package" value="ErwtenSoep">
                     <input type="hidden" name="link" value="HMI\static\json\database.json">
@@ -78,7 +74,7 @@
 			</div>
 
             <div>
-                <form action="/detailView" method="post" class="box box7">
+                <form action="/AutomaticControl" method="post" class="box box7">
                     <input type="hidden" name="title" value="Lasagne">
                     <input type="hidden" name="package" value="Lasagne">
                     <input type="hidden" name="link" value="HMI\static\json\database.json">
@@ -88,7 +84,7 @@
 			</div>
 
             <div>
-                <form action="/detailView" method="post" class="box box8">
+                <form action="/AutomaticControl" method="post" class="box box8">
                     <input type="hidden" name="title" value="Mexicaanse Wraps">
                     <input type="hidden" name="package" value="MexicaanseWraps">
                     <input type="hidden" name="link" value="HMI\static\json\database.json">
@@ -98,7 +94,7 @@
 			</div>
 
       		<div>
-                <form action="/detailView" method="post" class="box box9">
+                <form action="/AutomaticControl" method="post" class="box box9">
                     <input type="hidden" name="title" value="Pompoen Soep">
                     <input type="hidden" name="package" value="PompoenSoep">
                     <input type="hidden" name="link" value="HMI\static\json\database.json">

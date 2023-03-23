@@ -13,6 +13,16 @@ body {
     flex-direction: column;
     align-items: center;
   }
+
+   /* Header */
+   .header {
+    font-size: 36px; /* increased font size */
+    font-weight: bold;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   
     /* Navigation Buttons */
     .btn-container {
