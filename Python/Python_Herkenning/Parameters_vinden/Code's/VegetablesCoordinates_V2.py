@@ -64,13 +64,16 @@ def makeframe():
     cv2.namedWindow("bewerkt frame")
     cv2.namedWindow("Origineel frame")
     cv2.namedWindow("Grijs frame")
+    cv2.namedWindow("gray frame")
     #create
     cv2.createTrackbar('hsvunder1','Grijs frame',0,255,nothing)
     cv2.createTrackbar('hsvunder2','Grijs frame',80,255,nothing)
     cv2.createTrackbar('hsvunder3','Grijs frame',80,255,nothing)
     cv2.createTrackbar('hsvupper1','Grijs frame',10,255,nothing)
     cv2.createTrackbar('hsvupper2','Grijs frame',255,255,nothing)
-    cv2.createTrackbar('hsvupper3','Grijs frame',255,255,nothing)    
+    cv2.createTrackbar('hsvupper3','Grijs frame',255,255,nothing) 
+    cv2.createTrackbar('minsize','Grijs frame',10,100,nothing)
+    cv2.createTrackbar('maxsize','Grijs frame',50,100,nothing)  
 def readtrackbar():
     hsvunder1 = cv2.getTrackbarPos('hsvunder1','Grijs frame')
     hsvunder2 = cv2.getTrackbarPos('hsvunder2','Grijs frame')
@@ -78,7 +81,9 @@ def readtrackbar():
     hsvupper1 = cv2.getTrackbarPos('hsvupper1','Grijs frame')
     hsvupper2 = cv2.getTrackbarPos('hsvupper2','Grijs frame')
     hsvupper3 = cv2.getTrackbarPos('hsvupper3','Grijs frame')
-    return hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3
+    minsize = cv2.getTrackbarPos('minsize','Grijs frame')
+    maxsize = cv2.getTrackbarPos('maxsize','Grijs frame')
+    return hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3,minsize,maxsize
 def image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3):
     hsv = cv2.cvtColor(color_frame, cv2.COLOR_BGR2HSV)
     #set the lower and upper bounds for the HSV
@@ -94,12 +99,12 @@ def image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hs
     #find the contours
     (cnts, _) = cv2.findContours(gray.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     return gray,cnts
-def getpoint_tomato(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3):
+def getpoint_tomato(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3,minsize,maxsize):
     coordinates=[]
     pointi=None
     distance=None
     gray,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)
-    circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,2,minDist=15,param1=50,param2=30,minRadius=15,maxRadius=23)#hier aanpassingen aan maken voor filtering
+    circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,2,minDist=40,param1=50,param2=30,minRadius=minsize,maxRadius=maxsize)#hier aanpassingen aan maken voor filtering
     #print(circles)
     if circles is not None:
         circles = np.uint16(np.around(circles))
@@ -114,7 +119,36 @@ def getpoint_tomato(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupp
             cv2.putText(color_frame, "{}mm".format(distance), (pointi[0], pointi[1] - 20), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 2)
     
     return color_frame,coordinates,gray
-def getpoint_paprika(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3):
+def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3,minxsize,maxsize):
+    coordinates=[]
+    cx=0
+    cy=0
+    pointi=(10,10)
+    distance=None
+    mask,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)
+    for c in cnts:
+        area= cv2.contourArea(c)
+        if area>100:
+            M = cv2.moments(c)
+            #print ("Area=",area)
+            # Calculate the moments
+            if M['m00'] != 0:
+                cx = int(M['m10']/M['m00'])
+                cy = int(M['m01']/M['m00'])
+                cv2.circle(color_frame, (cx, cy), 7, (0, 0, 255), -1)
+                pointi=(cx,cy)
+                #bepalen van afstand en pixel coordinaat
+                distance = mean_distance(depth_frame,pointi)
+                coordinates.append([pointi,distance])
+                #tekenen van centrun en contour
+                cv2.putText(color_frame, "{}mm".format(distance), (pointi[0], pointi[1] - 20), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 2)
+                epsilon = 0.005 * cv2.arcLength(c, True)
+                approx = cv2.approxPolyDP(c, epsilon, True)
+                cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
+    print(coordinates)
+
+    return color_frame,coordinates,mask
+def getpoint_paprika(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3,minxsize,maxsize):
     coordinates=[]
     cx=0
     cy=0
@@ -122,19 +156,19 @@ def getpoint_paprika(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvup
     loc1=[]
     pointi=(10,10)
     distance=None
-    mask,cnts=image_edits(color_frame,0,80,30,255,255,255)#0,80,30,255,255,255
+    mask,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)#0,80,30,255,255,255
     mask2,cnts2=image_edits(color_frame,10,60,0,35,200,255)#10,60,0,35,200,255
     for i in cnts2:
         area= cv2.contourArea(i)
         #print (area)
-        if area>150:
+        if area>250:
             M = cv2.moments(i)
             # Calculate the moments
             if M['m00'] != 0:
                 cx = int(M['m10']/M['m00'])
                 cy = int(M['m01']/M['m00'])
                 #cv2.circle(color_frame, (cx, cy), 7, (255, 0, 0), -1)
-                epsilon = 0.005 * cv2.arcLength(i, True)
+                epsilon = 0.001 * cv2.arcLength(i, True)
                 approx = cv2.approxPolyDP(i, epsilon, True)
                 cv2.drawContours(color_frame, [approx], -1, (255, 255, 0), 4)
                 loc1.append([(cx),(cy)])
@@ -158,7 +192,7 @@ def getpoint_paprika(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvup
                         coordinates.append([pointi,distance])
                         #tekenen van centrun en contour
                         cv2.putText(color_frame, "{}mm".format(distance), (pointi[0], pointi[1]- 40 ), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 2)
-                        epsilon = 0.005 * cv2.arcLength(c, True)
+                        epsilon = 0.001 * cv2.arcLength(c, True)
                         approx = cv2.approxPolyDP(c, epsilon, True)
                         cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
                     else:
@@ -169,7 +203,7 @@ def getpoint_paprika(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvup
                         coordinates.append([pointi,distance])
                         #tekenen van centrun en contour
                         cv2.putText(color_frame, "{}mm".format(distance), (pointi[0], pointi[1] - 40), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 2)
-                        epsilon = 0.005 * cv2.arcLength(c, True)
+                        epsilon = 0.001 * cv2.arcLength(c, True)
                         approx = cv2.approxPolyDP(c, epsilon, True)
                         cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
                     
@@ -181,7 +215,7 @@ def getpoint_paprika(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvup
                     coordinates.append([pointi,distance])
                     #tekenen van centrun en contour
                     cv2.putText(color_frame, "{}mm".format(distance), (pointi[0], pointi[1] - 40), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 2)
-                    epsilon = 0.005 * cv2.arcLength(c, True)
+                    epsilon = 0.001 * cv2.arcLength(c, True)
                     approx = cv2.approxPolyDP(c, epsilon, True)
                     cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
     print(coordinates)
@@ -244,12 +278,12 @@ def main():
     makeframe()
     while True:
         #read info from trackbars
-        hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3=readtrackbar()
+        hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3,minsize,maxsize=readtrackbar()
         #get depth and color frame
         #org=[]
         depth_cut,color_cut,org=getframe(pipeline,crop[3])
         #Use filters and circle detection to get center coordinate
-        madeframe,coor,gray=getpoint_tomato(depth_cut,color_cut,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)
+        madeframe,coor,gray=getpoint_tomato(depth_cut,color_cut,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3,minsize,maxsize)
         if coor != []:
             point=make_3D_point(coor[0][0][0]+crop[3][2], coor[0][0][1]+crop[3][0],pipeline)
             print("3D Point in robot arm coordinates:", point)
@@ -259,6 +293,7 @@ def main():
             cv2.imshow("Origineel frame", org_draw)
         cv2.imshow("bewerkt frame", madeframe)
         cv2.imshow("Grijs frame",gray)
+        cv2.imshow("gray frame",gray)
         cv2.waitKey(10)
         key = cv2.waitKey(1)
         if key == 27:  # ESC

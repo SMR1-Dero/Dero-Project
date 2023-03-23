@@ -12,9 +12,9 @@ vegetabledict = {
     "product_name": "Tomaat",
     "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
     "product_package": "Curry Madras",
-    "crateNumber": "1",
+    "crateNumber": "5",
     "isActive": "on",
-    "product_shape": "Round",
+    "product_shape": "Not round",
     "product_HSVRange": [0,80,80,255,255,255],
     "product_minSize": "",
     "product_maxSize": ""
@@ -99,7 +99,7 @@ def getpoint_round(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvuppe
     pointi=None
     distance=None
     gray,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)#0,80,80,255,255,255
-    circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,2,minDist=50,param1=50,param2=30,minRadius=22,maxRadius=27)#hier aanpassingen aan maken voor filtering
+    circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,2,minDist=50,param1=50,param2=30,minRadius=60,maxRadius=67)#hier aanpassingen aan maken voor filtering
     #print(circles)
     if circles is not None:
         circles = np.uint16(np.around(circles))
@@ -239,38 +239,27 @@ def getpoint(pipeline, vegetable):
 def draw_original(original,coordinates,xcorrect,ycorrect):
     cv2.circle(original,(coordinates[0][0][0]+xcorrect,coordinates[0][0][1]+ycorrect),1,(0,255,0),2)
     return original
-def initizalize_rs(pl):
-    # pipeline = rs.pipeline()
-    # config = rs.config()
-    # config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
-    # config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
-    
-    # # Start streaming
-    # pipeline.start(config)
-    # return pipeline
-
+def initizalize_rs():
     # use the serial number of the camera to determine which camera is where
     # Configure the first pipeline to stream depth frames with the serial number filter
-    if (pl==1):
-        pipeline = rs.pipeline()
-        config1 = rs.config()
-        config1.enable_stream(rs.stream.depth, 1280, 720, rs.format.z16, 30)
-        config1.enable_stream(rs.stream.color, 1280, 720, rs.format.bgr8, 30)
-        serial_number1 = "839512061465" # Replace this with the serial number of your camera
-        config1.enable_device(serial_number1)
-        pipeline.start(config1)
+    pipeline1 = rs.pipeline()
+    config1 = rs.config()
+    config1.enable_stream(rs.stream.depth, 1280, 720, rs.format.z16, 30)
+    config1.enable_stream(rs.stream.color, 1280, 720, rs.format.bgr8, 30)
+    serial_number1 = "839512061465" # Replace this with the serial number of your camera
+    config1.enable_device(serial_number1)
+    pipeline1.start(config1)
     
     # Configure the second pipeline to stream depth frames with the serial number filter
-    elif (pl==2):
-        pipeline = rs.pipeline()
-        config2 = rs.config()
-        config2.enable_stream(rs.stream.depth,1280, 720, rs.format.z16, 30)
-        config2.enable_stream(rs.stream.color,1280, 720, rs.format.bgr8, 30)
-        serial_number2 = "211122062283" # Replace this with the serial number of your camera
-        config2.enable_device(serial_number2)
-        pipeline.start(config2)
+    pipeline2 = rs.pipeline()
+    config2 = rs.config()
+    config2.enable_stream(rs.stream.depth,1280, 720, rs.format.z16, 30)
+    config2.enable_stream(rs.stream.color,1280, 720, rs.format.bgr8, 30)
+    serial_number2 = "211122062283" # Replace this with the serial number of your camera
+    config2.enable_device(serial_number2)
+    pipeline2.start(config2)
     #Start streaming
-    return pipeline
+    return pipeline1,pipeline2
 def read_cal(pl):
     if pl==1:
         with open('Calibration_one.txt', 'r') as f:
@@ -363,14 +352,13 @@ def make_3D_point(x, y, pipeline, mtx, dist):
     # Convert the pixel coordinates to the camera coordinate system
     point = rs.rs2_deproject_pixel_to_point(depth_intrin, [(pts_undistorted[0][0][0]), (pts_undistorted[0][0][1])], depth)#x,y,z
     print(point)
-    #point=[(-point[1]*1000)-cam1[0],(-point[0]*1000)+cam1[1],(point[2]*1000)-cam1[2]]
-    point=[-(point[1]*1000)+cam2[0],(-point[0]*1000)+cam2[1],(point[2]*1000)-cam2[2]]
+    point=[(-point[1]*1000)-cam1[0],(-point[0]*1000)+cam1[1],(point[2]*1000)-cam1[2]]
+    #point=[-(point[1]*1000)+cam2[0],(-point[0]*1000)+cam2[1],(point[2]*1000)-cam2[2]]
     return point
 
 def main(debug=False):
     # Initialize Camera Intel Realsense
-    pipeline1=initizalize_rs(1)
-    pipeline2=initizalize_rs(2)
+    pipeline1,pipeline2=initizalize_rs()
     #create trackbar and images
     #calibrate_camera(pipeline2,pl)
     makeframe()
