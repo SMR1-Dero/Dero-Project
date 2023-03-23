@@ -98,7 +98,7 @@ def getpoint_tomato(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupp
     coordinates=[]
     pointi=None
     distance=None
-    gray,cnts=image_edits(color_frame,0,80,80,255,255,255)
+    gray,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)
     circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,2,minDist=15,param1=50,param2=30,minRadius=15,maxRadius=23)#hier aanpassingen aan maken voor filtering
     #print(circles)
     if circles is not None:
@@ -193,8 +193,8 @@ def draw_original(original,coordinates,xcorrect,ycorrect):
 def initizalize_rs():
     pipeline = rs.pipeline()
     config = rs.config()
-    config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
-    config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+    config.enable_stream(rs.stream.depth, 1280, 720, rs.format.z16, 30)
+    config.enable_stream(rs.stream.color, 1280, 720, rs.format.bgr8, 30)
 
     # Start streaming
     pipeline.start(config)
@@ -240,18 +240,18 @@ def main():
     # Initialize Camera Intel Realsense
     pipeline=initizalize_rs()
     #create trackbar and images
-    crop=[[(75),(425),(140),(365)],[(75),(425),(385),(615)]]
+    crop=[[(20),(700),(600),(1075)],[(20),(680),(150),(600)],[(0),(680),(630),(1100)],[(0),(680),(170),(630)],[(0),(720),(0),(1280)]]
     makeframe()
     while True:
         #read info from trackbars
         hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3=readtrackbar()
         #get depth and color frame
         #org=[]
-        depth_cut,color_cut,org=getframe(pipeline,crop[1])
+        depth_cut,color_cut,org=getframe(pipeline,crop[3])
         #Use filters and circle detection to get center coordinate
         madeframe,coor,gray=getpoint_tomato(depth_cut,color_cut,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)
         if coor != []:
-            point=make_3D_point(coor[0][0][0]+crop[1][2], coor[0][0][1]+crop[1][0],pipeline)
+            point=make_3D_point(coor[0][0][0]+crop[3][2], coor[0][0][1]+crop[3][0],pipeline)
             print("3D Point in robot arm coordinates:", point)
             #print(coor[0][0][0])
             #show edited and original frame with contours and center

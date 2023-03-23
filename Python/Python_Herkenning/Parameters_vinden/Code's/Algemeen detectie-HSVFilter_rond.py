@@ -20,9 +20,7 @@ def nothing(x):
     pass
 
 def getframe():
-    ret, depth_frame, color_frame = dc.get_frame()
-    depth_frame = depth_frame[50:500, 220:500]
-    color_frame = color_frame[50:500, 220:500]   
+    ret, depth_frame, color_frame = dc.get_frame()   
     #cv2.imwrite("test_foto_tomaten.jpg",color_frame)
     return (depth_frame,color_frame)
 def find_high_points(depth_frame):
