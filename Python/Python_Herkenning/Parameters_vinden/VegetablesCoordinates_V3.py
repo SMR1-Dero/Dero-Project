@@ -99,7 +99,7 @@ def getpoint_round(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvuppe
     pointi=None
     distance=None
     gray,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)#0,80,80,255,255,255
-    circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,2,minDist=15,param1=50,param2=30,minRadius=22,maxRadius=27)#hier aanpassingen aan maken voor filtering
+    circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,2,minDist=50,param1=50,param2=30,minRadius=22,maxRadius=27)#hier aanpassingen aan maken voor filtering
     #print(circles)
     if circles is not None:
         circles = np.uint16(np.around(circles))
