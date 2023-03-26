@@ -6,7 +6,7 @@ import cv2
 import pyrealsense2 as rs
 import numpy as np
 import copy
-from realsense_depth import *
+
 vegetabledict = {
     "id": "1_8",
     "product_name": "Tomaat",
@@ -43,22 +43,7 @@ def getframe(pipeline,crop):
 
     # Return the cropped depth and color frames, as well as the full color frame
     return depth_frame_cut, color_frame_cut, np.asanyarray(color_frame_full.get_data())
-def mean_distance(depth_frame,point):
-    deler=0
-    height=0
-    mean_height=0
-    for i in range(-1,1):
-        for j in range(-1,1):
-            height=depth_frame[point[1]+j, point[0]+i]
-            if (height != 0):
-                mean_height+=height
-                deler+=1
-            j+=1
-        i+=1
-    if (deler==0):
-        return 0
-    else :
-        return (int(mean_height/deler))
+
 def makeframe():
     # Create windows
     cv2.namedWindow("bewerkt frame")
@@ -97,7 +82,6 @@ def image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hs
 def getpoint_round(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3):
     coordinates=[]
     pointi=None
-    distance=None
     gray,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)#0,80,80,255,255,255
     circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,2,minDist=50,param1=50,param2=30,minRadius=60,maxRadius=67)#hier aanpassingen aan maken voor filtering
     #print(circles)
@@ -109,9 +93,7 @@ def getpoint_round(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvuppe
             # draw the center of the circle
             cv2.circle(color_frame,(i[0],i[1]),2,(0,0,255),3)
             pointi=[(i[0]),(i[1])]
-            distance = mean_distance(depth_frame,pointi)
-            coordinates.append([(pointi),(distance)])
-            cv2.putText(color_frame, "{}mm".format(distance), (pointi[0], pointi[1] - 20), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 2)
+            coordinates.append([(pointi)])
 
     return color_frame,coordinates,gray
 def getpoint_notround_withstem(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3):
@@ -121,7 +103,6 @@ def getpoint_notround_withstem(depth_frame,color_frame,hsvunder1,hsvunder2,hsvun
     j=0
     loc1=[]
     pointi=(10,10)
-    distance=None
     mask,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)#0,80,30,255,255,255
     mask2,cnts2=image_edits(color_frame,10,60,0,35,200,255)#10,60,0,35,200,255
     for i in cnts2:
@@ -153,22 +134,16 @@ def getpoint_notround_withstem(depth_frame,color_frame,hsvunder1,hsvunder2,hsvun
                     if (abs(cx-loc1[j][0])<=25 and abs(cy-loc1[j][1])<=25):
                         cv2.circle(color_frame, (cx+number*(cx-loc1[j][0]), cy+number*(cy-loc1[j][1])), 7, (0, 0, 255), -1)
                         pointi=((cx+number*(cx-loc1[j][0])),(cy+number*(cy-loc1[j][1])))
-                        #bepalen van afstand en pixel coordinaat
-                        distance = mean_distance(depth_frame,pointi)
-                        coordinates.append([pointi,distance])
+                        coordinates.append([pointi])
                         #tekenen van centrun en contour
-                        cv2.putText(color_frame, "{}mm".format(distance), (pointi[0], pointi[1]- 40 ), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 2)
                         epsilon = 0.005 * cv2.arcLength(c, True)
                         approx = cv2.approxPolyDP(c, epsilon, True)
                         cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
                     else:
                         cv2.circle(color_frame, (cx, cy), 7, (0, 0, 255), -1)
                         pointi=(cx),(cy)
-                        #bepalen van afstand en pixel coordinaat
-                        distance = mean_distance(depth_frame,pointi)
-                        coordinates.append([pointi,distance])
+                        coordinates.append([pointi])
                         #tekenen van centrun en contour
-                        cv2.putText(color_frame, "{}mm".format(distance), (pointi[0], pointi[1] - 40), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 2)
                         epsilon = 0.005 * cv2.arcLength(c, True)
                         approx = cv2.approxPolyDP(c, epsilon, True)
                         cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
@@ -176,11 +151,7 @@ def getpoint_notround_withstem(depth_frame,color_frame,hsvunder1,hsvunder2,hsvun
                 if (loc1==[]):
                     cv2.circle(color_frame, (cx, cy), 7, (0, 0, 255), -1)
                     pointi=(cx),(cy)
-                    #bepalen van afstand en pixel coordinaat
-                    distance = mean_distance(depth_frame,pointi)
-                    coordinates.append([pointi,distance])
-                    #tekenen van centrun en contour
-                    cv2.putText(color_frame, "{}mm".format(distance), (pointi[0], pointi[1] - 40), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 2)
+                    coordinates.append([pointi])
                     epsilon = 0.005 * cv2.arcLength(c, True)
                     approx = cv2.approxPolyDP(c, epsilon, True)
                     cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
@@ -192,7 +163,6 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
     cx=0
     cy=0
     pointi=(10,10)
-    distance=None
     mask,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)
     for c in cnts:
         area= cv2.contourArea(c)
@@ -206,10 +176,8 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
                 cv2.circle(color_frame, (cx, cy), 7, (0, 0, 255), -1)
                 pointi=(cx,cy)
                 #bepalen van afstand en pixel coordinaat
-                distance = mean_distance(depth_frame,pointi)
-                coordinates.append([pointi,distance])
+                coordinates.append([pointi])
                 #tekenen van centrun en contour
-                cv2.putText(color_frame, "{}mm".format(distance), (pointi[0], pointi[1] - 20), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 2)
                 epsilon = 0.005 * cv2.arcLength(c, True)
                 approx = cv2.approxPolyDP(c, epsilon, True)
                 cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
@@ -217,8 +185,6 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
 
 def getpoint(pipeline, vegetable):
     crop=[[(20),(700),(600),(1075)],[(20),(680),(150),(600)],[(0),(680),(630),(1100)],[(0),(680),(170),(630)],[(0),(720),(0),(1280)]]
-
-
     shape = vegetable["product_shape"]
     min_size = vegetable["product_minSize"]
     max_size = vegetable["product_maxSize"]
