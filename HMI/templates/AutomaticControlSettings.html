@@ -22,35 +22,29 @@
         
       </div>
       
-      <form method="POST" action="{{ url_for('updateJsonData') }}" class="grid">
-        <!-- Product Array -->
-        {% for item in items %}
-          {% if item.package == package %}
-            {% for product in item.products %}
-              <div class="grid-item">
-                <img src="{{ product.product_image }}" alt="{{ product.product_name }}">
-                <a>{{ product.product_name }}</a>
-                <input type="hidden" name="id" value="{{ product.id }}">
-                <input type="hidden" name="product_package" value="{{ product.product_package }}">
-                <label>
-                  Active: 
-                  <input type="checkbox" name="isActive" {% if product.isActive %}checked{% endif %} value="true" {% if product.isActive %}checked{% endif %}>
-                </label>
-                <br>
-                <label>
-                  Crate Number: 
-                  <input type="text" name="crateNumber" value="{{ product.crateNumber }}">
-                </label>
-              </div>
-            {% endfor %}
-          {% endif %}
-        {% endfor %}
-      
+      {% for item in items %}
+  {% if item.package == package %}
+    {% for product in item.products %}
+      <form method="POST" action="{{ url_for('updateJsonData') }}" class="grid-item">
+        <img src="{{ product.product_image }}" alt="{{ product.product_name }}">
+        <a>{{ product.product_name }}</a>
+        <input type="hidden" name="id" value="{{ product.id }}">
+        <input type="hidden" name="product_package" value="{{ package }}">
+        <label>
+          Active: 
+          <input type="checkbox" name="isActive" {% if product.isActive %}checked{% endif %} value="true" {% if product.isActive %}checked{% endif %}>
+        </label>
+        <br>
+        <label>
+          Crate Number: 
+          <input type="text" name="crateNumber" value="{{ product.crateNumber }}">
+        </label>
         <button type="submit">Save</button>
       </form>
-      
-      
-      
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+
 
     </div>
 

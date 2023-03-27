@@ -10,6 +10,8 @@ import time
 import copy
 from realsense_depth import *
 
+from connectionPLC import *
+
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
@@ -105,7 +107,7 @@ def move_robot():
     rz = float(request.form['rz'])
     
     positionArray = [x,y,z,rx,ry,rz]
-    asyncio.run(position(positionArray))
+    asyncio.run(position(positionArray,0))
     return Response(status=204)
 
 @app.route('/testPosition', methods=['GET', 'POST'])
@@ -124,23 +126,23 @@ def move_robottest():
     hoverCrate1 = [-536.42 , -799.43 , topPlane , rx , ry , rz_crateSide]
     hoverCrate2 = [-633.77 , -356.43 , topPlane , rx , ry , rz_crateSide]
     hoverCrate3 = [-647.11 , 139.67 , topPlane , rx , ry , rz_crateSide]
-    hoverCrate4 = [-660.57 , 593.36 , topPlane , rx , ry , rz_crateSide]
+    hoverCrate4 = [-646.80 , 387.27 , topPlane , rx , 31.19 , rz_crateSide]
 
     getVegetable = [-699.18 , -844.69 , 100.0 , rx , ry , rz_crateSide]
 
     if value == "hoverGet":
-        asyncio.run(position(hoverCrate1))
+        asyncio.run(position(hoverCrate4, 0))
     if value == "get":
         asyncio.run(position(getVegetable))
     if value == "hoverDrop":
-        asyncio.run(position([511.01 , -212.48 , topPlane , 180.0 , 0.0 , 90.0]))
+        asyncio.run(position([511.01 , -212.48 , topPlane , 180.0 , 0.0 , 90.0], 0))
     if value == "drop":
         asyncio.run(position([511.01 , -212.48 , 315.41 , 180.0 , 0.0 , 90.0]))
 
     if value == "suction1drop":
-        asyncio.run(position([555.95 , -212.34 , 269.28 , 180.0 , 31.19 , 90.0]))
+        asyncio.run(position([555.95 , -212.34 , 269.28 , 180.0 , 31.19 , 90.0], 0))
     if value == "suction2drop":
-        asyncio.run(position([562.27 , -403.77 , 294.42 , 180.0 , -27.99 , 90.0]))
+        asyncio.run(position([562.27 , -403.77 , 294.42 , 180.0 , -27.99 , 90.0], 0))
 
     if value == "suction1get":
         asyncio.run(position([-619.47 , 186.75 , topPlane , 180.0 , 31.19 , -90.0]))
@@ -166,23 +168,84 @@ def setOutput():
 
 @app.route('/getLiveInformation')
 def getLiveInformation():
+    async def test_connection(ip):
+        while True:
+            status = {'SCT': 'Offline', 'SVR': 'Offline', 'STA': 'Offline'}
+
+            SCT_status = ""
+            SVR_status = ""
+            STA_status = ""
+
+            # Check SVR connection (should be always active)
+            try:
+                async with techmanpy.connect_svr(robot_ip=ip, conn_timeout=1) as conn:
+                    status['SVR'] = 'Online'
+                    await conn.get_value('Robot_Model')
+                    status['SVR'] = 'Connected'
+            except TechmanException: pass
+
+            # Check SCT connection (only active when inside listen node)
+            try:
+                async with techmanpy.connect_sct(robot_ip=ip, conn_timeout=1) as conn:
+                    status['SCT'] = 'Online'
+                    await conn.resume_project()
+                    status['SCT'] = 'Connected'
+            except TechmanException: pass
+
+            # Check STA connection (only active when running project)
+            try:
+                async with techmanpy.connect_sta(robot_ip=ip, conn_timeout=1) as conn:
+                    status['STA'] = 'Online'
+                    await conn.is_listen_node_active()
+                    status['STA'] = 'Connected'
+            except TechmanException: pass
+
+            # Print status
+            def colored(status):
+                if status == 'Online': return f'{status}'
+                if status == 'Connected': return f'{status}'
+                if status == 'Offline': return f'{status}'
+            print(f'SVR: {colored(status["SVR"])}, SCT: {colored(status["SCT"])}, STA: {colored(status["STA"])}')
+
+            SVR_status = colored(status["SVR"])
+            SCT_status = colored(status["SCT"])
+            STA_status = colored(status["STA"])
+            break
+        return SVR_status, SCT_status, STA_status
+        
     async def getCoordinates():
+        # Connect to the robot server
         async with techmanpy.connect_svr(robot_ip=ip) as conn:
+            # Retrieve live information about the robot
             coordinates = await conn.get_value("Coord_Robot_Flange")
             speed = await conn.get_value("Project_Speed")
             status_suctionCup1 = bool(await conn.get_value("Ctrl_DO1"))
             status_suctionCup2 = bool(await conn.get_value("Ctrl_DO2"))
-            luchtdruk = await conn.get_value("Ctrl_AI0")
         return coordinates, speed, status_suctionCup1, status_suctionCup2
+    
+    # Check the connection status of the robot before retrieving live information
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    coordinates, speed, status_suctionCup1, status_suctionCup2 = loop.run_until_complete(getCoordinates())
+    SVR_status, SCT_status, STA_status = loop.run_until_complete(test_connection(ip))
     
-    return jsonify({"coordinates": coordinates, "speed": speed, "status_suctionCup1": status_suctionCup1, "status_suctionCup2": status_suctionCup2})
+    # Retrieve live information about the robot
+    coordinates, speed, status_suctionCup1, status_suctionCup2 = loop.run_until_complete(getCoordinates())
+
+    # Return the live information as a JSON object
+    return jsonify({
+        'coordinates': coordinates,
+        'speed': speed,
+        'status_suctionCup1': str(status_suctionCup1),
+        'status_suctionCup2': str(status_suctionCup2),
+        'SVR_status': SVR_status,
+        'SCT_status': SCT_status,
+        'STA_status': STA_status,
+    })
+
 
 @app.route('/updateJsonData', methods=['POST'])
 def updateJsonData():
-    # Load JSON data from file
+     # Load JSON data from file
     with open('HMI/static/json/database.json', 'r') as f:
         data = json.load(f)
 
@@ -190,7 +253,7 @@ def updateJsonData():
     id = request.form['id']
     product_package = request.form['product_package']
     crateNumber = request.form['crateNumber']
-    isActive = request.form.get('isActive', False)
+    isActive = request.form.get('isActive')
 
     # Loop through each package and product
     for item in data['items']:
@@ -199,10 +262,7 @@ def updateJsonData():
                 if product['id'] == id:
                     # Update the values for the matching product
                     product['crateNumber'] = crateNumber
-                    if isActive == "on":
-                        product['isActive'] = True
-                    else:
-                        product['isActive'] = False
+                    product['isActive'] = isActive
                     break
 
     # Save the updated JSON data back to the file
@@ -211,7 +271,6 @@ def updateJsonData():
 
     # Redirect back to the items grid
     return Response(status=204)
-
 
 
 

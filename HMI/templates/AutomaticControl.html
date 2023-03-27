@@ -60,56 +60,52 @@
       </div>
 
       <!-- Data TableView Live -->
-      <div class="tableview">
-        <div class="tableview-header">
-          <div class="header-item">Coördinaten</div>
-          <div class="header-item">Snelheid</div>
-        </div>
-        <div class="tableview-row">
-          <div class="row-item">
-            <p>X:</p>
-            <span class="coordinate-x"></span>
-          </div>
-          <div class="row-item">
-            <span class="robot-speed"></span> %
-          </div>
-        </div>
-        <div class="tableview-row">
-          <div class="row-item">
-            <p>Y:</p>
-            <span class="coordinate-y"></span>
-          </div>
-          <div class="row-item"></div>
-        </div>
-        <div class="tableview-row">
-          <div class="row-item">
-            <p>Z:</p>
-            <span class="coordinate-z"></span>
-          </div>
-          <div class="row-item"></div>
-        </div>
-        <div class="tableview-row">
-          <div class="row-item">
-            <p>RX:</p>
-            <span class="coordinate-rx"></span>
-          </div>
-          <div class="row-item"></div>
-        </div>
-        <div class="tableview-row">
-          <div class="row-item">
-            <p>RY:</p>
-            <span class="coordinate-ry"></span>
-          </div>
-          <div class="row-item"></div>
-        </div>
-        <div class="tableview-row">
-          <div class="row-item">
-            <p>RZ:</p>
-            <span class="coordinate-rz"></span>
-          </div>
-          <div class="row-item"></div>
-        </div>
+      <div class="liveData">
+        <h1>Live Information</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Parameter</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Coordinates:</td>
+              <td><span class="coordinate-x"></span>, <span class="coordinate-y"></span>, <span class="coordinate-z"></span></td>
+            </tr>
+            <tr>
+              <td>Rotation:</td>
+              <td><span class="coordinate-rx"></span>, <span class="coordinate-ry"></span>, <span class="coordinate-rz"></span></td>
+            </tr>
+            <tr>
+              <td>Robot Speed:</td>
+              <td><span class="robot-speed"></span></td>
+            </tr>
+            <tr>
+              <td>Suction Cup 1 Status:</td>
+              <td><span class="status-suction1"></span></td>
+            </tr>
+            <tr>
+              <td>Suction Cup 2 Status:</td>
+              <td><span class="status-suction2"></span></td>
+            </tr>
+            <tr>
+              <td>SVR Status:</td>
+              <td><span class="SVR_status"></span></td>
+            </tr>
+            <tr>
+              <td>SCT Status:</td>
+              <td><span class="SCT_status"></span></td>
+            </tr>
+            <tr>
+              <td>STA Status:</td>
+              <td><span class="STA_status"></span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+      
 
     <!-- Get Live Information -->
     <script>
@@ -126,7 +122,10 @@
                   $('.coordinate-rz').html(data.coordinates[5]);
                   $('.robot-speed').html(data.speed);
                   $('.status-suction1').html(data.status_suctionCup1);
-                  $('.status-suction2').html(data.status_suctionCup1);
+                  $('.status-suction2').html(data.status_suctionCup2);
+                  $('.SVR_status').html(data.SVR_status);
+                  $('.SCT_status').html(data.SCT_status);
+                  $('.STA_status').html(data.STA_status);
               });
           }, 1000); // 1000ms = 1 second
       });

@@ -4,9 +4,9 @@
       "package": "CurryMadras",
       "products": [
         {
-          "crateNumber": "2",
+          "crateNumber": "3",
           "id": "1_1",
-          "isActive": true,
+          "isActive": "true",
           "product_HSVRange": "",
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/CurryMadrasSaus.jpg?raw=true",
           "product_maxSize": "",
@@ -18,7 +18,7 @@
         {
           "crateNumber": "2",
           "id": "1_2",
-          "isActive": false,
+          "isActive": "true",
           "product_HSVRange": "",
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/Kokosmelk.jpg?raw=true",
           "product_maxSize": "",
@@ -30,7 +30,7 @@
         {
           "crateNumber": "2",
           "id": "1_3",
-          "isActive": false,
+          "isActive": "true",
           "product_HSVRange": "",
           "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Peper.png?raw=true",
           "product_maxSize": "",
@@ -42,7 +42,7 @@
         {
           "crateNumber": "2",
           "id": "1_4",
-          "isActive": false,
+          "isActive": "true",
           "product_HSVRange": "",
           "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Uien.jpg?raw=true",
           "product_maxSize": "",
