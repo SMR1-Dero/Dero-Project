@@ -257,7 +257,7 @@ def main(debug=False):
     # Initialize Camera Intel Realsense
     pipeline1,pipeline2=initizalize_rs()
     #create trackbar and images
-    camera=1
+    camera=2
     #calibrate_camera(pipeline2,camera)
     makeframe()
     while True:
