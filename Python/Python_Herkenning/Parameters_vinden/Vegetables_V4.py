@@ -6,7 +6,6 @@ import cv2
 import pyrealsense2 as rs
 import numpy as np
 import copy
-from realsense_depth import *
 vegetabledict = {
     "id": "1_8",
     "product_name": "Tomaat",
@@ -43,22 +42,6 @@ def getframe(pipeline,crop):
 
     # Return the cropped depth and color frames, as well as the full color frame
     return depth_frame_cut, color_frame_cut, np.asanyarray(color_frame_full.get_data())
-def mean_distance(depth_frame,point):
-    deler=0
-    height=0
-    mean_height=0
-    for i in range(-1,1):
-        for j in range(-1,1):
-            height=depth_frame[point[1]+j, point[0]+i]
-            if (height != 0):
-                mean_height+=height
-                deler+=1
-            j+=1
-        i+=1
-    if (deler==0):
-        return 0
-    else :
-        return (int(mean_height/deler))
 def makeframe():
     # Create windows
     cv2.namedWindow("bewerkt frame")
@@ -97,7 +80,6 @@ def image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hs
 def getpoint_round(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3):
     coordinates=[]
     pointi=None
-    distance=None
     gray,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)#0,80,80,255,255,255
     circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,2,minDist=50,param1=50,param2=30,minRadius=60,maxRadius=67)#hier aanpassingen aan maken voor filtering
     #print(circles)
@@ -109,9 +91,7 @@ def getpoint_round(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvuppe
             # draw the center of the circle
             cv2.circle(color_frame,(i[0],i[1]),2,(0,0,255),3)
             pointi=[(i[0]),(i[1])]
-            distance = mean_distance(depth_frame,pointi)
-            coordinates.append([(pointi),(distance)])
-            cv2.putText(color_frame, "{}mm".format(distance), (pointi[0], pointi[1] - 20), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 2)
+            coordinates.append([(pointi)])
 
     return color_frame,coordinates,gray
 def getpoint_notround_withstem(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3):
@@ -121,7 +101,6 @@ def getpoint_notround_withstem(depth_frame,color_frame,hsvunder1,hsvunder2,hsvun
     j=0
     loc1=[]
     pointi=(10,10)
-    distance=None
     mask,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)#0,80,30,255,255,255
     mask2,cnts2=image_edits(color_frame,10,60,0,35,200,255)#10,60,0,35,200,255
     for i in cnts2:
@@ -154,10 +133,7 @@ def getpoint_notround_withstem(depth_frame,color_frame,hsvunder1,hsvunder2,hsvun
                         cv2.circle(color_frame, (cx+number*(cx-loc1[j][0]), cy+number*(cy-loc1[j][1])), 7, (0, 0, 255), -1)
                         pointi=((cx+number*(cx-loc1[j][0])),(cy+number*(cy-loc1[j][1])))
                         #bepalen van afstand en pixel coordinaat
-                        distance = mean_distance(depth_frame,pointi)
-                        coordinates.append([pointi,distance])
-                        #tekenen van centrun en contour
-                        cv2.putText(color_frame, "{}mm".format(distance), (pointi[0], pointi[1]- 40 ), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 2)
+                        coordinates.append([pointi])
                         epsilon = 0.005 * cv2.arcLength(c, True)
                         approx = cv2.approxPolyDP(c, epsilon, True)
                         cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
@@ -165,10 +141,7 @@ def getpoint_notround_withstem(depth_frame,color_frame,hsvunder1,hsvunder2,hsvun
                         cv2.circle(color_frame, (cx, cy), 7, (0, 0, 255), -1)
                         pointi=(cx),(cy)
                         #bepalen van afstand en pixel coordinaat
-                        distance = mean_distance(depth_frame,pointi)
-                        coordinates.append([pointi,distance])
-                        #tekenen van centrun en contour
-                        cv2.putText(color_frame, "{}mm".format(distance), (pointi[0], pointi[1] - 40), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 2)
+                        coordinates.append([pointi])
                         epsilon = 0.005 * cv2.arcLength(c, True)
                         approx = cv2.approxPolyDP(c, epsilon, True)
                         cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
@@ -177,10 +150,7 @@ def getpoint_notround_withstem(depth_frame,color_frame,hsvunder1,hsvunder2,hsvun
                     cv2.circle(color_frame, (cx, cy), 7, (0, 0, 255), -1)
                     pointi=(cx),(cy)
                     #bepalen van afstand en pixel coordinaat
-                    distance = mean_distance(depth_frame,pointi)
-                    coordinates.append([pointi,distance])
-                    #tekenen van centrun en contour
-                    cv2.putText(color_frame, "{}mm".format(distance), (pointi[0], pointi[1] - 40), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 2)
+                    coordinates.append([pointi])
                     epsilon = 0.005 * cv2.arcLength(c, True)
                     approx = cv2.approxPolyDP(c, epsilon, True)
                     cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
@@ -192,7 +162,6 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
     cx=0
     cy=0
     pointi=(10,10)
-    distance=None
     mask,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)
     for c in cnts:
         area= cv2.contourArea(c)
@@ -205,11 +174,7 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
                 cy = int(M['m01']/M['m00'])
                 cv2.circle(color_frame, (cx, cy), 7, (0, 0, 255), -1)
                 pointi=(cx,cy)
-                #bepalen van afstand en pixel coordinaat
-                distance = mean_distance(depth_frame,pointi)
-                coordinates.append([pointi,distance])
-                #tekenen van centrun en contour
-                cv2.putText(color_frame, "{}mm".format(distance), (pointi[0], pointi[1] - 20), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 2)
+                coordinates.append([pointi])
                 epsilon = 0.005 * cv2.arcLength(c, True)
                 approx = cv2.approxPolyDP(c, epsilon, True)
                 cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
@@ -260,101 +225,6 @@ def initizalize_rs():
     pipeline2.start(config2)
     #Start streaming
     return pipeline1,pipeline2
-def read_cal(pl):
-    if pl==1:
-        with open('Calibration_one.txt', 'r') as f:
-            mtx = np.loadtxt(f, max_rows=3,delimiter=',')
-            dist = np.loadtxt(f, max_rows=1,delimiter=',')
-    if pl==2:
-        with open('Calibration_two.txt', 'r') as f:#'Python\Python_Herkenning\Parameters_Vinden\Calibration_two.txt'
-            mtx = np.loadtxt(f, max_rows=3,delimiter=',')
-            dist = np.loadtxt(f, max_rows=1,delimiter=',')
-    return mtx,dist
-def calibrate_camera(pipeline,pl ,chessboard_size=(17, 12), square_size=20):
-    objp = np.zeros((chessboard_size[0] * chessboard_size[1], 3), np.float32)
-    objp[:, :2] = np.mgrid[0:chessboard_size[0], 0:chessboard_size[1]].T.reshape(-1, 2) * square_size
-
-    objpoints = []
-    imgpoints = []
-
-    while True:
-        frames = pipeline.wait_for_frames()
-        color_frame = frames.get_color_frame()
-
-        if not color_frame:
-            continue
-
-        color_image = np.asanyarray(color_frame.get_data())
-        gray_image = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
-
-        ret, corners = cv2.findChessboardCorners(gray_image, chessboard_size, None)
-
-        if ret:
-            objpoints.append(objp)
-            imgpoints.append(corners)
-
-            cv2.drawChessboardCorners(color_image, chessboard_size, corners, ret)
-            cv2.imshow('Chessboard', color_image)
-            cv2.waitKey(500)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
-
-            if len(objpoints) >= 25:
-                ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray_image.shape[::-1], None, None)
-                if pl ==1:
-                    f=open('Calibration_one.txt','a')
-                    f.truncate(0)
-                    np.savetxt(f, mtx,delimiter=',')
-                    f.write("\n")
-                    np.savetxt(f, dist,delimiter=',')
-                    f.write("\n")
-                    f.close()
-                    cv2.destroyAllWindows()
-                if pl==2:
-                    f=open('Calibration_two.txt','a')
-                    f.truncate(0)
-                    np.savetxt(f, mtx,delimiter=',')
-                    f.write("\n")
-                    np.savetxt(f, dist,delimiter=',')
-                    f.write("\n")
-                    f.close()
-                    cv2.destroyAllWindows()
-                break
-
-# def make_3D_point(x, y, pipeline, mtx, dist,camera):
-#     # Get the depth frame
-#     depth_frame = pipeline.wait_for_frames().get_depth_frame()
-#     # Get the intrinsics of the depth frame
-#     depth_intrin = depth_frame.profile.as_video_stream_profile().intrinsics
-#     # Convert the pixel coordinates to the undistorted coordinates
-#     pts = np.array([[x, y]], dtype=np.float32)
-#     pts_undistorted = cv2.undistortPoints(pts, mtx, dist,P=mtx)
-#     #Get the depth value at the pixel coordinates
-#     deler=0
-#     height=0
-#     mean_height=0
-#     for i in range(-1,1):
-#         for j in range(-1,1):
-#             height=depth_frame.get_distance(int(pts_undistorted[0][0][0]+j), int(pts_undistorted[0][0][1])+i)
-#             if (height != 0):
-#                 mean_height+=height
-#                 deler+=1
-#     if(deler!=0):
-#         depth=mean_height/deler
-#     else:
-#         depth = depth_frame.get_distance(int(pts_undistorted[0][0][0]), int(pts_undistorted[0][0][1]))
-        
-#     #depth = depth_frame.get_distance(int(pts_undistorted[0][0][0]), int(pts_undistorted[0][0][1]))
-#     # Convert the pixel coordinates to the camera coordinate system
-#     point = rs.rs2_deproject_pixel_to_point(depth_intrin, [(pts_undistorted[0][0][0]), (pts_undistorted[0][0][1])], depth)#x,y,z
-#     print(point)
-#     if (camera==1):
-#         cam1=[-642.56,277.4,976.87]
-#         point=[(-point[1]*1000)-cam1[0],(-point[0]*1000)+cam1[1],(point[2]*1000)-cam1[2]]
-#     elif(camera==2):
-#         cam2=[-703,211,995]
-#         point=[-(point[1]*1000)+cam2[0],(-point[0]*1000)+cam2[1],(-point[2]*1000+cam2[2])]
-#     return point
 def make_3D_point(x, y, pipeline,camera):
     # Wait for a coherent pair of frames: depth and color
     frames = pipeline.wait_for_frames()
@@ -374,19 +244,20 @@ def make_3D_point(x, y, pipeline,camera):
     world_coords = np.append(world_coords, [1])
     world_coords = np.dot(depth_to_color_extrinsics, world_coords)
     world_coords = world_coords[:3]
-    return world_coords
+    #return world_coords
     if (camera==1):
-        cam1=[-642.56,277.4,976.87]
-        point=[(-world_coords[1]*1000)-cam1[0],(-world_coords[0]*1000)+cam1[1],(world_coords[2]*1000)-cam1[2]]
+        cam1=[619.37,-650,906.8]
+        point=[-(world_coords[1]*1000)-cam1[0],-(world_coords[0]*1000)+cam1[1],(-world_coords[2]*1000)+cam1[2]]
     elif(camera==2):
-        cam2=[-703,211,995]
-        point=[-(world_coords[1]*1000)+cam2[0],(-world_coords[0]*1000)+cam2[1],(-world_coords[2]*1000+cam2[2])]
+        cam2=[-670,215,906.8]
+        point=[-(world_coords[1]*1000)+cam2[0],-(world_coords[0]*1000)+cam2[1],(-world_coords[2]*1000+cam2[2])]
     return(point)
+
 def main(debug=False):
     # Initialize Camera Intel Realsense
     pipeline1,pipeline2=initizalize_rs()
     #create trackbar and images
-    camera=2
+    camera=1
     #calibrate_camera(pipeline2,camera)
     makeframe()
     while True:
@@ -394,7 +265,6 @@ def main(debug=False):
             pipeline=pipeline1
         elif(camera==2):
             pipeline=pipeline2
-        mtx,dist=read_cal(camera)
         #read info from trackbars
         hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3=readtrackbar()
         #Use filters and circle detection to get center coordinate
