@@ -342,11 +342,19 @@ def make_3D_point(x, y, pipeline,camera):
     world_coords = world_coords[:3]
     return world_coords
     if (camera==1):
+<<<<<<< HEAD
         cam1=[-642.56,277.4,976.87]
         point=[(-world_coords[1]*1000)-cam1[0],(-world_coords[0]*1000)+cam1[1],(world_coords[2]*1000)-cam1[2]]
     elif(camera==2):
         cam2=[-703,211,995]
         point=[-(world_coords[1]*1000)+cam2[0],(-world_coords[0]*1000)+cam2[1],(-world_coords[2]*1000+cam2[2])]
+=======
+        cam1=[-594.37,-645,920.8]
+        point=[-(world_coords[1]*1000)+cam1[0],-(world_coords[0]*1000)+cam1[1],(-world_coords[2]*1000)+cam1[2]]
+    elif(camera==2):
+        cam2=[-650,215,930.8]
+        point=[-(world_coords[1]*1000)+cam2[0],-(world_coords[0]*1000)+cam2[1],(-world_coords[2]*1000+cam2[2])]
+>>>>>>> 835c691469614d4b91674000dbb81170f705430a
     return(point)
 def main(debug=False):
     # Initialize Camera Intel Realsense
