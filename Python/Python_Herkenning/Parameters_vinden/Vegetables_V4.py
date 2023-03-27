@@ -246,8 +246,8 @@ def make_3D_point(x, y, pipeline,camera):
     world_coords = world_coords[:3]
     #return world_coords
     if (camera==1):
-        cam1=[619.37,-650,906.8]
-        point=[-(world_coords[1]*1000)-cam1[0],-(world_coords[0]*1000)+cam1[1],(-world_coords[2]*1000)+cam1[2]]
+        cam1=[-594.37,-645,906.8]
+        point=[-(world_coords[1]*1000)+cam1[0],-(world_coords[0]*1000)+cam1[1],(-world_coords[2]*1000)+cam1[2]]
     elif(camera==2):
         cam2=[-670,215,906.8]
         point=[-(world_coords[1]*1000)+cam2[0],-(world_coords[0]*1000)+cam2[1],(-world_coords[2]*1000+cam2[2])]
