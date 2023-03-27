@@ -11,9 +11,9 @@ vegetabledict = {
     "product_name": "Tomaat",
     "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
     "product_package": "Curry Madras",
-    "crateNumber": "5",
+    "crateNumber": "1",
     "isActive": "on",
-    "product_shape": "Not round",
+    "product_shape": "Round",
     "product_HSVRange": [0,80,80,255,255,255],
     "product_minSize": "",
     "product_maxSize": ""
@@ -81,7 +81,7 @@ def getpoint_round(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvuppe
     coordinates=[]
     pointi=None
     gray,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)#0,80,80,255,255,255
-    circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,2,minDist=50,param1=50,param2=30,minRadius=60,maxRadius=67)#hier aanpassingen aan maken voor filtering
+    circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,2,minDist=50,param1=50,param2=30,minRadius=24,maxRadius=30)#hier aanpassingen aan maken voor filtering
     #print(circles)
     if circles is not None:
         circles = np.uint16(np.around(circles))
@@ -180,7 +180,7 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
                 cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
     return color_frame,coordinates,mask
 
-def getpoint(pipeline, vegetable):
+def getpoint(pipeline1,pipeline2, vegetable):
     crop=[[(20),(700),(600),(1075)],[(20),(680),(150),(600)],[(0),(680),(630),(1100)],[(0),(680),(170),(630)],[(0),(720),(0),(1280)]]
 
 
@@ -189,7 +189,12 @@ def getpoint(pipeline, vegetable):
     max_size = vegetable["product_maxSize"]
     hsv_range = vegetable["product_HSVRange"]
     crate_number = int(vegetable["crateNumber"])
-
+    if (crate_number==1) or (crate_number==2):
+        pipeline=pipeline1
+        camera=1
+    if (crate_number==3) or (crate_number==4):
+        pipeline=pipeline2
+        camera=2
     depth_cut,color_cut,orginal_color_frame=getframe(pipeline,crop[crate_number-1])
 
     if (shape == "Round"):
@@ -199,7 +204,7 @@ def getpoint(pipeline, vegetable):
     elif (shape == "Not round with stem"):
         image_with_points,pickup_coordinates,gray_image=getpoint_notround_withstem(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5])
     
-    return image_with_points,pickup_coordinates,gray_image,crop[crate_number-1],orginal_color_frame
+    return image_with_points,pickup_coordinates,gray_image,crop[crate_number-1],orginal_color_frame,camera,pipeline
 
 def draw_original(original,coordinates,xcorrect,ycorrect):
     cv2.circle(original,(coordinates[0][0][0]+xcorrect,coordinates[0][0][1]+ycorrect),1,(0,255,0),2)
@@ -224,6 +229,7 @@ def initizalize_rs():
     config2.enable_device(serial_number2)
     pipeline2.start(config2)
     #Start streaming
+    cv2.waitKey(1000)
     return pipeline1,pipeline2
 def make_3D_point(x, y, pipeline,camera):
     # Wait for a coherent pair of frames: depth and color
@@ -246,10 +252,10 @@ def make_3D_point(x, y, pipeline,camera):
     world_coords = world_coords[:3]
     #return world_coords
     if (camera==1):
-        cam1=[-594.37,-645,906.8]
+        cam1=[-594.37,-645,936.8]
         point=[-(world_coords[1]*1000)+cam1[0],-(world_coords[0]*1000)+cam1[1],(-world_coords[2]*1000)+cam1[2]]
     elif(camera==2):
-        cam2=[-670,215,906.8]
+        cam2=[-670,215,936.8]
         point=[-(world_coords[1]*1000)+cam2[0],-(world_coords[0]*1000)+cam2[1],(-world_coords[2]*1000+cam2[2])]
     return(point)
 
@@ -261,14 +267,10 @@ def main(debug=False):
     #calibrate_camera(pipeline2,camera)
     makeframe()
     while True:
-        if (camera==1):
-            pipeline=pipeline1
-        elif(camera==2):
-            pipeline=pipeline2
         #read info from trackbars
         hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3=readtrackbar()
         #Use filters and circle detection to get center coordinate
-        image_with_points,pickup_coordinates,gray_image,crop,original_color_frame=getpoint(pipeline,vegetabledict)
+        image_with_points,pickup_coordinates,gray_image,crop,original_color_frame,camera,pipeline=getpoint(pipeline1,pipeline2,vegetabledict)
         if pickup_coordinates != []:
             point=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline,camera)
             print("3D Point in robot arm coordinates:", point)
