@@ -6,15 +6,14 @@ import cv2
 import pyrealsense2 as rs
 import numpy as np
 import copy
-
 vegetabledict = {
     "id": "1_8",
     "product_name": "Tomaat",
     "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
     "product_package": "Curry Madras",
-    "crateNumber": "5",
+    "crateNumber": "1",
     "isActive": "on",
-    "product_shape": "Not round",
+    "product_shape": "Round",
     "product_HSVRange": [0,80,80,255,255,255],
     "product_minSize": "",
     "product_maxSize": ""
@@ -43,7 +42,6 @@ def getframe(pipeline,crop):
 
     # Return the cropped depth and color frames, as well as the full color frame
     return depth_frame_cut, color_frame_cut, np.asanyarray(color_frame_full.get_data())
-
 def makeframe():
     # Create windows
     cv2.namedWindow("bewerkt frame")
@@ -83,7 +81,7 @@ def getpoint_round(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvuppe
     coordinates=[]
     pointi=None
     gray,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)#0,80,80,255,255,255
-    circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,2,minDist=50,param1=50,param2=30,minRadius=60,maxRadius=67)#hier aanpassingen aan maken voor filtering
+    circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,2,minDist=50,param1=50,param2=30,minRadius=24,maxRadius=30)#hier aanpassingen aan maken voor filtering
     #print(circles)
     if circles is not None:
         circles = np.uint16(np.around(circles))
@@ -134,16 +132,16 @@ def getpoint_notround_withstem(depth_frame,color_frame,hsvunder1,hsvunder2,hsvun
                     if (abs(cx-loc1[j][0])<=25 and abs(cy-loc1[j][1])<=25):
                         cv2.circle(color_frame, (cx+number*(cx-loc1[j][0]), cy+number*(cy-loc1[j][1])), 7, (0, 0, 255), -1)
                         pointi=((cx+number*(cx-loc1[j][0])),(cy+number*(cy-loc1[j][1])))
+                        #bepalen van afstand en pixel coordinaat
                         coordinates.append([pointi])
-                        #tekenen van centrun en contour
                         epsilon = 0.005 * cv2.arcLength(c, True)
                         approx = cv2.approxPolyDP(c, epsilon, True)
                         cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
                     else:
                         cv2.circle(color_frame, (cx, cy), 7, (0, 0, 255), -1)
                         pointi=(cx),(cy)
+                        #bepalen van afstand en pixel coordinaat
                         coordinates.append([pointi])
-                        #tekenen van centrun en contour
                         epsilon = 0.005 * cv2.arcLength(c, True)
                         approx = cv2.approxPolyDP(c, epsilon, True)
                         cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
@@ -151,6 +149,7 @@ def getpoint_notround_withstem(depth_frame,color_frame,hsvunder1,hsvunder2,hsvun
                 if (loc1==[]):
                     cv2.circle(color_frame, (cx, cy), 7, (0, 0, 255), -1)
                     pointi=(cx),(cy)
+                    #bepalen van afstand en pixel coordinaat
                     coordinates.append([pointi])
                     epsilon = 0.005 * cv2.arcLength(c, True)
                     approx = cv2.approxPolyDP(c, epsilon, True)
@@ -175,22 +174,27 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
                 cy = int(M['m01']/M['m00'])
                 cv2.circle(color_frame, (cx, cy), 7, (0, 0, 255), -1)
                 pointi=(cx,cy)
-                #bepalen van afstand en pixel coordinaat
                 coordinates.append([pointi])
-                #tekenen van centrun en contour
                 epsilon = 0.005 * cv2.arcLength(c, True)
                 approx = cv2.approxPolyDP(c, epsilon, True)
                 cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
     return color_frame,coordinates,mask
 
-def getpoint(pipeline, vegetable):
+def getpoint(pipeline1,pipeline2, vegetable):
     crop=[[(20),(700),(600),(1075)],[(20),(680),(150),(600)],[(0),(680),(630),(1100)],[(0),(680),(170),(630)],[(0),(720),(0),(1280)]]
+
+
     shape = vegetable["product_shape"]
     min_size = vegetable["product_minSize"]
     max_size = vegetable["product_maxSize"]
     hsv_range = vegetable["product_HSVRange"]
     crate_number = int(vegetable["crateNumber"])
-
+    if (crate_number==1) or (crate_number==2):
+        pipeline=pipeline1
+        camera=1
+    if (crate_number==3) or (crate_number==4):
+        pipeline=pipeline2
+        camera=2
     depth_cut,color_cut,orginal_color_frame=getframe(pipeline,crop[crate_number-1])
 
     if (shape == "Round"):
@@ -200,7 +204,7 @@ def getpoint(pipeline, vegetable):
     elif (shape == "Not round with stem"):
         image_with_points,pickup_coordinates,gray_image=getpoint_notround_withstem(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5])
     
-    return image_with_points,pickup_coordinates,gray_image,crop[crate_number-1],orginal_color_frame
+    return image_with_points,pickup_coordinates,gray_image,crop[crate_number-1],orginal_color_frame,camera,pipeline
 
 def draw_original(original,coordinates,xcorrect,ycorrect):
     cv2.circle(original,(coordinates[0][0][0]+xcorrect,coordinates[0][0][1]+ycorrect),1,(0,255,0),2)
@@ -225,102 +229,8 @@ def initizalize_rs():
     config2.enable_device(serial_number2)
     pipeline2.start(config2)
     #Start streaming
+    cv2.waitKey(1000)
     return pipeline1,pipeline2
-def read_cal(pl):
-    if pl==1:
-        with open('Calibration_one.txt', 'r') as f:
-            mtx = np.loadtxt(f, max_rows=3,delimiter=',')
-            dist = np.loadtxt(f, max_rows=1,delimiter=',')
-    if pl==2:
-        with open('Calibration_two.txt', 'r') as f:#'Python\Python_Herkenning\Parameters_Vinden\Calibration_two.txt'
-            mtx = np.loadtxt(f, max_rows=3,delimiter=',')
-            dist = np.loadtxt(f, max_rows=1,delimiter=',')
-    return mtx,dist
-def calibrate_camera(pipeline,pl ,chessboard_size=(17, 12), square_size=20):
-    objp = np.zeros((chessboard_size[0] * chessboard_size[1], 3), np.float32)
-    objp[:, :2] = np.mgrid[0:chessboard_size[0], 0:chessboard_size[1]].T.reshape(-1, 2) * square_size
-
-    objpoints = []
-    imgpoints = []
-
-    while True:
-        frames = pipeline.wait_for_frames()
-        color_frame = frames.get_color_frame()
-
-        if not color_frame:
-            continue
-
-        color_image = np.asanyarray(color_frame.get_data())
-        gray_image = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
-
-        ret, corners = cv2.findChessboardCorners(gray_image, chessboard_size, None)
-
-        if ret:
-            objpoints.append(objp)
-            imgpoints.append(corners)
-
-            cv2.drawChessboardCorners(color_image, chessboard_size, corners, ret)
-            cv2.imshow('Chessboard', color_image)
-            cv2.waitKey(500)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
-
-            if len(objpoints) >= 25:
-                ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray_image.shape[::-1], None, None)
-                if pl ==1:
-                    f=open('Calibration_one.txt','a')
-                    f.truncate(0)
-                    np.savetxt(f, mtx,delimiter=',')
-                    f.write("\n")
-                    np.savetxt(f, dist,delimiter=',')
-                    f.write("\n")
-                    f.close()
-                    cv2.destroyAllWindows()
-                if pl==2:
-                    f=open('Calibration_two.txt','a')
-                    f.truncate(0)
-                    np.savetxt(f, mtx,delimiter=',')
-                    f.write("\n")
-                    np.savetxt(f, dist,delimiter=',')
-                    f.write("\n")
-                    f.close()
-                    cv2.destroyAllWindows()
-                break
-
-# def make_3D_point(x, y, pipeline, mtx, dist,camera):
-#     # Get the depth frame
-#     depth_frame = pipeline.wait_for_frames().get_depth_frame()
-#     # Get the intrinsics of the depth frame
-#     depth_intrin = depth_frame.profile.as_video_stream_profile().intrinsics
-#     # Convert the pixel coordinates to the undistorted coordinates
-#     pts = np.array([[x, y]], dtype=np.float32)
-#     pts_undistorted = cv2.undistortPoints(pts, mtx, dist,P=mtx)
-#     #Get the depth value at the pixel coordinates
-#     deler=0
-#     height=0
-#     mean_height=0
-#     for i in range(-1,1):
-#         for j in range(-1,1):
-#             height=depth_frame.get_distance(int(pts_undistorted[0][0][0]+j), int(pts_undistorted[0][0][1])+i)
-#             if (height != 0):
-#                 mean_height+=height
-#                 deler+=1
-#     if(deler!=0):
-#         depth=mean_height/deler
-#     else:
-#         depth = depth_frame.get_distance(int(pts_undistorted[0][0][0]), int(pts_undistorted[0][0][1]))
-        
-#     #depth = depth_frame.get_distance(int(pts_undistorted[0][0][0]), int(pts_undistorted[0][0][1]))
-#     # Convert the pixel coordinates to the camera coordinate system
-#     point = rs.rs2_deproject_pixel_to_point(depth_intrin, [(pts_undistorted[0][0][0]), (pts_undistorted[0][0][1])], depth)#x,y,z
-#     print(point)
-#     if (camera==1):
-#         cam1=[-642.56,277.4,976.87]
-#         point=[(-point[1]*1000)-cam1[0],(-point[0]*1000)+cam1[1],(point[2]*1000)-cam1[2]]
-#     elif(camera==2):
-#         cam2=[-703,211,995]
-#         point=[-(point[1]*1000)+cam2[0],(-point[0]*1000)+cam2[1],(-point[2]*1000+cam2[2])]
-#     return point
 def make_3D_point(x, y, pipeline,camera):
     # Wait for a coherent pair of frames: depth and color
     frames = pipeline.wait_for_frames()
@@ -340,60 +250,12 @@ def make_3D_point(x, y, pipeline,camera):
     world_coords = np.append(world_coords, [1])
     world_coords = np.dot(depth_to_color_extrinsics, world_coords)
     world_coords = world_coords[:3]
-    return world_coords
+    #return world_coords
     if (camera==1):
-<<<<<<< HEAD
-        cam1=[-642.56,277.4,976.87]
-        point=[(-world_coords[1]*1000)-cam1[0],(-world_coords[0]*1000)+cam1[1],(world_coords[2]*1000)-cam1[2]]
-    elif(camera==2):
-        cam2=[-703,211,995]
-        point=[-(world_coords[1]*1000)+cam2[0],(-world_coords[0]*1000)+cam2[1],(-world_coords[2]*1000+cam2[2])]
-=======
-        cam1=[-594.37,-645,920.8]
+        cam1=[-594.37,-645,936.8]
         point=[-(world_coords[1]*1000)+cam1[0],-(world_coords[0]*1000)+cam1[1],(-world_coords[2]*1000)+cam1[2]]
     elif(camera==2):
-        cam2=[-650,215,930.8]
+        cam2=[-670,215,936.8]
         point=[-(world_coords[1]*1000)+cam2[0],-(world_coords[0]*1000)+cam2[1],(-world_coords[2]*1000+cam2[2])]
->>>>>>> 835c691469614d4b91674000dbb81170f705430a
     return(point)
-def main(debug=False):
-    # Initialize Camera Intel Realsense
-    pipeline1,pipeline2=initizalize_rs()
-    #create trackbar and images
-    camera=2
-    #calibrate_camera(pipeline2,camera)
-    makeframe()
-    while True:
-        if (camera==1):
-            pipeline=pipeline1
-        elif(camera==2):
-            pipeline=pipeline2
-        mtx,dist=read_cal(camera)
-        #read info from trackbars
-        hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3=readtrackbar()
-        #Use filters and circle detection to get center coordinate
-        image_with_points,pickup_coordinates,gray_image,crop,original_color_frame=getpoint(pipeline,vegetabledict)
-        if pickup_coordinates != []:
-            point=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline,camera)
-            print("3D Point in robot arm coordinates:", point)
-            #print(coor[0][0][0])
-            #show edited and original frame with contours and center
-            original_with_points=draw_original(original_color_frame, pickup_coordinates,crop[0],crop[2])
-            if debug:
-                cv2.imshow("Origineel frame", original_with_points)
-        if debug:
-            cv2.imshow("bewerkt frame", image_with_points)
-            cv2.imshow("Grijs frame",gray_image)
-        cv2.waitKey(100)
-        key = cv2.waitKey(1)
-        if key == 27:  # ESC
-            break
-        #maxheight,pos=find_high_points(depth)
-    key = cv2.waitKey(0)
-        #if key == 27:
-            #        break
-    cv2.destroyAllWindows()
-    # Stop streaming
-    pipeline1.stop()
-    pipeline2.stop()
-main(debug=True)
+
