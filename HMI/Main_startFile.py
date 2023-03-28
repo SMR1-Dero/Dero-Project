@@ -37,7 +37,7 @@ def main(debug=False):
             if debug:
                 cv2.imshow("Origineel frame", original_with_points)
         if debug:
-            cv2.imshow("bewerkt frame", image_with_points)
+           # cv2.imshow("bewerkt frame", image_with_points)
             cv2.imshow("Grijs frame",gray_image)
         cv2.waitKey(100)
         key = cv2.waitKey(1)
