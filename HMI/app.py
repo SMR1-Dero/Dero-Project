@@ -287,6 +287,14 @@ def Start():
 
     hoverBox = [511.01 , -212.48 , topPlane , rx , ry , rz_boxSide]
 
+    # Suction
+    # ry (-27.99 or 0.0), because of the other suction cup
+    # rz (90.0 or -90.0), because of the lamp of the camera
+    redSuctionTop = [0.0 , 0.0 , topPlane , 180.0 , -27.99 , -90.0]
+    redSuctionDown = [0.0 , 0.0 , topPlane , 180.0 , -27.99 , 90.0]
+    blueSuctionTop = [0.0 , 0.0 , topPlane , 180.0 , 31.19 , -90.0]
+    blueSuctionDown = [0.0 , 0.0 , topPlane , 180.0 , 31.19 , 90.0 ]
+
     # Initializing Camera
     pipeline1,pipeline2=initizalize_rs()
     camera=2
@@ -320,19 +328,25 @@ def Start():
                     # Get Coordinate Crate Hover
                     getHoverCoordinates(item["crateNumber"], hoverCrate1, hoverCrate2, hoverCrate3, hoverCrate4)
 
+                    # Get Coordinates and closer hover
+                    getVegetable = [getVegetable[0] , getVegetable[1] , 75.0 , 180.0 , -27.99 , -90.0]
+                    asyncio.run(position(getVegetable, 0))
+
                     # Orientation End-Of-Arm-Tool
                     if place == "LeftUp":
-
+                        if suction_cup == "red" and is_sucking_red:
+                            # Choose blue suction cup
+                        elif suction_cup == "blue" and is_sucking_blue:
+                            # Choose red suction cup
+                        elif suction_cup == "redblue" and (is_sucking_red or is_sucking_blue):
+                            # Choose the other suction cup
                     elif place == "LeftDown":
-
-
+                        # Same as LeftUp but with different suction cup checks
                     elif place == "RightUp":
-
+                        # Same as LeftUp but with different suction cup checks
                     elif place == "RightDown":
+                        # Same as LeftUp but with different suction cup checks
 
-                    # Get Coordinate Pick Up
-                    getVegetable = [getVegetable[0] , getVegetable[1] , getVegetable[2] , rx , -27.99 , rz_crateSide]
-                    asyncio.run(position(getVegetable, 1))
 
                     # Turn On Suction
                     asyncio.run(setSuctionCup1(1))
