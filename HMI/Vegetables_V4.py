@@ -180,17 +180,30 @@ def getpoint(pipeline1,pipeline2, vegetable):
         pipeline=pipeline2
         camera=2
     depth_cut,color_cut,orginal_color_frame=getframe(pipeline,crop[crate_number-1])
-
+    print((crop[crate_number-1][3]-crop[crate_number-1][2])/2)
+    
     if (shape == "Round"):
         image_with_points,pickup_coordinates,gray_image=getpoint_round(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5])
     elif (shape == "Not round"):
         image_with_points,pickup_coordinates,gray_image=getpoint_notround(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5])
     elif (shape == "Not round with stem"):
         image_with_points,pickup_coordinates,gray_image=getpoint_notround_withstem(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5])
+    #determine place in crate
+    if (pickup_coordinates != []):
+        if (pickup_coordinates[0][0][0]<(crop[crate_number-1][3]-crop[crate_number-1][2])/2 and pickup_coordinates[0][0][1]<(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
+            place="LeftUp"
+        elif(pickup_coordinates[0][0][0]<(crop[crate_number-1][3]-crop[crate_number-1][2])/2 and pickup_coordinates[0][0][1]>=(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
+            place="LeftDown"
+        elif(pickup_coordinates[0][0][0]>=(crop[crate_number-1][3]-crop[crate_number-1][2])/2 and pickup_coordinates[0][0][1]<(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
+            place="RightUp"
+        elif (pickup_coordinates[0][0][0]>=(crop[crate_number-1][3]-crop[crate_number-1][2])/2 and pickup_coordinates[0][0][1]>=(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
+            place="RightDown"
+    elif(pickup_coordinates == []):
+        place=None
     
-    return image_with_points,pickup_coordinates,gray_image,crop[crate_number-1],orginal_color_frame,camera,pipeline
+    return image_with_points,pickup_coordinates,gray_image,crop[crate_number-1],orginal_color_frame,camera,pipeline,place
 
-def draw_original(original,coordinates,xcorrect,ycorrect):
+def draw_original(original,coordinates,xcorrect=0,ycorrect=0):
     cv2.circle(original,(coordinates[0][0][0]+xcorrect,coordinates[0][0][1]+ycorrect),1,(0,255,0),2)
     return original
 def initizalize_rs():
@@ -215,6 +228,7 @@ def initizalize_rs():
     #Start streaming
     cv2.waitKey(1000)
     return pipeline1,pipeline2
+
 def make_3D_point(x, y, pipeline,camera):
     # Wait for a coherent pair of frames: depth and color
     frames = pipeline.wait_for_frames()
@@ -222,7 +236,7 @@ def make_3D_point(x, y, pipeline,camera):
     color_frame = frames.get_color_frame()
 
     # Get the depth value at the point of interest
-    depth_value = depth_frame.get_distance(x, y)*0.98
+    depth_value = depth_frame.get_distance(x, y)
 
     # Convert depth pixel coordinates to world coordinates
     depth_intrinsics = depth_frame.profile.as_video_stream_profile().intrinsics
@@ -241,4 +255,7 @@ def make_3D_point(x, y, pipeline,camera):
     elif(camera==2):
         cam2=[-670,215,936.8]
         point=[-(world_coords[1]*1000)+cam2[0],-(world_coords[0]*1000)+cam2[1],(-world_coords[2]*1000+cam2[2])]
+    
+
+
     return(point)
