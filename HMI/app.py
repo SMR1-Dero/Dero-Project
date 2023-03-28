@@ -8,8 +8,6 @@ from techmanpy import TechmanException
 import pyrealsense2 as rs
 import time
 import copy
-from realsense_depth import *
-
 from connectionPLC import *
 
 import os
