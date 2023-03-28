@@ -15,7 +15,7 @@ vegetabledict = {
     "product_minSize": "",
     "product_maxSize": ""
 }
-
+print(cv2.__version__)
 def main(debug=False):
     # Initialize Camera Intel Realsense
     pipeline1,pipeline2=initizalize_rs()
