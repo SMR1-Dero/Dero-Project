@@ -20,7 +20,7 @@ app.static_folder = 'static'
 # -----------------------------------------------------------
 # PLC
 
-ip = '192.168.0.202'
+ip = '192.168.0.204'
 
 async def position(positionArray, tag):
     async with techmanpy.connect_sct(robot_ip=ip) as conn:
@@ -206,7 +206,7 @@ def getLiveInformation():
     # Check the connection status of the robot before retrieving live information
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    SVR_status, SCT_status, STA_status = loop.run_until_complete(test_connection(ip))
+    #SVR_status, SCT_status, STA_status = loop.run_until_complete(test_connection(ip))
     
     # Retrieve live information about the robot
     coordinates, speed, status_suctionCup1, status_suctionCup2 = loop.run_until_complete(getCoordinates())
@@ -217,9 +217,9 @@ def getLiveInformation():
         'speed': speed,
         'status_suctionCup1': str(status_suctionCup1),
         'status_suctionCup2': str(status_suctionCup2),
-        'SVR_status': SVR_status,
-        'SCT_status': SCT_status,
-        'STA_status': STA_status,
+        #'SVR_status': SVR_status,
+        #'SCT_status': SCT_status,
+        #'STA_status': STA_status,
     })
 
 
@@ -258,21 +258,22 @@ def getHoverCoordinates(crateNumber, hoverCrate1, hoverCrate2, hoverCrate3, hove
 
     if crateNumber == "1":
         asyncio.run(position(hoverCrate1, 0))
-        return print("Hover over crate 1")
+        #return print("Hover over crate 1")
     elif crateNumber == "2":
         asyncio.run(position(hoverCrate2, 0))
-        return print("Hover over crate 2")
+        #return print("Hover over crate 2")
     elif crateNumber == "3":
         asyncio.run(position(hoverCrate3, 0))
-        return print("Hover over crate 3")
+        #return print("Hover over crate 3")
     elif crateNumber == "4":
         asyncio.run(position(hoverCrate4, 0))
-        return print("Hover over crate 4")
+        #return print("Hover over crate 4")
 
 @app.route('/Start', methods=['POST'])
 def Start():
 
     # Variables
+    teller = 0 # Counts when it needs to return home
     place = "" # Camera Gives String that describes the place of the vegetable
     topPlane = 400.0
     rx = 180.0
@@ -285,22 +286,20 @@ def Start():
     hoverCrate3 = [-647.11 , 139.67 , topPlane , rx , ry , rz_crateSide]
     hoverCrate4 = [-660.57 , 593.36 , topPlane , rx , ry , rz_crateSide]
 
-    hoverBox = [511.01 , -212.48 , topPlane , rx , ry , rz_boxSide]
+    hoverBox = [511.01 , -212.48 , 600.0 , rx , ry , rz_boxSide]
 
     # Suction
     # ry (-27.99 or 0.0), because of the other suction cup
     # rz (90.0 or -90.0), because of the lamp of the camera
-    redSuctionTop = [0.0 , 0.0 , topPlane , 180.0 , -27.99 , -90.0]
-    redSuctionDown = [0.0 , 0.0 , topPlane , 180.0 , -27.99 , 90.0]
-    blueSuctionTop = [0.0 , 0.0 , topPlane , 180.0 , 31.19 , -90.0]
-    blueSuctionDown = [0.0 , 0.0 , topPlane , 180.0 , 31.19 , 90.0 ]
+    redSuction = [0.0 , 0.0 , 0.0 , 180.0 , -31.19 , -90.0]
+    blueSuction = [0.0 , 0.0 , 0.0 , 180.0 , 31.19 , -90.0]
 
     # Initializing Camera
     pipeline1,pipeline2=initizalize_rs()
     camera=2
 
     # Open JSON
-    with open('HMI\static\json\database.json', 'r') as f:
+    with open('HMI\static\json\database_test.json', 'r') as f:
         data = json.load(f)
 
     # Get Package Name
@@ -312,65 +311,63 @@ def Start():
                 if item["isActive"] == "true":
 
                     # Make Picture and Calculate Coordinates
-                    got_frame = 0              
+                    got_frame = 0
                     while True:
                         #Use filters and circle detection to get center coordinate
                         image_with_points,pickup_coordinates,gray_image,crop,original_color_frame,camera,pipeline,place=getpoint(pipeline1,pipeline2,item)
+                        
                         if pickup_coordinates != []:
-                            getVegetable=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline,camera)
+                            location=make_3D_point(pickup_coordinates[item['indexCoordinates']][0][0]+crop[2], pickup_coordinates[item['indexCoordinates']][0][1]+crop[0],pipeline,camera)
                             original_with_points=draw_original(original_color_frame, pickup_coordinates,crop[0],crop[2])
-                            place
-                            got_frame = 1
+                            print(location)
+                            item['coordinates'] = location # Coordinates
+                            item['product_location'] = place # Placement in crate
+                            print(item["indexCoordinates"])
+                            if len(pickup_coordinates) >= 2:
+                                got_frame = 1
                         
                         if got_frame == 1:
                             break
 
+    # Save the updated JSON data back to the file
+    with open('HMI/static/json/database_test.json', 'w') as f:
+        json.dump(data, f, indent=2)
+
+    for product in data["items"]:
+        if product["package"] == package:
+            for item in product["products"]:
+                if item["isActive"] == "true":
                     # Get Coordinate Crate Hover
                     getHoverCoordinates(item["crateNumber"], hoverCrate1, hoverCrate2, hoverCrate3, hoverCrate4)
 
-                    # Get Coordinates and closer hover
-                    getVegetable = [getVegetable[0] , getVegetable[1] , 75.0 , 180.0 , -27.99 , -90.0]
-                    asyncio.run(position(getVegetable, 0))
+                    print(item["product_location"])
 
-                    # Orientation End-Of-Arm-Tool
-                    if place == "LeftUp":
-                        if suction_cup == "red" and is_sucking_red:
-                            # Choose blue suction cup
-                        elif suction_cup == "blue" and is_sucking_blue:
-                            # Choose red suction cup
-                        elif suction_cup == "redblue" and (is_sucking_red or is_sucking_blue):
-                            # Choose the other suction cup
-                    elif place == "LeftDown":
-                        # Same as LeftUp but with different suction cup checks
-                    elif place == "RightUp":
-                        # Same as LeftUp but with different suction cup checks
-                    elif place == "RightDown":
-                        # Same as LeftUp but with different suction cup checks
-
-
-                    # Turn On Suction
-                    asyncio.run(setSuctionCup1(1))
+                    if ((item["product_location"] == "LeftUp") or (item["product_location"] == "LeftDown")):
+                        redSuction[0] = item["coordinates"][0]
+                        redSuction[1] = item["coordinates"][1]
+                        redSuction[2] = 200.0
+                        asyncio.run(position(redSuction, 0))
+                        
+                    elif ((item["product_location"] == "RightUp") or (item["product_location"] == "RightDown")):
+                        blueSuction[0] = item["coordinates"][0]
+                        blueSuction[1] = item["coordinates"][1]
+                        blueSuction[2] = 200.0
+                        asyncio.run(position(blueSuction, 0))
+                        
 
                     # Get Coordinate Crate Hover
-                    if item["crateNumber"] == "1":
-                        asyncio.run(position(hoverCrate1, 0))
-                    if item["crateNumber"] == "2":
-                        asyncio.run(position(hoverCrate2, 0))
-                    if item["crateNumber"] == "3":
-                        asyncio.run(position(hoverCrate3, 0))
-                    if item["crateNumber"] == "4":
-                        asyncio.run(position(hoverCrate4, 0))
-                    # Get Coordinate Box Hover
-                    asyncio.run(position(hoverBox, 1))
-                    # Get Coordinate Box Place
+                    getHoverCoordinates(item["crateNumber"], hoverCrate1, hoverCrate2, hoverCrate3, hoverCrate4)
+                    teller += 1
+                    if teller == 2:
+                        # Get Coordinate Box Hover
+                        asyncio.run(position(hoverBox, 0))
+                        teller = 0
 
-                    # Turn Off Suction
-                    asyncio.run(setSuctionCup1(0))
-                    # Get Coordinate Box Hover
-                    asyncio.run(position(hoverBox, 0))
 
-    pipeline1.stop()    
-    pipeline2.stop()
+
+
+    #pipeline1.stop()    
+    #pipeline2.stop()
 
     return Response(status=204)
 
