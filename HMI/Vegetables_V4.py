@@ -8,7 +8,7 @@ def show_distance(event, x, y, args, params):
     point = (x, y)
 def nothing(x):
     pass
-def getframe(pipeline,crop):
+def getframe(pipeline,crop=((0),(720),(0),(1280))):
     # Wait for a new set of frames from the pipeline
     frames = pipeline.wait_for_frames()
 
@@ -162,17 +162,52 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
                 epsilon = 0.005 * cv2.arcLength(c, True)
                 approx = cv2.approxPolyDP(c, epsilon, True)
                 cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
+
     return color_frame,coordinates,mask
 
 def getpoint(pipeline1,pipeline2, vegetable):
-    crop=[[(20),(700),(600),(1075)],[(20),(680),(150),(600)],[(0),(680),(630),(1100)],[(0),(680),(170),(630)],[(0),(720),(0),(1280)]]
+    '''
+    Description
+    ----------
+    Function which finds de pickup points for vegetables.
 
+    Parameters
+    ----------
+    pipeline1 : pyrealsense.pipeline
+        Camera pipeline object of camera 1
+    pipeline2 : pyrealsense.pipeline
+        Camera pipeline object of camera 2
+    vegetable : dictionary
+        Dictionary containing all necessary information about a vegetable eg. Shape, Color, Crate number and more
+
+    Returns
+    -------
+    image_with_points : numpy array
+        The cropped image with the pickup points drawn on the image 
+    pickup_coordinates : array of float
+        An array containing all the (x, y) coordinates of the detected pickup points
+    gray_image : numpy array
+        The cropped image but in greyscale
+    crop : array of int
+        A small array of integers containing the four vertices used to crop the original image
+    orginal_color_frame : numpy array
+        The original input image
+    camera : int
+        This is an integer representing the camera that is used to look for the vegetable
+    pipeline : realsense.pipeline
+        Pipeline object of the realsense camera
+    place : string
+        Used to identify in which quadrant of the crate the vegetable is located
+    '''
+
+    crop=[[(20),(700),(600),(1075)],[(20),(680),(150),(600)],[(0),(680),(630),(1100)],[(0),(680),(170),(630)]]
 
     shape = vegetable["product_shape"]
     min_size = vegetable["product_minSize"]
     max_size = vegetable["product_maxSize"]
     hsv_range = vegetable["product_HSVRange"]
     crate_number = int(vegetable["crateNumber"])
+
     if (crate_number==1) or (crate_number==2):
         pipeline=pipeline1
         camera=1
@@ -230,6 +265,28 @@ def initizalize_rs():
     return pipeline1,pipeline2
 
 def make_3D_point(x, y, pipeline,camera):
+    '''
+    Description
+    ----------
+    Function to calculate the coordinates of a point in the 3D space.
+
+    Parameters
+    ----------
+    x : float
+        X coordinate of the point
+    y : float
+        Y coordinate of the point
+    pipeline : pyrealsense.pipeline
+        Camera pipeline object
+    camera : int
+        Integer value to specify in which camera frame the point needs to be calculated
+
+    Returns
+    -------
+    point : array of float
+        An array containing the X, Y and Z coordinates of the point
+    '''
+
     # Wait for a coherent pair of frames: depth and color
     frames = pipeline.wait_for_frames()
     depth_frame = frames.get_depth_frame()
@@ -256,6 +313,34 @@ def make_3D_point(x, y, pipeline,camera):
         cam2=[-670,215,936.8]
         point=[-(world_coords[1]*1000)+cam2[0],-(world_coords[0]*1000)+cam2[1],(-world_coords[2]*1000+cam2[2])]
     
-
-
     return(point)
+
+def calibrateXY(pipeline, robot_coordinates):
+    '''
+    Description
+    ----------
+    Function to calculate the offset between the robot coordinates and camera coordinates.
+
+    Parameters
+    ----------
+    pipeline : pyrealsense.pipeline
+        Camera pipeline object
+    robot_coordinates : array of float
+        Array containing the coordinates of the robot position
+
+    Returns
+    -------
+    x_offset : float
+        The offset/difference between the camera and robot x coordinates
+    y_offset : float
+        The offset/difference between the camera and robot y coordinates
+    '''
+
+    _, _, full_frame = getframe(pipeline)
+
+    _, camera_coordinates, _ = getpoint_round(None, full_frame, 0,96,88,255,255,255)
+
+    x_offset = robot_coordinates[0] - camera_coordinates[0][0][0] * 1000
+    y_offset = robot_coordinates[1] - camera_coordinates[0][0][1] * 1000
+
+    return x_offset, y_offset
