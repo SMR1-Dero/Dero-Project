@@ -162,6 +162,23 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
                 epsilon = 0.005 * cv2.arcLength(c, True)
                 approx = cv2.approxPolyDP(c, epsilon, True)
                 cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
+                
+                # Calculate the covariance matrix and find its eigenvectors
+                mu20 = M['m20']/M['m00'] - cx**2
+                mu02 = M['m02']/M['m00'] - cy**2
+                mu11 = M['m11']/M['m00'] - cx*cy
+                covMat = np.array([[mu20, mu11], [mu11, mu02]])
+                _, eigenvalues, eigenvectors = cv2.eigen(covMat)
+
+                # Find the angle of the principal axis with respect to the x-axis
+                theta = np.arctan2(eigenvectors[1,0], eigenvectors[0,0])
+                
+                x1, y1 = pointi
+                x2 = int(x1 + 50 * np.cos(theta))
+                y2 = int(y1 + 50 * np.sin(theta))
+                cv2.line(color_frame, (x1, y1), (x2, y2), (255, 0, 0), 2)
+                print(theta)
+                
     return color_frame,coordinates,mask
 
 def getpoint(pipeline1,pipeline2, vegetable):

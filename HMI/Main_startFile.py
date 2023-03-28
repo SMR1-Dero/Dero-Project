@@ -10,7 +10,7 @@ vegetabledict = {
     "product_package": "Curry Madras",
     "crateNumber": "2",
     "isActive": "on",
-    "product_shape": "Round",
+    "product_shape": "Not round",
     "product_HSVRange": [0,80,80,255,255,255],
     "product_minSize": "",
     "product_maxSize": ""
