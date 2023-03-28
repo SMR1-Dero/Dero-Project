@@ -167,6 +167,8 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
 
 def getpoint(pipeline1,pipeline2, vegetable):
     '''
+    Description
+    ----------
     Function which finds de pickup points for vegetables.
 
     Parameters
@@ -264,6 +266,8 @@ def initizalize_rs():
 
 def make_3D_point(x, y, pipeline,camera):
     '''
+    Description
+    ----------
     Function to calculate the coordinates of a point in the 3D space.
 
     Parameters
@@ -313,6 +317,8 @@ def make_3D_point(x, y, pipeline,camera):
 
 def calibrateXY(pipeline, robot_coordinates):
     '''
+    Description
+    ----------
     Function to calculate the offset between the robot coordinates and camera coordinates.
 
     Parameters
