@@ -8,7 +8,6 @@ from techmanpy import TechmanException
 import pyrealsense2 as rs
 import time
 import copy
-from connectionPLC import *
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
@@ -253,29 +252,43 @@ def updateJsonData():
     # Redirect back to the items grid
     return Response(status=204)
 
-# Test Variables -------------------------
-x = 0.0
-y = 0.0
-z = 0.0
-topPlane = 400.0
-rx = 180.0
-ry = 0.0
-rz_crateSide = -90.0
-rz_boxSide = 90.0
 
-hoverCrate1 = [-536.42 , -799.43 , topPlane , rx , ry , rz_crateSide]
-hoverCrate2 = [-633.77 , -356.43 , topPlane , rx , ry , rz_crateSide]
-hoverCrate3 = [-647.11 , 139.67 , topPlane , rx , ry , rz_crateSide]
-hoverCrate4 = [-660.57 , 593.36 , topPlane , rx , ry , rz_crateSide]
+# -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def getHoverCoordinates(crateNumber, hoverCrate1, hoverCrate2, hoverCrate3, hoverCrate4):
 
-hoverBox = [511.01 , -212.48 , topPlane , rx , ry , rz_boxSide]
+    if crateNumber == "1":
+        asyncio.run(position(hoverCrate1, 0))
+        return print("Hover over crate 1")
+    elif crateNumber == "2":
+        asyncio.run(position(hoverCrate2, 0))
+        return print("Hover over crate 2")
+    elif crateNumber == "3":
+        asyncio.run(position(hoverCrate3, 0))
+        return print("Hover over crate 3")
+    elif crateNumber == "4":
+        asyncio.run(position(hoverCrate4, 0))
+        return print("Hover over crate 4")
 
 @app.route('/Start', methods=['POST'])
 def Start():
 
-    # Initialize Camera Intel Realsense
+    # Variables
+    place = "" # Camera Gives String that describes the place of the vegetable
+    topPlane = 400.0
+    rx = 180.0
+    ry = 0.0
+    rz_crateSide = -90.0
+    rz_boxSide = 90.0
+
+    hoverCrate1 = [-536.42 , -799.43 , topPlane , rx , ry , rz_crateSide]
+    hoverCrate2 = [-633.77 , -356.43 , topPlane , rx , ry , rz_crateSide]
+    hoverCrate3 = [-647.11 , 139.67 , topPlane , rx , ry , rz_crateSide]
+    hoverCrate4 = [-660.57 , 593.36 , topPlane , rx , ry , rz_crateSide]
+
+    hoverBox = [511.01 , -212.48 , topPlane , rx , ry , rz_boxSide]
+
+    # Initializing Camera
     pipeline1,pipeline2=initizalize_rs()
-    #create trackbar and images
     camera=2
 
     # Open JSON
@@ -290,23 +303,40 @@ def Start():
             for item in product["products"]:
                 if item["isActive"] == "true":
 
-                    got_frame = 0
-                    
+                    # Make Picture and Calculate Coordinates
+                    got_frame = 0              
+                    while True:
+                        #Use filters and circle detection to get center coordinate
+                        image_with_points,pickup_coordinates,gray_image,crop,original_color_frame,camera,pipeline,place=getpoint(pipeline1,pipeline2,item)
+                        if pickup_coordinates != []:
+                            getVegetable=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline,camera)
+                            original_with_points=draw_original(original_color_frame, pickup_coordinates,crop[0],crop[2])
+                            place
+                            got_frame = 1
+                        
+                        if got_frame == 1:
+                            break
 
                     # Get Coordinate Crate Hover
-                    if item["crateNumber"] == "1":
-                        asyncio.run(position(hoverCrate1, 0))
-                    if item["crateNumber"] == "2":
-                        asyncio.run(position(hoverCrate2, 0))
-                    if item["crateNumber"] == "3":
-                        asyncio.run(position(hoverCrate3, 0))
-                    if item["crateNumber"] == "4":
-                        asyncio.run(position(hoverCrate4, 0))
+                    getHoverCoordinates(item["crateNumber"], hoverCrate1, hoverCrate2, hoverCrate3, hoverCrate4)
+
+                    # Orientation End-Of-Arm-Tool
+                    if place == "LeftUp":
+
+                    elif place == "LeftDown":
+
+
+                    elif place == "RightUp":
+
+                    elif place == "RightDown":
+
                     # Get Coordinate Pick Up
                     getVegetable = [getVegetable[0] , getVegetable[1] , getVegetable[2] , rx , -27.99 , rz_crateSide]
                     asyncio.run(position(getVegetable, 1))
+
                     # Turn On Suction
                     asyncio.run(setSuctionCup1(1))
+
                     # Get Coordinate Crate Hover
                     if item["crateNumber"] == "1":
                         asyncio.run(position(hoverCrate1, 0))
@@ -326,6 +356,7 @@ def Start():
                     asyncio.run(position(hoverBox, 0))
 
     pipeline1.stop()    
+    pipeline2.stop()
 
     return Response(status=204)
 
