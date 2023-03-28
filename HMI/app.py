@@ -9,11 +9,10 @@ import pyrealsense2 as rs
 import time
 import copy
 from connectionPLC import *
-
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
-from Python.Python_Herkenning.Parameters_Vinden.VegetablesCoordinates_V3 import *
+from Vegetables_V4 import *
 
 
 app = Flask(__name__, template_folder=r'C:\Users\Jarik\OneDrive\Documenten\GitHub\Dero-Project\HMI\templates')
@@ -128,24 +127,9 @@ def move_robottest():
 
     getVegetable = [-699.18 , -844.69 , 100.0 , rx , ry , rz_crateSide]
 
-    if value == "hoverGet":
-        asyncio.run(position(hoverCrate4, 0))
-    if value == "get":
-        asyncio.run(position(getVegetable))
-    if value == "hoverDrop":
-        asyncio.run(position([511.01 , -212.48 , topPlane , 180.0 , 0.0 , 90.0], 0))
-    if value == "drop":
-        asyncio.run(position([511.01 , -212.48 , 315.41 , 180.0 , 0.0 , 90.0]))
 
-    if value == "suction1drop":
-        asyncio.run(position([555.95 , -212.34 , 269.28 , 180.0 , 31.19 , 90.0], 0))
-    if value == "suction2drop":
-        asyncio.run(position([562.27 , -403.77 , 294.42 , 180.0 , -27.99 , 90.0], 0))
+    asyncio.run(position(hoverCrate1, 0))
 
-    if value == "suction1get":
-        asyncio.run(position([-619.47 , 186.75 , topPlane , 180.0 , 31.19 , -90.0]))
-    if value == "suction2get":
-        asyncio.run(position([-619.47 , 186.75 , topPlane , 180.0 , -27.99 , -90.0]))
     
     return Response(status=204)
 
@@ -203,7 +187,6 @@ def getLiveInformation():
                 if status == 'Online': return f'{status}'
                 if status == 'Connected': return f'{status}'
                 if status == 'Offline': return f'{status}'
-            print(f'SVR: {colored(status["SVR"])}, SCT: {colored(status["SCT"])}, STA: {colored(status["STA"])}')
 
             SVR_status = colored(status["SVR"])
             SCT_status = colored(status["SCT"])
@@ -270,10 +253,6 @@ def updateJsonData():
     # Redirect back to the items grid
     return Response(status=204)
 
-
-
-
-
 # Test Variables -------------------------
 x = 0.0
 y = 0.0
@@ -294,9 +273,10 @@ hoverBox = [511.01 , -212.48 , topPlane , rx , ry , rz_boxSide]
 @app.route('/Start', methods=['POST'])
 def Start():
 
-    # Open Pipline
-    pl=2
-    pipeline1=initizalize_rs(pl)
+    # Initialize Camera Intel Realsense
+    pipeline1,pipeline2=initizalize_rs()
+    #create trackbar and images
+    camera=2
 
     # Open JSON
     with open('HMI\static\json\database.json', 'r') as f:
@@ -308,36 +288,10 @@ def Start():
     for product in data["items"]:
         if product["package"] == package:
             for item in product["products"]:
-                if item["isActive"] == "on":
+                if item["isActive"] == "true":
 
-                    # Code For CameraShit
                     got_frame = 0
-                    # Initialize Camera Intel Realsense
-                
-                    #create trackbar and images
-                    #calibrate_camera(pipeline)
-                    mtx,dist=read_cal(pl)
-                    makeframe()
-                    while True:
-                        #read info from trackbars
-                        hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3=readtrackbar()
-                        #Use filters and circle detection to get center coordinate
-                        image_with_points,pickup_coordinates,gray_image,crop,original_color_frame=getpoint(pipeline1,item)
-                        if pickup_coordinates != []:
-                            getVegetable=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline1,mtx,dist)
-                            print("3D Point in robot arm coordinates:", getVegetable)
-                            #print(coor[0][0][0])
-                            #show edited and original frame with contours and center
-                            original_with_points=draw_original(original_color_frame, pickup_coordinates,crop[2],crop[0])
-                            got_frame=1
-                            cv2.imshow("Origineel frame", original_with_points)
-                            cv2.imshow("bewerkt frame", image_with_points)
-                            cv2.imshow("Grijs frame",gray_image)
-                            cv2.waitKey(100)
-                            key = cv2.waitKey(1)
-                        if got_frame==1:
-                            got_frame = 0
-                            break
+                    
 
                     # Get Coordinate Crate Hover
                     if item["crateNumber"] == "1":
