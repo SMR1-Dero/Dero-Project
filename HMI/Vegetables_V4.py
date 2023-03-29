@@ -3,9 +3,6 @@ import pyrealsense2 as rs
 import numpy as np
 import copy
 
-def show_distance(event, x, y, args, params):
-    global point
-    point = (x, y)
 def nothing(x):
     pass
 def getframe(pipeline,crop=((0),(720),(0),(1280))):
@@ -288,7 +285,6 @@ def make_3D_point(x, y, pipeline,camera):
 
     # Get the depth value at the point of interest
     depth_value = depth_frame.get_distance(x, y)
-
     # Convert depth pixel coordinates to world coordinates
     depth_intrinsics = depth_frame.profile.as_video_stream_profile().intrinsics
     depth_to_color_extrinsics = depth_frame.profile.get_extrinsics_to(color_frame.profile)
@@ -301,15 +297,15 @@ def make_3D_point(x, y, pipeline,camera):
     world_coords = world_coords[:3]
     #return world_coords
     if (camera==1):
-        cam1=[-594.37,-645,936.8]
+        cam1=[-594.37,-645,936.8]# difference from the camera to the robot coordinates
         point=[-(world_coords[1]*1000)+cam1[0],-(world_coords[0]*1000)+cam1[1],(-world_coords[2]*1000)+cam1[2]]
     elif(camera==2):
-        cam2=[-670,215,936.8]
+        cam2=[-670,215,936.8]# difference from the camera to the robot coordinates
         point=[-(world_coords[1]*1000)+cam2[0],-(world_coords[0]*1000)+cam2[1],(-world_coords[2]*1000+cam2[2])]
     
     return(point)
 
-def calibrateXY(pipeline, robot_coordinates):
+def calibrateXY(pipeline, robot_coordinates,camera):
     '''
     Description
     ----------
@@ -331,16 +327,33 @@ def calibrateXY(pipeline, robot_coordinates):
     '''
 
     frames = pipeline.wait_for_frames()
+    cv2.waitKey(3000)
     # Retrieve the depth and color frames
     depth_frame_full = frames.get_depth_frame()
     color_frame_full = frames.get_color_frame()
     
-    depth_frame = np.asanyarray(depth_frame_full.get_data())
-    full_frame = np.asanyarray(color_frame_full.get_data())
-    _, camera_coordinates, _ = getpoint_round(depth_frame, full_frame, 0,96,88,255,255,255,20,30)
+    depth_arr = np.asanyarray(depth_frame_full.get_data())
+    color_arr = np.asanyarray(color_frame_full.get_data())
+    Test_frame, camera_coordinates, _ = getpoint_round(depth_arr, color_arr,103,94,143,116,255,255,110,120)
+    print(camera_coordinates)
     while (camera_coordinates==[]):
-        _, camera_coordinates, _ = getpoint_round(depth_frame, full_frame, 0,96,88,255,255,255,20,30)
-    x_offset = robot_coordinates[0] - (camera_coordinates[0][0][0] * 1000)
-    y_offset = robot_coordinates[1] - (camera_coordinates[0][0][1] * 1000)
-    z_offset = robot_coordinates[2] - (depth_frame_full.get_distance(camera_coordinates[0][0][0], camera_coordinates[0][0][1]) * 1000)
-    return x_offset, y_offset,z_offset
+        print("Nothing")
+        _, camera_coordinates, _ = getpoint_round(depth_arr, color_arr,103,94,143,116,255,255,110,120)
+    # Get the depth value at the point of interest
+    depth_value = depth_frame_full.get_distance((camera_coordinates[0][0][0]), (camera_coordinates[0][0][1]))
+    print(depth_value)
+    # Convert depth pixel coordinates to world coordinates
+    depth_intrinsics = depth_frame_full.profile.as_video_stream_profile().intrinsics
+    depth_to_color_extrinsics = depth_frame_full.profile.get_extrinsics_to(color_frame_full.profile)
+    world_coords = rs.rs2_deproject_pixel_to_point(depth_intrinsics, [camera_coordinates[0][0][0], camera_coordinates[0][0][1]], depth_value)
+    rotation = np.array(depth_to_color_extrinsics.rotation).reshape(3, 3)
+    translation = np.array(depth_to_color_extrinsics.translation).reshape(3, 1)
+    depth_to_color_extrinsics = np.concatenate((rotation, translation), axis=1)
+    world_coords = np.append(world_coords, [1])
+    world_coords = np.dot(depth_to_color_extrinsics, world_coords)
+    world_coords = world_coords[:3]
+    print(world_coords)
+    x_offset = robot_coordinates[0] - (world_coords[1] )
+    y_offset = robot_coordinates[1] + (world_coords[0] )
+    z_offset = robot_coordinates[2] - (world_coords[2] )
+    return [x_offset, y_offset,z_offset],Test_frame
