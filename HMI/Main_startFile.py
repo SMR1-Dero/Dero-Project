@@ -20,7 +20,7 @@ def main(debug=False):
     pipeline1,pipeline2=initizalize_rs()
     #create trackbar and images
     camera=2
-    robot_coordinates=[-692.36,203.97,323.28]
+    robot_coordinates=[-700,200,300]
     cam_off1,Test_frame=calibrateXY(pipeline2,robot_coordinates,camera)
     cv2.imshow("Grijs frame",Test_frame)
     #cam_off2=calibrateXY(pipeline1,robot_coordinates)
@@ -54,4 +54,4 @@ def main(debug=False):
     # Stop streaming
     pipeline1.stop()
     pipeline2.stop()
-main(debug=True)
+main(debug=False)
