@@ -61,11 +61,11 @@ def image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hs
     #find the contours
     (cnts, _) = cv2.findContours(gray.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     return gray,cnts
-def getpoint_round(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3):
+def getpoint_round(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3,min_size,max_size):
     coordinates=[]
     pointi=None
     gray,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)#0,80,80,255,255,255
-    circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,2,minDist=50,param1=50,param2=30,minRadius=24,maxRadius=30)#hier aanpassingen aan maken voor filtering
+    circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,2,minDist=50,param1=50,param2=30,minRadius=min_size,maxRadius=max_size)#hier aanpassingen aan maken voor filtering
     #print(circles)
     if circles is not None:
         circles = np.uint16(np.around(circles))
@@ -78,7 +78,7 @@ def getpoint_round(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvuppe
             coordinates.append([(pointi)])
 
     return color_frame,coordinates,gray
-def getpoint_notround_withstem(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3):
+def getpoint_notround_withstem(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3,min_size,max_size):
     coordinates=[]
     cx=0
     cy=0
@@ -138,10 +138,9 @@ def getpoint_notround_withstem(depth_frame,color_frame,hsvunder1,hsvunder2,hsvun
                     epsilon = 0.005 * cv2.arcLength(c, True)
                     approx = cv2.approxPolyDP(c, epsilon, True)
                     cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
-    print(coordinates)
 
     return color_frame,coordinates,mask2
-def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3):
+def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3,min_size,max_size):
     coordinates=[]
     cx=0
     cy=0
@@ -215,24 +214,19 @@ def getpoint(pipeline1,pipeline2, vegetable):
         pipeline=pipeline2
         camera=2
     depth_cut,color_cut,orginal_color_frame=getframe(pipeline,crop[crate_number-1])
-    print((crop[crate_number-1][3]-crop[crate_number-1][2])/2)
     
     if (shape == "Round"):
-        image_with_points,pickup_coordinates,gray_image=getpoint_round(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5])
+        image_with_points,pickup_coordinates,gray_image=getpoint_round(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5],min_size,max_size)
     elif (shape == "Not round"):
-        image_with_points,pickup_coordinates,gray_image=getpoint_notround(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5])
+        image_with_points,pickup_coordinates,gray_image=getpoint_notround(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5],min_size,max_size)
     elif (shape == "Not round with stem"):
-        image_with_points,pickup_coordinates,gray_image=getpoint_notround_withstem(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5])
+        image_with_points,pickup_coordinates,gray_image=getpoint_notround_withstem(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5],min_size,max_size)
     #determine place in crate
     if (pickup_coordinates != []):
-        if (pickup_coordinates[0][0][0]<(crop[crate_number-1][3]-crop[crate_number-1][2])/2 and pickup_coordinates[0][0][1]<(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
-            place="LeftUp"
-        elif(pickup_coordinates[0][0][0]<(crop[crate_number-1][3]-crop[crate_number-1][2])/2 and pickup_coordinates[0][0][1]>=(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
-            place="LeftDown"
-        elif(pickup_coordinates[0][0][0]>=(crop[crate_number-1][3]-crop[crate_number-1][2])/2 and pickup_coordinates[0][0][1]<(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
-            place="RightUp"
-        elif (pickup_coordinates[0][0][0]>=(crop[crate_number-1][3]-crop[crate_number-1][2])/2 and pickup_coordinates[0][0][1]>=(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
-            place="RightDown"
+        if (pickup_coordinates[0][0][0]<(crop[crate_number-1][3]-crop[crate_number-1][2])/2):
+            place="Left"
+        elif(pickup_coordinates[0][0][0]>=(crop[crate_number-1][3]-crop[crate_number-1][2])/2):
+            place="Right"
     elif(pickup_coordinates == []):
         place=None
     
@@ -336,11 +330,17 @@ def calibrateXY(pipeline, robot_coordinates):
         The offset/difference between the camera and robot y coordinates
     '''
 
-    _, _, full_frame = getframe(pipeline)
-
-    _, camera_coordinates, _ = getpoint_round(None, full_frame, 0,96,88,255,255,255)
-
-    x_offset = robot_coordinates[0] - camera_coordinates[0][0][0] * 1000
-    y_offset = robot_coordinates[1] - camera_coordinates[0][0][1] * 1000
-
-    return x_offset, y_offset
+    frames = pipeline.wait_for_frames()
+    # Retrieve the depth and color frames
+    depth_frame_full = frames.get_depth_frame()
+    color_frame_full = frames.get_color_frame()
+    
+    depth_frame = np.asanyarray(depth_frame_full.get_data())
+    full_frame = np.asanyarray(color_frame_full.get_data())
+    _, camera_coordinates, _ = getpoint_round(depth_frame, full_frame, 0,96,88,255,255,255,20,30)
+    while (camera_coordinates==[]):
+        _, camera_coordinates, _ = getpoint_round(depth_frame, full_frame, 0,96,88,255,255,255,20,30)
+    x_offset = robot_coordinates[0] - (camera_coordinates[0][0][0] * 1000)
+    y_offset = robot_coordinates[1] - (camera_coordinates[0][0][1] * 1000)
+    z_offset = robot_coordinates[2] - (depth_frame_full.get_distance(camera_coordinates[0][0][0], camera_coordinates[0][0][1]) * 1000)
+    return x_offset, y_offset,z_offset

@@ -15,13 +15,14 @@ vegetabledict = {
     "product_minSize": "",
     "product_maxSize": ""
 }
-print(cv2.__version__)
 def main(debug=False):
     # Initialize Camera Intel Realsense
     pipeline1,pipeline2=initizalize_rs()
     #create trackbar and images
-    camera=2
-    #calibrate_camera(pipeline2,camera)
+    camera=1
+    robot_coordinates=[(10),(200),(350)]
+    X_Off,Y_Off,Z_Off=calibrateXY(pipeline1,robot_coordinates)
+    print(X_Off,Y_Off,Z_Off)
     makeframe()
     while True:
         #read info from trackbars
