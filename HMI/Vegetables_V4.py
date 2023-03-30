@@ -220,10 +220,10 @@ def getpoint(pipeline1,pipeline2, vegetable):
         image_with_points,pickup_coordinates,gray_image=getpoint_notround_withstem(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5],min_size,max_size)
     #determine place in crate
     if (pickup_coordinates != []):
-        if (pickup_coordinates[0][0][0]<(crop[crate_number-1][3]-crop[crate_number-1][2])/2):
-            place="Left"
-        elif(pickup_coordinates[0][0][0]>=(crop[crate_number-1][3]-crop[crate_number-1][2])/2):
-            place="Right"
+        if (pickup_coordinates[0][0][1]<(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
+            place="Up"
+        elif(pickup_coordinates[0][0][1]>=(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
+            place="Down"
     elif(pickup_coordinates == []):
         place=None
     
@@ -330,7 +330,7 @@ def calibrateXY(pipeline, robot_coordinates,camera):
     color_frame = frames.get_color_frame()
     depth_arr = np.asanyarray(depth_frame.get_data())
     color_arr = np.asanyarray(color_frame.get_data())
-    Test_frame, camera_coordinates, _ = getpoint_round(depth_arr, color_arr,103,94,143,116,255,255,110,120)
+    Test_frame, camera_coordinates, _ = getpoint_round(depth_arr, color_arr,103,94,143,116,255,255,35,45)
     #print(camera_coordinates)
     while (camera_coordinates==[]):
         frames = pipeline.wait_for_frames()
@@ -338,7 +338,7 @@ def calibrateXY(pipeline, robot_coordinates,camera):
         color_frame = frames.get_color_frame()
         depth_arr = np.asanyarray(depth_frame.get_data())
         color_arr = np.asanyarray(color_frame.get_data())
-        _, camera_coordinates, _ = getpoint_round(depth_arr, color_arr,103,94,143,116,255,255,110,120)
+        Test_frame, camera_coordinates, _ = getpoint_round(depth_arr, color_arr,103,94,143,116,255,255,35,45)
         
     # Get the depth value at the point of interest
     depth_value = depth_frame.get_distance(camera_coordinates[0][0][0], camera_coordinates[0][0][1])
@@ -369,3 +369,4 @@ def calibrateXY(pipeline, robot_coordinates,camera):
             np.savetxt(f, cam2)
         point=[-(world_coords[1])+cam2[0],-(world_coords[0])+cam2[1],(-world_coords[2]+cam2[2])]
     print (point)
+    return Test_frame

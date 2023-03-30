@@ -19,10 +19,10 @@ def main(debug=False):
     # Initialize Camera Intel Realsense
     pipeline1,pipeline2=initizalize_rs()
     #create trackbar and images
-    camera=2
-    robot_coordinates2=[-705,192,300]
-    robot_coordinates1=[-636,-663,300]
-    calibrateXY(pipeline2,robot_coordinates2,camera)
+    camera=1
+    robot_coordinates2=[-705,192,-200]
+    robot_coordinates1=[-636,-663,-200]
+    Test_frame=calibrateXY(pipeline1,robot_coordinates1,camera)
     cv2.imshow("Grijs frame",Test_frame)
     #cam_off2=calibrateXY(pipeline1,robot_coordinates)
     #print(cam_off2)
