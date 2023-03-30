@@ -122,7 +122,7 @@ def ResumeProject():
 # Calibrate Camera 1
 
 async def calibrateCamera1_Position():
-    calibrationCamera1 = [-636.0 , -663.0  , 300.0 , 180.0 , 0.0 , -90.0]
+    calibrationCamera1 = [-636.0 , -663.0  , -200.0 , 180.0 , 0.0 , -90.0]
 
     async with techmanpy.connect_sct(robot_ip=ip) as conn:
         await conn.move_to_point_ptp(calibrationCamera1, 1, 1000)
@@ -153,7 +153,7 @@ def CalibrateCamera1():
 # Calibrate Camera 2
 
 async def calibrateCamera2_Position():
-    calibrationCamera2 = [-705.0 , 192.0 , 300.0 , 180.0 , 0.0 , -90.0]
+    calibrationCamera2 = [-705.0 , 192.0 , -200.0 , 180.0 , 0.0 , -90.0]
 
     async with techmanpy.connect_sct(robot_ip=ip) as conn:
         await conn.move_to_point_ptp(calibrationCamera2, 1, 1000)
@@ -408,7 +408,7 @@ def Start():
                             getHoverCoordinates(item["crateNumber"], hoverCrate1, hoverCrate2, hoverCrate3, hoverCrate4)
 
                             if (item["suctioncup"] == "Rood"):
-                                if ((place == "LeftUp") or (place == "LeftDown")): 
+                                if (place == "Left"): 
                                     if (suctioncupRedLeft == False and suctioncupRedRight == False):
 
                                         OrientationTop1[0] = location[0]
@@ -431,7 +431,7 @@ def Start():
                                         
                                         suctioncupRedRight = True
 
-                                if ((place == "RightUp") or (place == "RightDown")):
+                                if (place == "Right"):
                                     if (suctioncupRedLeft == False and suctioncupRedRight == False):
 
                                         OrientationBottom1[0] = location[0]

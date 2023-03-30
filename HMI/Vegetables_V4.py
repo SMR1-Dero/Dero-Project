@@ -297,10 +297,10 @@ def make_3D_point(x, y, pipeline,camera):
     world_coords = world_coords[:3]
     #return world_coords
     if (camera==1):
-        cam1=np.loadtxt('Cam_Off_1.txt')# difference from the camera to the robot coordinates
+        cam1=np.loadtxt('HMI\Cam_Off_1.txt')# difference from the camera to the robot coordinates
         point=[-(world_coords[1]*1000)+cam1[0],-(world_coords[0]*1000)+cam1[1],(-world_coords[2]*1000)+cam1[2]]
     elif(camera==2):
-        cam2=np.loadtxt('Cam_Off_2.txt')# difference from the camera to the robot coordinates
+        cam2=np.loadtxt('HMI\Cam_Off_2.txt')# difference from the camera to the robot coordinates
         point=[-(world_coords[1]*1000)+cam2[0],-(world_coords[0]*1000)+cam2[1],(-world_coords[2]*1000+cam2[2])]
     
     return(point)
@@ -357,7 +357,7 @@ def calibrateXY(pipeline, robot_coordinates,camera):
         y_offset = robot_coordinates[1] + (world_coords[0] )
         z_offset = robot_coordinates[2] + (world_coords[2] )
         cam1=[x_offset, y_offset,z_offset]
-        with open ('Cam_Off_1.txt','w') as f:
+        with open ('HMI\Cam_Off_1.txt','w') as f:
             np.savetxt(f, cam1)
         point=[-(world_coords[1])+cam1[0],-(world_coords[0])+cam1[1],(-world_coords[2])+cam1[2]]
     if (camera == 2):
@@ -365,7 +365,7 @@ def calibrateXY(pipeline, robot_coordinates,camera):
         y_offset = robot_coordinates[1] + (world_coords[0] )
         z_offset = robot_coordinates[2] + (world_coords[2] )
         cam2=[x_offset, y_offset,z_offset]
-        with open ('Cam_Off_2.txt','w') as f:
+        with open ('HMI\Cam_Off_2.txt','w') as f:
             np.savetxt(f, cam2)
         point=[-(world_coords[1])+cam2[0],-(world_coords[0])+cam2[1],(-world_coords[2]+cam2[2])]
     print (point)
