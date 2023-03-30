@@ -22,7 +22,7 @@ def main(debug=False):
     camera=2
     robot_coordinates2=[-705,192,300]
     robot_coordinates1=[-636,-663,300]
-    cam_off2,Test_frame=calibrateXY(pipeline2,robot_coordinates2,camera)
+    calibrateXY(pipeline2,robot_coordinates2,camera)
     cv2.imshow("Grijs frame",Test_frame)
     #cam_off2=calibrateXY(pipeline1,robot_coordinates)
     #print(cam_off2)
