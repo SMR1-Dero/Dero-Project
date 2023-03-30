@@ -134,9 +134,18 @@ async def calibrateCamera1_GetCoordinates():
 
 @app.route('/CalibrateCamera1')
 def CalibrateCamera1():
+    pipeline1,pipeline2=initizalize_rs()
     asyncio.run(calibrateCamera1_Position())
-    coordinates = calibrateCamera1_GetCoordinates()
+
+    asyncio.sleep(13)
+
+    coordinates = asyncio.run(calibrateCamera1_GetCoordinates())
     coordinates = coordinates[:-3]
+
+    calibrateXY(pipeline1, coordinates, 1)
+
+    pipeline1.stop()
+    pipeline2.stop()
 
     return Response(status=204)
 
@@ -156,9 +165,18 @@ async def calibrateCamera2_GetCoordinates():
 
 @app.route('/CalibrateCamera2')
 def CalibrateCamera2():
+    pipeline1,pipeline2=initizalize_rs()
     asyncio.run(calibrateCamera2_Position())
-    coordinates = calibrateCamera2_GetCoordinates()
+
+    asyncio.sleep(13)
+
+    coordinates = asyncio.run(calibrateCamera2_GetCoordinates())
     coordinates = coordinates[:-3]
+
+    calibrateXY(pipeline2, coordinates, 2)
+
+    pipeline1.stop()
+    pipeline2.stop()
 
     return Response(status=204)
 
