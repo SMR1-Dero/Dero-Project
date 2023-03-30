@@ -334,6 +334,7 @@ def getHoverCoordinates(crateNumber, hoverCrate1, hoverCrate2, hoverCrate3, hove
         asyncio.run(positionWithoutTag(hoverCrate4))
         #return print("Hover over crate 4")
 
+
 @app.route('/Start', methods=['POST'])
 def Start():
 
@@ -350,6 +351,8 @@ def Start():
     rz_crateSide = -90.0
     rz_boxSide = 90.0
 
+    # DO 5 = Motor
+
     redSuctionQueue = 1
     blueSuctionQueue = 4
 
@@ -361,16 +364,22 @@ def Start():
     hoverCrate3 = [-647.11 , 139.67 , topPlane , rx , ry , rz_crateSide]
     hoverCrate4 = [-660.57 , 593.36 , topPlane , rx , ry , rz_crateSide]
 
+    hoverCrateOrientation = [0.0 , 0.0 , topPlane , rx , ry , rz_crateSide]
+
+
     hoverBox = [511.01 , -212.48 , 600.0 , rx , ry , rz_boxSide]
 
     # Suction
     # ry (-27.99 or 0.0), because of the other suction cup
     # rz (90.0 or -90.0), because of the lamp of the camera
-    OrientationTop1 = [0.0 , 0.0 , 0.0 , 180.0 , 31.19 ,  0.0] # Top of the crate
-    OrientationBottom1 = [0.0 , 0.0 , 0.0 , 180.0 , 31.19 , 180.0] # Bottom of the crate
-    OrientationTop2 = [0.0 , 0.0 , 0.0 , -180.0 , -31.19 ,  -180.0] # Top of the crate
-    OrientationBottom2 = [0.0 , 0.0 , 0.0 , -180.0 , -31.19 , 0.0] # Bottom of the crate
+    OrientationTop1 = [0.0 , 0.0 , 400.0 , 180.0 , 31.19 ,  0.0] # Top of the crate
+    OrientationBottom1 = [0.0 , 0.0 , 400.0 , 180.0 , 31.19 , 180.0] # Bottom of the crate
+    OrientationTop2 = [0.0 , 0.0 , 400.0 , -180.0 , -31.19 ,  -180.0] # Top of the crate
+    OrientationBottom2 = [0.0 , 0.0 , 400.0 , -180.0 , -31.19 , 0.0] # Bottom of the crate
 
+    xOffset = 73.22
+    yOffset = -10.0
+    zOffset = 490.0
 
     # Initializing Camera
     pipeline1,pipeline2=initizalize_rs()
@@ -396,7 +405,7 @@ def Start():
                         if pickup_coordinates != []:
                             location=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline,camera)
                             original_with_points=draw_original(original_color_frame, pickup_coordinates,crop[0],crop[2])
-        
+                            print(location)
                             got_frame = 1
                             
                         if got_frame == 1:
@@ -405,52 +414,88 @@ def Start():
                     if got_frame == 1:
 
                             # Get Coordinate Crate Hover
-                            getHoverCoordinates(item["crateNumber"], hoverCrate1, hoverCrate2, hoverCrate3, hoverCrate4)
-
+                            #getHoverCoordinates(item["crateNumber"], hoverCrate1, hoverCrate2, hoverCrate3, hoverCrate4)
+                       
                             if (item["suctioncup"] == "Rood"):
-                                if (place == "Left"): 
+                                if (place == "Up"): 
                                     if (suctioncupRedLeft == False and suctioncupRedRight == False):
 
-                                        OrientationTop1[0] = location[0]
-                                        OrientationTop1[1] = location[1]
-                                        OrientationTop1[2] = 300.0
+                                        getHoverCoordinates(item["crateNumber"], hoverCrate1, hoverCrate2, hoverCrate3, hoverCrate4)
+
+                                        OrientationTop1[0] = location[0] + xOffset
+                                        OrientationTop1[1] = location[1] + yOffset
+
+                                        OrientationTop1[2] = 400.0
+                                        asyncio.run(positionWithoutTag(OrientationTop1))
+
+                                        print("Up 1:", OrientationTop1)
 
                                         # Pickup Red as preference
+                                        OrientationTop1[2] = location[2] + zOffset
                                         asyncio.run(setSuctionCup1Try(OrientationTop1, 1))
+
+                                        getHoverCoordinates(item["crateNumber"], hoverCrate1, hoverCrate2, hoverCrate3, hoverCrate4)
                                  
                                         asyncio.run(positionWithoutTag(hoverIdle))
                                         suctioncupRedLeft = True
                                     elif (suctioncupRedLeft == True and suctioncupRedRight == False):
+                                        
+                                        getHoverCoordinates(item["crateNumber"], hoverCrate1, hoverCrate2, hoverCrate3, hoverCrate4)
 
-                                        OrientationTop2[0] = location[0]
-                                        OrientationTop2[1] = location[1]
-                                        OrientationTop2[2] = 300.0
+                                        OrientationTop2[0] = location[0] + xOffset
+                                        OrientationTop2[1] = location[1] + yOffset
+                  
+                                        OrientationTop2[2] = 400.0
+                                        asyncio.run(positionWithoutTag(OrientationTop2))
+
+                                        print("Up 2:", OrientationTop2)
 
                                         # Pickup with Blue is necessary
+                                        OrientationTop2[2] = location[2] + zOffset
                                         asyncio.run(setSuctionCup2Try(OrientationTop2, 1))
+
+                                        getHoverCoordinates(item["crateNumber"], hoverCrate1, hoverCrate2, hoverCrate3, hoverCrate4)
                                         
                                         suctioncupRedRight = True
 
-                                if (place == "Right"):
+                                if (place == "Down"):
                                     if (suctioncupRedLeft == False and suctioncupRedRight == False):
 
-                                        OrientationBottom1[0] = location[0]
-                                        OrientationBottom1[1] = location[1]
-                                        OrientationBottom1[2] = 300.0
+                                        getHoverCoordinates(item["crateNumber"], hoverCrate1, hoverCrate2, hoverCrate3, hoverCrate4)
+
+                                        OrientationBottom1[0] = location[0] - xOffset
+                                        OrientationBottom1[1] = location[1] - yOffset
+
+                                        OrientationBottom1[2] = 400.0
+                                        asyncio.run(positionWithoutTag(OrientationBottom1))
+
+                                        print("Bottom 1:", OrientationBottom1)
 
                                         # Pickup Red as preference
+                                        OrientationBottom1[2] = location[2] + zOffset -10.0
                                         asyncio.run(setSuctionCup1Try(OrientationBottom1, 1))
+
+                                        getHoverCoordinates(item["crateNumber"], hoverCrate1, hoverCrate2, hoverCrate3, hoverCrate4)
                                         
                                         asyncio.run(positionWithoutTag(hoverIdle))
                                         suctioncupRedLeft = True
                                     elif (suctioncupRedLeft == True and suctioncupRedRight == False):
+                                        
+                                        getHoverCoordinates(item["crateNumber"], hoverCrate1, hoverCrate2, hoverCrate3, hoverCrate4)
 
-                                        OrientationBottom2[0] = location[0]
-                                        OrientationBottom2[1] = location[1]
-                                        OrientationBottom2[2] = 300.0
+                                        OrientationBottom2[0] = location[0] - xOffset
+                                        OrientationBottom2[1] = location[1] - yOffset
+
+                                        OrientationBottom2[2] = 400.0
+                                        asyncio.run(positionWithoutTag(OrientationBottom2))
+
+                                        print("Bottom 2:", OrientationBottom2)
 
                                         # Pickup with Blue is necessary
+                                        OrientationBottom2[2] = location[2] + zOffset - 10.0
                                         asyncio.run(setSuctionCup2Try(OrientationBottom2, 1))
+
+                                        getHoverCoordinates(item["crateNumber"], hoverCrate1, hoverCrate2, hoverCrate3, hoverCrate4)
                                         
                                         suctioncupRedRight = True
 
@@ -476,6 +521,7 @@ def Start():
     suctioncupRedRight = False
 
     return Response(status=204) 
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
