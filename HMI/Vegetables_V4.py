@@ -297,10 +297,10 @@ def make_3D_point(x, y, pipeline,camera):
     world_coords = world_coords[:3]
     #return world_coords
     if (camera==1):
-        cam1=[-594.37,-645,936.8]# difference from the camera to the robot coordinates
+        cam1=np.loadtxt('Cam_Off_1.txt')# difference from the camera to the robot coordinates
         point=[-(world_coords[1]*1000)+cam1[0],-(world_coords[0]*1000)+cam1[1],(-world_coords[2]*1000)+cam1[2]]
     elif(camera==2):
-        cam2=[-670,215,936.8]# difference from the camera to the robot coordinates
+        cam2=np.loadtxt('Cam_Off_2.txt')# difference from the camera to the robot coordinates
         point=[-(world_coords[1]*1000)+cam2[0],-(world_coords[0]*1000)+cam2[1],(-world_coords[2]*1000+cam2[2])]
     
     return(point)
@@ -330,20 +330,18 @@ def calibrateXY(pipeline, robot_coordinates,camera):
     color_frame = frames.get_color_frame()
     depth_arr = np.asanyarray(depth_frame.get_data())
     color_arr = np.asanyarray(color_frame.get_data())
-    Test_frame, camera_coordinates, _ = getpoint_round(depth_arr, color_arr,103,94,143,116,255,255,100,120)
-    print(camera_coordinates)
+    Test_frame, camera_coordinates, _ = getpoint_round(depth_arr, color_arr,103,94,143,116,255,255,110,120)
+    #print(camera_coordinates)
     while (camera_coordinates==[]):
-        print("Nothing")
         frames = pipeline.wait_for_frames()
         depth_frame = frames.get_depth_frame()
         color_frame = frames.get_color_frame()
         depth_arr = np.asanyarray(depth_frame.get_data())
         color_arr = np.asanyarray(color_frame.get_data())
-        _, camera_coordinates, _ = getpoint_round(depth_arr, color_arr,103,94,143,116,255,255,100,120)
+        _, camera_coordinates, _ = getpoint_round(depth_arr, color_arr,103,94,143,116,255,255,110,120)
         
     # Get the depth value at the point of interest
     depth_value = depth_frame.get_distance(camera_coordinates[0][0][0], camera_coordinates[0][0][1])
-    print(depth_value)
     # Convert depth pixel coordinates to world coordinates
     depth_intrinsics = depth_frame.profile.as_video_stream_profile().intrinsics
     depth_to_color_extrinsics = depth_frame.profile.get_extrinsics_to(color_frame.profile)
@@ -354,8 +352,19 @@ def calibrateXY(pipeline, robot_coordinates,camera):
     world_coords = np.append(world_coords, [1])
     world_coords = np.dot(depth_to_color_extrinsics, world_coords)
     world_coords = world_coords[:3]*1000
-    print(world_coords)
-    x_offset = robot_coordinates[0] + (world_coords[1] )
-    y_offset = robot_coordinates[1] - (world_coords[0] )
-    z_offset = robot_coordinates[2] + (world_coords[2] )
+    if (camera == 1):
+        x_offset = robot_coordinates[0] + (world_coords[1] )
+        y_offset = robot_coordinates[1] + (world_coords[0] )
+        z_offset = robot_coordinates[2] + (world_coords[2] )
+        cam1=[x_offset, y_offset,z_offset]
+        np.savetxt('Cam_Off_1.txt', cam1)
+        point=[-(world_coords[1])+cam1[0],-(world_coords[0])+cam1[1],(-world_coords[2])+cam1[2]]
+    if (camera == 2):
+        x_offset = robot_coordinates[0] + (world_coords[1] )
+        y_offset = robot_coordinates[1] + (world_coords[0] )
+        z_offset = robot_coordinates[2] + (world_coords[2] )
+        cam2=[x_offset, y_offset,z_offset]
+        np.savetxt('Cam_Off_2.txt', cam2)
+        point=[-(world_coords[1])+cam2[0],-(world_coords[0])+cam2[1],(-world_coords[2]+cam2[2])]
+    print (point)
     return [x_offset, y_offset,z_offset],Test_frame

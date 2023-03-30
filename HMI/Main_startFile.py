@@ -20,11 +20,12 @@ def main(debug=False):
     pipeline1,pipeline2=initizalize_rs()
     #create trackbar and images
     camera=2
-    robot_coordinates=[-700,200,300]
-    cam_off1,Test_frame=calibrateXY(pipeline2,robot_coordinates,camera)
+    robot_coordinates2=[-705,192,300]
+    robot_coordinates1=[-636,-663,300]
+    cam_off2,Test_frame=calibrateXY(pipeline2,robot_coordinates2,camera)
     cv2.imshow("Grijs frame",Test_frame)
     #cam_off2=calibrateXY(pipeline1,robot_coordinates)
-    print(cam_off1)
+    #print(cam_off2)
     makeframe()
     while True:
         #read info from trackbars
@@ -34,8 +35,7 @@ def main(debug=False):
         if pickup_coordinates != []:
             point=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline,camera)
            # print("3D Point in robot arm coordinates:", point,"and the following place:",place)
-            #print(coor[0][0][0])
-            #show edited and original frame with contours and center
+            print(point)
             original_with_points=draw_original(original_color_frame, pickup_coordinates,crop[2],crop[0])
             if debug:
                 cv2.imshow("Origineel frame", original_with_points)
