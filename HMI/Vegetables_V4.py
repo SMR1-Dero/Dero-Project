@@ -367,4 +367,3 @@ def calibrateXY(pipeline, robot_coordinates,camera):
         np.savetxt('Cam_Off_2.txt', cam2)
         point=[-(world_coords[1])+cam2[0],-(world_coords[0])+cam2[1],(-world_coords[2]+cam2[2])]
     print (point)
-    return [x_offset, y_offset,z_offset],Test_frame
