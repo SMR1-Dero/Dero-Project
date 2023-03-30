@@ -134,9 +134,15 @@ async def calibrateCamera1_GetCoordinates():
 
 @app.route('/CalibrateCamera1')
 def CalibrateCamera1():
+    pipeline1,pipeline2=initizalize_rs()
     asyncio.run(calibrateCamera1_Position())
-    coordinates = calibrateCamera1_GetCoordinates()
+    coordinates = asyncio.run(calibrateCamera1_GetCoordinates())
     coordinates = coordinates[:-3]
+
+    # Jochem COde
+
+    pipeline1.stop()
+    pipeline2.stop()
 
     return Response(status=204)
 
@@ -156,9 +162,15 @@ async def calibrateCamera2_GetCoordinates():
 
 @app.route('/CalibrateCamera2')
 def CalibrateCamera2():
+    pipeline1,pipeline2=initizalize_rs()
     asyncio.run(calibrateCamera2_Position())
-    coordinates = calibrateCamera2_GetCoordinates()
+    coordinates = asyncio.run(calibrateCamera2_GetCoordinates())
     coordinates = coordinates[:-3]
+
+    # Functie Jochem
+
+    pipeline1.stop()
+    pipeline2.stop()
 
     return Response(status=204)
 
