@@ -136,10 +136,13 @@ async def calibrateCamera1_GetCoordinates():
 def CalibrateCamera1():
     pipeline1,pipeline2=initizalize_rs()
     asyncio.run(calibrateCamera1_Position())
+
+    asyncio.sleep(13)
+
     coordinates = asyncio.run(calibrateCamera1_GetCoordinates())
     coordinates = coordinates[:-3]
 
-    # Jochem COde
+    calibrateXY(pipeline1, coordinates, 1)
 
     pipeline1.stop()
     pipeline2.stop()
@@ -164,10 +167,13 @@ async def calibrateCamera2_GetCoordinates():
 def CalibrateCamera2():
     pipeline1,pipeline2=initizalize_rs()
     asyncio.run(calibrateCamera2_Position())
+
+    asyncio.sleep(13)
+
     coordinates = asyncio.run(calibrateCamera2_GetCoordinates())
     coordinates = coordinates[:-3]
 
-    # Functie Jochem
+    calibrateXY(pipeline2, coordinates, 2)
 
     pipeline1.stop()
     pipeline2.stop()
