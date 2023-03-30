@@ -29,6 +29,7 @@ body {
     display: flex;
     justify-content: center; /* centers the buttons horizontally */
     align-items: center; /* centers the buttons vertically */
+    padding: 10px
   }
   
   .btn {
@@ -50,6 +51,25 @@ body {
     transform: translateY(-2px);
   }
   
+  .btn-WorkingBar {
+    background-color: #d03c3c;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px 20px;
+    transition: all 0.2s ease-in-out;
+    margin-right: 10px; /* adds some spacing between the buttons */
+  }
+
+  .btn-WorkingBar:hover {
+    background-color: #c24d4d;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
   /* Grid */
   .grid {
     display: grid;

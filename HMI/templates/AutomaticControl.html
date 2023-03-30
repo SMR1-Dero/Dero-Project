@@ -31,6 +31,36 @@
         
       </div>
 
+      <!-- Working Bar -->
+      <div class="btn-container">
+
+        <form action="/Start" method="post">
+          <input type="hidden" name="package" value={{package}}>
+          <button type="submit" class="btn-WorkingBar">Start</button>
+        </form>
+
+        <form action="/PauseProject">
+          <button class="btn-WorkingBar">Pause Project</button>
+        </form>
+
+        <form action="/ResumeProject">
+          <button class="btn-WorkingBar">Resume Project</button>
+        </form>
+
+        <form action="/CalibrateCamera1">
+          <button class="btn-WorkingBar">Calibrate Camera 1</button>
+        </form>
+
+        <form action="/CalibrateCamera2">
+          <button class="btn-WorkingBar">Calibrate Camera 2</button>
+        </form>
+
+        <form action="/GoToHomeBase">
+          <button class="btn-WorkingBar">Move to Home Base</button>
+        </form>
+
+      </div>
+
       <!-- Product Grid -->
       <div class="grid">
         {% for item in items %}
@@ -47,16 +77,6 @@
             {% endfor %}
           {% endif %}
         {% endfor %}
-      </div>
-
-      <!-- Working Bar -->
-      <div>
-
-        <form action="/Start" method="post">
-          <input type="hidden" name="package" value={{package}}>
-          <button type="submit" class="btn">Start</button>
-        </form>
-
       </div>
 
       <!-- Data TableView Live -->
