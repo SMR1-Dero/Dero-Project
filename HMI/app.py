@@ -29,6 +29,10 @@ async def position(positionArray, tag):
         await conn.set_queue_tag(tag_id = tag)
         await conn.wait_for_queue_tag(tag_id = tag)
 
+async def positionWithoutTag(positionWithoutTag):
+    async with techmanpy.connect_sct(robot_ip=ip) as conn:
+        await conn.move_to_point_ptp(positionWithoutTag, 1, 1000)
+
 async def setSuctionCup1(status):
     async with techmanpy.connect_sta(robot_ip=ip) as conn:
         tag_status = await conn.get_queue_tag_status(1)
@@ -40,20 +44,138 @@ async def setSuctionCup1(status):
 
 async def setSuctionCup2(status):
     async with techmanpy.connect_sta(robot_ip=ip) as conn:
+        tag_status = await conn.get_queue_tag_status(4)
+
+    async with techmanpy.connect_svr(robot_ip=ip) as conn:
+        if tag_status == True:
+            await conn.set_value("Ctrl_DO4", status)
+            tag_status = False
+
+# ---------------------------------------------------------------------
+async def setSuctionCup1Try(positionArray, status):
+    async with techmanpy.connect_sct(robot_ip=ip) as conn:
+        await conn.move_to_point_ptp(positionArray, 1, 1000)
+
+        await conn.set_queue_tag(tag_id = 1)
+        await conn.wait_for_queue_tag(tag_id = 1)
+
+    async with techmanpy.connect_sta(robot_ip=ip) as conn:
         tag_status = await conn.get_queue_tag_status(1)
 
     async with techmanpy.connect_svr(robot_ip=ip) as conn:
         if tag_status == True:
-            await conn.set_value("Ctrl_DO2", status)
+            await conn.set_value("Ctrl_DO1", status)
             tag_status = False
 
+
+async def setSuctionCup2Try(positionArray, status):
+    async with techmanpy.connect_sct(robot_ip=ip) as conn:
+        await conn.move_to_point_ptp(positionArray, 1, 1000)
+
+        await conn.set_queue_tag(tag_id = 4)
+        await conn.wait_for_queue_tag(tag_id = 4)
+
+    async with techmanpy.connect_sta(robot_ip=ip) as conn:
+        tag_status = False
+        tag_status = await conn.get_queue_tag_status(4)
+
+    async with techmanpy.connect_svr(robot_ip=ip) as conn:
+        if tag_status == True:
+            await conn.set_value("Ctrl_DO4", status)
+             
+# --------------------------------------------------------------------------
 async def setSuctionCup1Test(status):
     async with techmanpy.connect_svr(robot_ip=ip) as conn:
             await conn.set_value("Ctrl_DO1", status)
 
 async def setSuctionCup2Test(status):
     async with techmanpy.connect_svr(robot_ip=ip) as conn:
-            await conn.set_value("Ctrl_DO2", status)
+            await conn.set_value("Ctrl_DO4", status)
+
+# -----------------------------------------------------------
+# Pause an ongoing project
+
+async def pauseProject():
+    async with techmanpy.connect_sct(robot_ip=ip) as conn:
+            await conn.pause_project()
+
+@app.route('/PauseProject')
+def PauseProject():
+    asyncio.run(pauseProject())
+
+    return Response(status=204)
+
+# -----------------------------------------------------------
+# Resume an paused project
+
+async def resumeProject():
+    async with techmanpy.connect_sct(robot_ip=ip) as conn:
+            await conn.resume_project()
+
+@app.route('/ResumeProject')
+def ResumeProject():
+    asyncio.run(resumeProject())
+
+    return Response(status=204)
+
+# -----------------------------------------------------------
+# Calibrate Camera 1
+
+async def calibrateCamera1_Position():
+    calibrationCamera1 = [-636.0 , -663.0  , 300.0 , 180.0 , 0.0 , -90.0]
+
+    async with techmanpy.connect_sct(robot_ip=ip) as conn:
+        await conn.move_to_point_ptp(calibrationCamera1, 1, 1000)
+
+async def calibrateCamera1_GetCoordinates():
+    async with techmanpy.connect_svr(robot_ip=ip) as conn:
+        coordinates = await conn.get_value("Coord_Robot_Flange")
+    return coordinates
+
+@app.route('/CalibrateCamera1')
+def CalibrateCamera1():
+    asyncio.run(calibrateCamera1_Position())
+    coordinates = calibrateCamera1_GetCoordinates()
+    coordinates = coordinates[:-3]
+
+    return Response(status=204)
+
+# -----------------------------------------------------------
+# Calibrate Camera 2
+
+async def calibrateCamera2_Position():
+    calibrationCamera2 = [-705.0 , 192.0 , 300.0 , 180.0 , 0.0 , -90.0]
+
+    async with techmanpy.connect_sct(robot_ip=ip) as conn:
+        await conn.move_to_point_ptp(calibrationCamera2, 1, 1000)
+
+async def calibrateCamera2_GetCoordinates():
+    async with techmanpy.connect_svr(robot_ip=ip) as conn:
+        coordinates = await conn.get_value("Coord_Robot_Flange")
+    return coordinates
+
+@app.route('/CalibrateCamera2')
+def CalibrateCamera2():
+    asyncio.run(calibrateCamera2_Position())
+    coordinates = calibrateCamera2_GetCoordinates()
+    coordinates = coordinates[:-3]
+
+    return Response(status=204)
+
+# -----------------------------------------------------------
+# Home Base Coordinates
+
+async def GoToHomeBase_Coordinates():
+    HomeBase = [511.01 , -212.48 , 600.0 , 180.0 , 0.0 , 90.0]
+
+    async with techmanpy.connect_sct(robot_ip=ip) as conn:
+        await conn.move_to_point_ptp(HomeBase, 1, 1000)
+
+@app.route('/GoToHomeBase')
+def GoToHomeBase():
+    asyncio.run(GoToHomeBase_Coordinates())
+
+    return Response(status=204)
 
 # -----------------------------------------------------------
 
@@ -147,82 +269,6 @@ def setOutput():
 
     return Response(status=204)
 
-@app.route('/getLiveInformation')
-def getLiveInformation():
-    async def test_connection(ip):
-        while True:
-            status = {'SCT': 'Offline', 'SVR': 'Offline', 'STA': 'Offline'}
-
-            SCT_status = ""
-            SVR_status = ""
-            STA_status = ""
-
-            # Check SVR connection (should be always active)
-            try:
-                async with techmanpy.connect_svr(robot_ip=ip, conn_timeout=1) as conn:
-                    status['SVR'] = 'Online'
-                    await conn.get_value('Robot_Model')
-                    status['SVR'] = 'Connected'
-            except TechmanException: pass
-
-            # Check SCT connection (only active when inside listen node)
-            try:
-                async with techmanpy.connect_sct(robot_ip=ip, conn_timeout=1) as conn:
-                    status['SCT'] = 'Online'
-                    await conn.resume_project()
-                    status['SCT'] = 'Connected'
-            except TechmanException: pass
-
-            # Check STA connection (only active when running project)
-            try:
-                async with techmanpy.connect_sta(robot_ip=ip, conn_timeout=1) as conn:
-                    status['STA'] = 'Online'
-                    await conn.is_listen_node_active()
-                    status['STA'] = 'Connected'
-            except TechmanException: pass
-
-            # Print status
-            def colored(status):
-                if status == 'Online': return f'{status}'
-                if status == 'Connected': return f'{status}'
-                if status == 'Offline': return f'{status}'
-
-            SVR_status = colored(status["SVR"])
-            SCT_status = colored(status["SCT"])
-            STA_status = colored(status["STA"])
-            break
-        return SVR_status, SCT_status, STA_status
-        
-    async def getCoordinates():
-        # Connect to the robot server
-        async with techmanpy.connect_svr(robot_ip=ip) as conn:
-            # Retrieve live information about the robot
-            coordinates = await conn.get_value("Coord_Robot_Flange")
-            speed = await conn.get_value("Project_Speed")
-            status_suctionCup1 = bool(await conn.get_value("Ctrl_DO1"))
-            status_suctionCup2 = bool(await conn.get_value("Ctrl_DO2"))
-        return coordinates, speed, status_suctionCup1, status_suctionCup2
-    
-    # Check the connection status of the robot before retrieving live information
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    #SVR_status, SCT_status, STA_status = loop.run_until_complete(test_connection(ip))
-    
-    # Retrieve live information about the robot
-    coordinates, speed, status_suctionCup1, status_suctionCup2 = loop.run_until_complete(getCoordinates())
-
-    # Return the live information as a JSON object
-    return jsonify({
-        'coordinates': coordinates,
-        'speed': speed,
-        'status_suctionCup1': str(status_suctionCup1),
-        'status_suctionCup2': str(status_suctionCup2),
-        #'SVR_status': SVR_status,
-        #'SCT_status': SCT_status,
-        #'STA_status': STA_status,
-    })
-
-
 @app.route('/updateJsonData', methods=['POST'])
 def updateJsonData():
      # Load JSON data from file
@@ -253,20 +299,21 @@ def updateJsonData():
     return Response(status=204)
 
 
+
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def getHoverCoordinates(crateNumber, hoverCrate1, hoverCrate2, hoverCrate3, hoverCrate4):
 
     if crateNumber == "1":
-        asyncio.run(position(hoverCrate1, 0))
+        asyncio.run(positionWithoutTag(hoverCrate1))
         #return print("Hover over crate 1")
     elif crateNumber == "2":
-        asyncio.run(position(hoverCrate2, 0))
+        asyncio.run(positionWithoutTag(hoverCrate2))
         #return print("Hover over crate 2")
     elif crateNumber == "3":
-        asyncio.run(position(hoverCrate3, 0))
+        asyncio.run(positionWithoutTag(hoverCrate3))
         #return print("Hover over crate 3")
     elif crateNumber == "4":
-        asyncio.run(position(hoverCrate4, 0))
+        asyncio.run(positionWithoutTag(hoverCrate4))
         #return print("Hover over crate 4")
 
 @app.route('/Start', methods=['POST'])
@@ -275,11 +322,21 @@ def Start():
     # Variables
     teller = 0 # Counts when it needs to return home
     place = "" # Camera Gives String that describes the place of the vegetable
+
+    suctioncupRedLeft = False
+    suctioncupRedRight = False
+
     topPlane = 400.0
     rx = 180.0
     ry = 0.0
     rz_crateSide = -90.0
     rz_boxSide = 90.0
+
+    redSuctionQueue = 1
+    blueSuctionQueue = 4
+
+    hoverIdle = [-675.0 , -250.0 , 400.0 , rx , ry , rz_crateSide]
+    hoverIdleUp = [-675.0 , -250.0 , 700.0 , rx , ry , rz_crateSide]
 
     hoverCrate1 = [-536.42 , -799.43 , topPlane , rx , ry , rz_crateSide]
     hoverCrate2 = [-633.77 , -356.43 , topPlane , rx , ry , rz_crateSide]
@@ -291,15 +348,18 @@ def Start():
     # Suction
     # ry (-27.99 or 0.0), because of the other suction cup
     # rz (90.0 or -90.0), because of the lamp of the camera
-    redSuction = [0.0 , 0.0 , 0.0 , 180.0 , -31.19 , -90.0]
-    blueSuction = [0.0 , 0.0 , 0.0 , 180.0 , 31.19 , -90.0]
+    OrientationTop1 = [0.0 , 0.0 , 0.0 , 180.0 , 31.19 ,  0.0] # Top of the crate
+    OrientationBottom1 = [0.0 , 0.0 , 0.0 , 180.0 , 31.19 , 180.0] # Bottom of the crate
+    OrientationTop2 = [0.0 , 0.0 , 0.0 , -180.0 , -31.19 ,  -180.0] # Top of the crate
+    OrientationBottom2 = [0.0 , 0.0 , 0.0 , -180.0 , -31.19 , 0.0] # Bottom of the crate
+
 
     # Initializing Camera
     pipeline1,pipeline2=initizalize_rs()
     camera=2
 
     # Open JSON
-    with open('HMI\static\json\database_test.json', 'r') as f:
+    with open('HMI\static\json\database.json', 'r') as f:
         data = json.load(f)
 
     # Get Package Name
@@ -307,69 +367,97 @@ def Start():
 
     for product in data["items"]:
         if product["package"] == package:
-            for item in product["products"]:
+            for index, item in enumerate(product["products"]):
                 if item["isActive"] == "true":
-
-                    # Make Picture and Calculate Coordinates
+                # Make Picture and Calculate Coordinates
                     got_frame = 0
                     while True:
                         #Use filters and circle detection to get center coordinate
                         image_with_points,pickup_coordinates,gray_image,crop,original_color_frame,camera,pipeline,place=getpoint(pipeline1,pipeline2,item)
-                        
+                            
                         if pickup_coordinates != []:
-                            location=make_3D_point(pickup_coordinates[item['indexCoordinates']][0][0]+crop[2], pickup_coordinates[item['indexCoordinates']][0][1]+crop[0],pipeline,camera)
+                            location=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline,camera)
                             original_with_points=draw_original(original_color_frame, pickup_coordinates,crop[0],crop[2])
-                            print(location)
-                            item['coordinates'] = location # Coordinates
-                            item['product_location'] = place # Placement in crate
-                            print(item["indexCoordinates"])
-                            if len(pickup_coordinates) >= 2:
-                                got_frame = 1
-                        
+        
+                            got_frame = 1
+                            
                         if got_frame == 1:
                             break
 
-    # Save the updated JSON data back to the file
-    with open('HMI/static/json/database_test.json', 'w') as f:
-        json.dump(data, f, indent=2)
+                    if got_frame == 1:
 
-    for product in data["items"]:
-        if product["package"] == package:
-            for item in product["products"]:
-                if item["isActive"] == "true":
-                    # Get Coordinate Crate Hover
-                    getHoverCoordinates(item["crateNumber"], hoverCrate1, hoverCrate2, hoverCrate3, hoverCrate4)
+                            # Get Coordinate Crate Hover
+                            getHoverCoordinates(item["crateNumber"], hoverCrate1, hoverCrate2, hoverCrate3, hoverCrate4)
 
-                    print(item["product_location"])
+                            if (item["suctioncup"] == "Rood"):
+                                if ((place == "LeftUp") or (place == "LeftDown")): 
+                                    if (suctioncupRedLeft == False and suctioncupRedRight == False):
 
-                    if ((item["product_location"] == "LeftUp") or (item["product_location"] == "LeftDown")):
-                        redSuction[0] = item["coordinates"][0]
-                        redSuction[1] = item["coordinates"][1]
-                        redSuction[2] = 200.0
-                        asyncio.run(position(redSuction, 0))
-                        
-                    elif ((item["product_location"] == "RightUp") or (item["product_location"] == "RightDown")):
-                        blueSuction[0] = item["coordinates"][0]
-                        blueSuction[1] = item["coordinates"][1]
-                        blueSuction[2] = 200.0
-                        asyncio.run(position(blueSuction, 0))
-                        
+                                        OrientationTop1[0] = location[0]
+                                        OrientationTop1[1] = location[1]
+                                        OrientationTop1[2] = 300.0
 
-                    # Get Coordinate Crate Hover
-                    getHoverCoordinates(item["crateNumber"], hoverCrate1, hoverCrate2, hoverCrate3, hoverCrate4)
-                    teller += 1
-                    if teller == 2:
-                        # Get Coordinate Box Hover
-                        asyncio.run(position(hoverBox, 0))
-                        teller = 0
+                                        # Pickup Red as preference
+                                        asyncio.run(setSuctionCup1Try(OrientationTop1, 1))
+                                 
+                                        asyncio.run(positionWithoutTag(hoverIdle))
+                                        suctioncupRedLeft = True
+                                    elif (suctioncupRedLeft == True and suctioncupRedRight == False):
 
+                                        OrientationTop2[0] = location[0]
+                                        OrientationTop2[1] = location[1]
+                                        OrientationTop2[2] = 300.0
 
+                                        # Pickup with Blue is necessary
+                                        asyncio.run(setSuctionCup2Try(OrientationTop2, 1))
+                                        
+                                        suctioncupRedRight = True
 
+                                if ((place == "RightUp") or (place == "RightDown")):
+                                    if (suctioncupRedLeft == False and suctioncupRedRight == False):
 
-    #pipeline1.stop()    
-    #pipeline2.stop()
+                                        OrientationBottom1[0] = location[0]
+                                        OrientationBottom1[1] = location[1]
+                                        OrientationBottom1[2] = 300.0
 
-    return Response(status=204)
+                                        # Pickup Red as preference
+                                        asyncio.run(setSuctionCup1Try(OrientationBottom1, 1))
+                                        
+                                        asyncio.run(positionWithoutTag(hoverIdle))
+                                        suctioncupRedLeft = True
+                                    elif (suctioncupRedLeft == True and suctioncupRedRight == False):
+
+                                        OrientationBottom2[0] = location[0]
+                                        OrientationBottom2[1] = location[1]
+                                        OrientationBottom2[2] = 300.0
+
+                                        # Pickup with Blue is necessary
+                                        asyncio.run(setSuctionCup2Try(OrientationBottom2, 1))
+                                        
+                                        suctioncupRedRight = True
+
+                            #elif (item["suctioncup"] == "Blauw"):
+
+                        # ---------------------------------------------------------------
+
+                    if (suctioncupRedLeft == True and suctioncupRedRight == True):
+                        # Go Home 
+                        asyncio.run(setSuctionCup1Try(hoverBox, 0))
+                        asyncio.run(setSuctionCup2Try(hoverBox, 0))
+
+                        # Reset
+                        suctioncupRedRight = False
+                        suctioncupRedLeft = False
+
+    # Go Home Last Item
+    asyncio.run(setSuctionCup1Try(hoverBox, 0))
+    asyncio.run(setSuctionCup2Try(hoverBox, 0))
+
+    # Reset
+    suctioncupRedLeft = False
+    suctioncupRedRight = False
+
+    return Response(status=204) 
 
 if __name__ == '__main__':
     app.run(debug=True)
