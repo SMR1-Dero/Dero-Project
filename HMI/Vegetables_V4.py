@@ -318,23 +318,26 @@ def make_3D_point(x, y, pipeline, camera):
         depth_to_color_extrinsics = np.concatenate((rotation, translation), axis=1)
         world_coords = np.append(world_coords, [1])
         world_coords = np.dot(depth_to_color_extrinsics, world_coords)
-        world_coords = world_coords[:3]
+        world_coords = world_coords[:3]*1000
         
         xmean += world_coords[0]
         ymean += world_coords[1]
         zmean += world_coords[2]
 
     world_coords = np.array([xmean, ymean, zmean]) / number
-
     if camera == 1:
         cam1 = np.loadtxt('Cam_Off_1.txt')  # difference from the camera to the robot coordinates  HMI
-        point = [-(world_coords[1] * 1000) + cam1[0], -(world_coords[0] * 1000) + cam1[1],
-                 (-world_coords[2] * 1000) + cam1[2]]
+        point = [-(world_coords[1]) + cam1[0], -(world_coords[0] ) + cam1[1],
+                 (-world_coords[2] ) + cam1[2]]
     elif camera == 2:
         cam2 = np.loadtxt('Cam_Off_2.txt')  # difference from the camera to the robot coordinates
-        point = [-(world_coords[1] * 1000) + cam2[0], -(world_coords[0] * 1000) + cam2[1],
-                 (-world_coords[2] * 1000 + cam2[2])]
-
+        point = [-(world_coords[1]) + cam2[0], -(world_coords[0] ) + cam2[1],
+                 (-world_coords[2] + cam2[2])]
+    slope=0.05
+    intercept=40
+    correction=+(slope*point[0]+intercept)
+    print(correction)
+    point[2]=point[2]+correction
     return point
 def calibrateXY(pipeline, robot_coordinates,camera):
     '''

@@ -57,4 +57,4 @@ def main(debug=False):
     # Stop streaming
     pipeline1.stop()
     pipeline2.stop()
-main(debug=True)
+main(debug=False)
