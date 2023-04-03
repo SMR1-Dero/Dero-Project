@@ -8,22 +8,22 @@ vegetabledict = {
     "product_name": "Tomaat",
     "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
     "product_package": "Curry Madras",
-    "crateNumber": "3",
+    "crateNumber": "4",
     "isActive": "on",
     "product_shape": "Round",
-    "product_HSVRange": [103,94,143,116,255,255],
-    "product_minSize": 110,
-    "product_maxSize": 120
+    "product_HSVRange": [0,80,80,255,255,255],
+    "product_minSize": 24,
+    "product_maxSize": 27
 }
 def main(debug=False):
     # Initialize Camera Intel Realsense
     pipeline1,pipeline2=initizalize_rs()
     #create trackbar and images
-    camera=1
+    camera=2
     robot_coordinates2=[-705,192,-200]
     robot_coordinates1=[-636,-663,-200]
-    Test_frame=calibrateXY(pipeline1,robot_coordinates1,camera)
-    cv2.imshow("Grijs frame",Test_frame)
+    #Test_frame=calibrateXY(pipeline1,robot_coordinates1,camera)
+    #cv2.imshow("Grijs frame",Test_frame)
     #cam_off2=calibrateXY(pipeline1,robot_coordinates)
     #print(cam_off2)
     makeframe()
@@ -34,14 +34,14 @@ def main(debug=False):
         image_with_points,pickup_coordinates,gray_image,crop,original_color_frame,camera,pipeline,place=getpoint(pipeline1,pipeline2,vegetabledict)
         if pickup_coordinates != []:
             point=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline,camera)
-           # print("3D Point in robot arm coordinates:", point,"and the following place:",place)
-            print(point)
+            print("3D Point in robot arm coordinates:", point,"and the following place:",place)
+            #print(point)
             original_with_points=draw_original(original_color_frame, pickup_coordinates,crop[2],crop[0])
             if debug:
                 cv2.imshow("Origineel frame", original_with_points)
         if debug:
             cv2.imshow("bewerkt frame", image_with_points)
-            cv2.imshow("Grijs frame",Test_frame)
+            cv2.imshow("Grijs frame",gray_image)
         cv2.waitKey(100)
         key = cv2.waitKey(1)
         if key == 27:  # ESC
@@ -54,4 +54,4 @@ def main(debug=False):
     # Stop streaming
     pipeline1.stop()
     pipeline2.stop()
-main(debug=False)
+main(debug=True)

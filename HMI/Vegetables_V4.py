@@ -86,8 +86,8 @@ def getpoint_notround_withstem(depth_frame,color_frame,hsvunder1,hsvunder2,hsvun
     mask2,cnts2=image_edits(color_frame,10,60,0,35,200,255)#10,60,0,35,200,255
     for i in cnts2:
         area= cv2.contourArea(i)
-        #print (area)
-        if area>150:
+        #print ("Area",area)
+        if area>20:
             M = cv2.moments(i)
             # Calculate the moments
             if M['m00'] != 0:
@@ -150,15 +150,37 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
             #print ("Area=",area)
             # Calculate the moments
             if M['m00'] != 0:
+                # Calculate the x and y pixelcoordinates of the moment
                 cx = int(M['m10']/M['m00'])
                 cy = int(M['m01']/M['m00'])
+                
+                # Draw point on each moment
                 cv2.circle(color_frame, (cx, cy), 7, (0, 0, 255), -1)
                 pointi=(cx,cy)
                 coordinates.append([pointi])
+                
+                # Determine and draw the contours
                 epsilon = 0.005 * cv2.arcLength(c, True)
                 approx = cv2.approxPolyDP(c, epsilon, True)
                 cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
+                
 
+                # cv2.putText(color_frame, f'{length}', (x,y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,255), 1)
+                # Calculate the orientation of the contour
+                angle = 0.5 * np.arctan2(2*M['mu11'], M['mu20']-M['mu02'])
+    
+                # Calculate the length of the axis
+                length = int(M['m00'] ** 0.5)
+    
+                # Compute the end points of the line
+                x1 = int(cx - length*np.cos(angle))
+                y1 = int(cy - length*np.sin(angle))
+                x2 = int(cx + length*np.cos(angle))
+                y2 = int(cy + length*np.sin(angle))
+                
+                # Draw the line
+                cv2.line(color_frame, (x1, y1), (x2, y2), (255, 0, 255), 2)
+                cv2.putText(color_frame, f'{np.rad2deg(angle)}', (x1,y1-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,255), 1)
     return color_frame,coordinates,mask
 
 def getpoint(pipeline1,pipeline2, vegetable):
@@ -297,10 +319,10 @@ def make_3D_point(x, y, pipeline,camera):
     world_coords = world_coords[:3]
     #return world_coords
     if (camera==1):
-        cam1=np.loadtxt('HMI\Cam_Off_1.txt')# difference from the camera to the robot coordinates
+        cam1=np.loadtxt('Cam_Off_1.txt')# difference from the camera to the robot coordinates  HMI\
         point=[-(world_coords[1]*1000)+cam1[0],-(world_coords[0]*1000)+cam1[1],(-world_coords[2]*1000)+cam1[2]]
     elif(camera==2):
-        cam2=np.loadtxt('HMI\Cam_Off_2.txt')# difference from the camera to the robot coordinates
+        cam2=np.loadtxt('Cam_Off_2.txt')# difference from the camera to the robot coordinates
         point=[-(world_coords[1]*1000)+cam2[0],-(world_coords[0]*1000)+cam2[1],(-world_coords[2]*1000+cam2[2])]
     
     return(point)
@@ -368,5 +390,5 @@ def calibrateXY(pipeline, robot_coordinates,camera):
         with open ('HMI\Cam_Off_2.txt','w') as f:
             np.savetxt(f, cam2)
         point=[-(world_coords[1])+cam2[0],-(world_coords[0])+cam2[1],(-world_coords[2]+cam2[2])]
-    print (point)
+    #print (point)
     return Test_frame
