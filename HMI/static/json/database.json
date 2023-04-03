@@ -41,7 +41,8 @@
           "product_name": "Kokosmelk",
           "product_package": "Curry Madras",
           "product_shape": "Not round",
-          "suctioncup": "Rood"
+          "suctioncup": "Rood",
+          "dropdown_coordinate" : [629.34 , -278.78 , 460.93 , -180.0 , 0.0 , 90.0]
         },
         {
           "crateNumber": "2",
@@ -61,12 +62,13 @@
           "product_name": "Peper",
           "product_package": "Curry Madras",
           "product_shape": "Not round",
-          "suctioncup": "Blauw"
+          "suctioncup": "Blauw",
+          "dropdown_coordinate" : [529.96 , -320.28 , 390.22 , -180.0 , 0.0 , 90.0]
         },
         {
           "crateNumber": "2",
           "id": "1_4",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             10,
             81,
@@ -81,12 +83,13 @@
           "product_name": "Ui wit",
           "product_package": "Curry Madras",
           "product_shape": "Round",
-          "suctioncup": "Rood"
+          "suctioncup": "Rood",
+          "dropdown_coordinate" : [551.38 , -275.62 , 444.23 , -180.0 , 0.0 , 90.0]
         },
         {
           "crateNumber": "3",
           "id": "1_5",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             21,
             42,
@@ -161,12 +164,13 @@
           "product_name": "Tomaat",
           "product_package": "Curry Madras",
           "product_shape": "Round",
-          "suctioncup": "Rood"
+          "suctioncup": "Rood",
+          "dropdown_coordinate" : [633.23 , -251.43 , 461.19 , ]
         },
         {
           "crateNumber": "4",
           "id": "1_9",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             0,
             77,
