@@ -358,9 +358,9 @@ async def moveConveyerBelt():
 def crateOffset(crateNumber):
 
     if crateNumber == "1":
-        x_offset1 = 25.0
-        y_offset1 = 0.0
-        z_offset1 = 465.0
+        x_offset1 = 15.0
+        y_offset1 = 5.0
+        z_offset1 = 460.0
         return [x_offset1, y_offset1, z_offset1]
     
     elif crateNumber == "2":
