@@ -277,7 +277,7 @@ def initizalize_rs():
     cv2.waitKey(1000)
     return pipeline1,pipeline2
 
-def make_3D_point(x, y, pipeline,camera):
+def make_3D_point(x, y, pipeline, camera):
     '''
     Description
     ----------
@@ -299,34 +299,43 @@ def make_3D_point(x, y, pipeline,camera):
     point : array of float
         An array containing the X, Y and Z coordinates of the point
     '''
+    xmean, ymean, zmean = 0, 0, 0
+    number = 20
+    for i in range(number):
+        # Wait for a coherent pair of frames: depth and color
+        frames = pipeline.wait_for_frames()
+        depth_frame = frames.get_depth_frame()
+        color_frame = frames.get_color_frame()
 
-    # Wait for a coherent pair of frames: depth and color
-    frames = pipeline.wait_for_frames()
-    depth_frame = frames.get_depth_frame()
-    color_frame = frames.get_color_frame()
+        # Get the depth value at the point of interest
+        depth_value = depth_frame.get_distance(x, y)
+        # Convert depth pixel coordinates to world coordinates
+        depth_intrinsics = depth_frame.profile.as_video_stream_profile().intrinsics
+        depth_to_color_extrinsics = depth_frame.profile.get_extrinsics_to(color_frame.profile)
+        world_coords = rs.rs2_deproject_pixel_to_point(depth_intrinsics, [x, y], depth_value)
+        rotation = np.array(depth_to_color_extrinsics.rotation).reshape(3, 3)
+        translation = np.array(depth_to_color_extrinsics.translation).reshape(3, 1)
+        depth_to_color_extrinsics = np.concatenate((rotation, translation), axis=1)
+        world_coords = np.append(world_coords, [1])
+        world_coords = np.dot(depth_to_color_extrinsics, world_coords)
+        world_coords = world_coords[:3]
+        
+        xmean += world_coords[0]
+        ymean += world_coords[1]
+        zmean += world_coords[2]
 
-    # Get the depth value at the point of interest
-    depth_value = depth_frame.get_distance(x, y)
-    # Convert depth pixel coordinates to world coordinates
-    depth_intrinsics = depth_frame.profile.as_video_stream_profile().intrinsics
-    depth_to_color_extrinsics = depth_frame.profile.get_extrinsics_to(color_frame.profile)
-    world_coords = rs.rs2_deproject_pixel_to_point(depth_intrinsics, [x, y], depth_value)
-    rotation = np.array(depth_to_color_extrinsics.rotation).reshape(3, 3)
-    translation = np.array(depth_to_color_extrinsics.translation).reshape(3, 1)
-    depth_to_color_extrinsics = np.concatenate((rotation, translation), axis=1)
-    world_coords = np.append(world_coords, [1])
-    world_coords = np.dot(depth_to_color_extrinsics, world_coords)
-    world_coords = world_coords[:3]
-    #return world_coords
-    if (camera==1):
-        cam1=np.loadtxt('Cam_Off_1.txt')# difference from the camera to the robot coordinates  HMI\
-        point=[-(world_coords[1]*1000)+cam1[0],-(world_coords[0]*1000)+cam1[1],(-world_coords[2]*1000)+cam1[2]]
-    elif(camera==2):
-        cam2=np.loadtxt('Cam_Off_2.txt')# difference from the camera to the robot coordinates
-        point=[-(world_coords[1]*1000)+cam2[0],-(world_coords[0]*1000)+cam2[1],(-world_coords[2]*1000+cam2[2])]
-    
-    return(point)
+    world_coords = np.array([xmean, ymean, zmean]) / number
 
+    if camera == 1:
+        cam1 = np.loadtxt('Cam_Off_1.txt')  # difference from the camera to the robot coordinates  HMI
+        point = [-(world_coords[1] * 1000) + cam1[0], -(world_coords[0] * 1000) + cam1[1],
+                 (-world_coords[2] * 1000) + cam1[2]]
+    elif camera == 2:
+        cam2 = np.loadtxt('Cam_Off_2.txt')  # difference from the camera to the robot coordinates
+        point = [-(world_coords[1] * 1000) + cam2[0], -(world_coords[0] * 1000) + cam2[1],
+                 (-world_coords[2] * 1000 + cam2[2])]
+
+    return point
 def calibrateXY(pipeline, robot_coordinates,camera):
     '''
     Description
