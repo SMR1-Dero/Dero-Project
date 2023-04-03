@@ -140,7 +140,7 @@ def CalibrateCamera2():
 # Home Base Coordinates
 
 async def GoToHomeBase_Coordinates():
-    HomeBase = [511.01 , -212.48 , 700.0 , 180.0 , 0.0 , 90.0]
+    HomeBase = [505.24 , -317.63 , 700.0 , 180.0 , 0.0 , 90.0]
 
     async with techmanpy.connect_sct(robot_ip=ip) as conn:
         await conn.move_to_point_ptp(HomeBase, 1, 1000)
@@ -358,8 +358,8 @@ async def moveConveyerBelt():
 def crateOffset(crateNumber):
 
     if crateNumber == "1":
-        x_offset1 = 30.0
-        y_offset1 = 10.0
+        x_offset1 = 25.0
+        y_offset1 = 0.0
         z_offset1 = 465.0
         return [x_offset1, y_offset1, z_offset1]
     
@@ -389,7 +389,7 @@ def Start():
 
     suction = False
 
-    hoverBox = [511.01 , -212.48 , 700.0 , 180.0 , 0.0 , 90.0]
+    hoverBox = [505.24 , -317.63 , 700.0 , 180.0 , 0.0 , 90.0]
 
     # Suction
     # ry (-27.99 or 0.0), because of the other suction cup
@@ -422,12 +422,12 @@ def Start():
                             original_with_points=draw_original(original_color_frame, pickup_coordinates,crop[0],crop[2])
                             print(location)
                             
-                        got_frame += 1
+                        got_frame = 1
                             
-                        if got_frame == 100:
+                        if got_frame == 1:
                             break
 
-                    if got_frame == 100:
+                    if got_frame == 1:
 
                         getHoverCoordinates(item["crateNumber"], location[0], location[1], 400.0, crateOffset(item["crateNumber"])[0], crateOffset(item["crateNumber"])[1] , 0.0)
 
@@ -442,7 +442,9 @@ def Start():
                         suction = True
                                 
                         # Go Home Last Item
-                        asyncio.run(setSuctionCup(hoverBox, 0))
+                        asyncio.run(position(hoverBox))
+                        asyncio.run(setSuctionCup(item["dropdown_coordinate"], 0))
+                        asyncio.run(position(hoverBox))
 
                         # Reset
                         suction = False

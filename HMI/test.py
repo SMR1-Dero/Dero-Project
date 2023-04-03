@@ -943,3 +943,32 @@ def Start():
     asyncio.run(moveConveyerBelt())
 
     return Response(status=204) 
+
+async def position(positionArray, tag):
+    async with techmanpy.connect_sct(robot_ip=ip) as conn:
+        await conn.move_to_point_ptp(positionArray, 1, 1000)
+
+        await conn.set_queue_tag(tag_id = tag)
+        await conn.wait_for_queue_tag(tag_id = tag)
+
+async def positionWithoutTag(positionWithoutTag):
+    async with techmanpy.connect_sct(robot_ip=ip) as conn:
+        await conn.move_to_point_ptp(positionWithoutTag, 1, 1000)
+
+async def setSuctionCup1(status):
+    async with techmanpy.connect_sta(robot_ip=ip) as conn:
+        tag_status = await conn.get_queue_tag_status(1)
+
+    async with techmanpy.connect_svr(robot_ip=ip) as conn:
+        if tag_status == True:
+            await conn.set_value("Ctrl_DO1", status)
+            tag_status = False
+
+async def setSuctionCup2(status):
+    async with techmanpy.connect_sta(robot_ip=ip) as conn:
+        tag_status = await conn.get_queue_tag_status(4)
+
+    async with techmanpy.connect_svr(robot_ip=ip) as conn:
+        if tag_status == True:
+            await conn.set_value("Ctrl_DO4", status)
+            tag_status = False
