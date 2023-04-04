@@ -19,10 +19,6 @@
             <button type="submit" class="btn">Home</button>
         </form>
 
-        <form action="/ManualControl">
-          <button type="submit" class="btn">Manual Control</button>
-        </form>
-        
         <form action="/AutomaticControlSettings" method="post">
           <input type="hidden" name="package" value={{package}}>
           <input type="hidden" name="link" value={{link}}>
@@ -31,133 +27,93 @@
         
       </div>
 
-      <!-- Working Bar -->
-      <div class="btn-container">
-
-        <form action="/Start" method="post">
-          <input type="hidden" name="package" value={{package}}>
-          <button type="submit" class="btn-WorkingBar">Start</button>
-        </form>
-
-        <form action="/PauseProject">
-          <button class="btn-WorkingBar">Pause Project</button>
-        </form>
-
-        <form action="/ResumeProject">
-          <button class="btn-WorkingBar">Resume Project</button>
-        </form>
-
-        <form action="/CalibrateCamera1">
-          <button class="btn-WorkingBar">Calibrate Camera 1</button>
-        </form>
-
-        <form action="/CalibrateCamera2">
-          <button class="btn-WorkingBar">Calibrate Camera 2</button>
-        </form>
-
-        <form action="/GoToHomeBase">
-          <button class="btn-WorkingBar">Move to Home Base</button>
-        </form>
-
-        <form action="/resetConveyer">
-          <button class="btn-WorkingBar">Reset Conveyer</button>
-        </form>
-
-        <form action="/nextPackage">
-          <button class="btn-WorkingBar">Next Package</button>
-        </form>
-
-      </div>
-
       <!-- Product Grid -->
-      <div class="grid">
-        {% for item in items %}
-          {% if item.package == package %}
-            {% for product in item.products %}
-              {% if product.isActive %}
-                <div class="grid-item">
-                  <div>
-                    <img src="{{ product.product_image }}">
-                    <div class="caption">{{ product.product_name }}</div>
+      <div>
+
+        <h1>Products</h1>
+
+        <div class="grid">
+          {% for item in items %}
+            {% if item.package == package %}
+              {% for product in item.products %}
+                {% if product.isActive %}
+                  <div class="grid-item">
+                    <div>
+                      <img src="{{ product.product_image }}">
+                      <div class="caption">{{ product.product_name }}</div>
+                    </div>
                   </div>
-                </div>
-              {% endif %}
-            {% endfor %}
-          {% endif %}
-        {% endfor %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+        </div>
+
       </div>
 
-      <!-- Data TableView Live -->
-      <div class="liveData">
-        <h1>Live Information</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>Parameter</th>
-              <th>Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Coordinates:</td>
-              <td><span class="coordinate-x"></span>, <span class="coordinate-y"></span>, <span class="coordinate-z"></span></td>
-            </tr>
-            <tr>
-              <td>Rotation:</td>
-              <td><span class="coordinate-rx"></span>, <span class="coordinate-ry"></span>, <span class="coordinate-rz"></span></td>
-            </tr>
-            <tr>
-              <td>Robot Speed:</td>
-              <td><span class="robot-speed"></span></td>
-            </tr>
-            <tr>
-              <td>Suction Cup 1 Status:</td>
-              <td><span class="status-suction1"></span></td>
-            </tr>
-            <tr>
-              <td>Suction Cup 2 Status:</td>
-              <td><span class="status-suction2"></span></td>
-            </tr>
-            <tr>
-              <td>SVR Status:</td>
-              <td><span class="SVR_status"></span></td>
-            </tr>
-            <tr>
-              <td>SCT Status:</td>
-              <td><span class="SCT_status"></span></td>
-            </tr>
-            <tr>
-              <td>STA Status:</td>
-              <td><span class="STA_status"></span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      
+      <!-- Manual Control -->
+      <div class="Control Centre">
+        
+        <h1>Control Centre</h1>
 
-    <!-- Get Live Information -->
-    <script>
-      $(document).ready(function() {
-          // set the interval to update every second (1000ms)
-          setInterval(function() {
-              $.getJSON('/getLiveInformation', function(data) {
-                  // process the data here and update the HTML content
-                  $('.coordinate-x').html(data.coordinates[0]);
-                  $('.coordinate-y').html(data.coordinates[1]);
-                  $('.coordinate-z').html(data.coordinates[2]);
-                  $('.coordinate-rx').html(data.coordinates[3]);
-                  $('.coordinate-ry').html(data.coordinates[4]);
-                  $('.coordinate-rz').html(data.coordinates[5]);
-                  $('.robot-speed').html(data.speed);
-                  $('.status-suction1').html(data.status_suctionCup1);
-                  $('.status-suction2').html(data.status_suctionCup2);
-                  $('.SVR_status').html(data.SVR_status);
-                  $('.SCT_status').html(data.SCT_status);
-                  $('.STA_status').html(data.STA_status);
-              });
-          }, 1000); // 1000ms = 1 second
-      });
-    </script>
+        <!-- Working Bar -->
+        <div class="btn-container">
+
+          <form action="/Start" method="post">
+            <input type="hidden" name="package" value={{package}}>
+            <button type="submit" class="btn-WorkingBar">Start</button>
+          </form>
+
+          <form action="/CalibrateCamera1">
+            <button class="btn-WorkingBar">Calibrate Camera 1</button>
+          </form>
+
+          <form action="/CalibrateCamera2">
+            <button class="btn-WorkingBar">Calibrate Camera 2</button>
+          </form>
+
+          <form action="/GoToHomeBase">
+            <button class="btn-WorkingBar">Move to Home Base</button>
+          </form>
+
+          <form action="/resetConveyer">
+            <button class="btn-WorkingBar">Reset Conveyer</button>
+          </form>
+
+        </div>
+
+        <!-- Coordinates -->
+        <div class="coordinates">
+          <form action="/move_robot" method="post">
+            <label for="x">X:</label>
+            <input type="text" name="x" id="x">
+            <label for="y">Y:</label>
+            <input type="text" name="y" id="y">
+            <label for="z">Z:</label>
+            <input type="text" name="z" id="z">
+            <label for="rx">rX:</label>
+            <input type="text" name="rx" id="rx">
+            <label for="ry">rY:</label>
+            <input type="text" name="ry" id="ry">
+            <label for="rz">rZ:</label>
+            <input type="text" name="rz" id="rz">
+            <button type="submit">Move</button>
+          </form>
+        </div>
+
+        <!-- I/O Buttons -->
+        <div class="input_output">
+          <form action="/setOutput", method="post">
+            <label for="mode">Suction Cup:</label>
+            <select name="status" id="status">
+              <option value="1">ON</option>
+              <option value="0">OFF</option>
+            </select>
+            <button type="submit">Set</button>
+          </form>
+        </div>
+
+      </div>
 
   </body>
 </html>

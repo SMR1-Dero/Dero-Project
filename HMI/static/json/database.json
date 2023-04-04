@@ -5,6 +5,14 @@
       "products": [
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "1_1",
           "isActive": null,
           "product_HSVRange": [
@@ -21,11 +29,18 @@
           "product_name": "Curry Madras Saus",
           "product_package": "Curry Madras",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            629.34,
+            -278.78,
+            460.93,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "1_2",
           "isActive": false,
           "product_HSVRange": [
@@ -42,11 +57,18 @@
           "product_name": "Kokosmelk",
           "product_package": "Curry Madras",
           "product_shape": "Not round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [629.34 , -278.78 , 460.93 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            529.96,
+            -320.28,
+            390.22,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "1_3",
           "isActive": false,
           "product_HSVRange": [
@@ -63,13 +85,20 @@
           "product_name": "Peper",
           "product_package": "Curry Madras",
           "product_shape": "Not round",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [529.96 , -320.28 , 390.22 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            551.38,
+            -275.62,
+            444.23,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "1_4",
-          "isActive": null,
+          "isActive": "true",
           "product_HSVRange": [
             10,
             81,
@@ -84,13 +113,20 @@
           "product_name": "Ui wit",
           "product_package": "Curry Madras",
           "product_shape": "Round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [551.38 , -275.62 , 444.23 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "Rood"
         },
         {
-          "crateNumber": "3",
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            609.86,
+            -342.95,
+            432.63,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "1_5",
-          "isActive": null,
+          "isActive": "true",
           "product_HSVRange": [
             21,
             42,
@@ -105,13 +141,20 @@
           "product_name": "Limoen",
           "product_package": "Curry Madras",
           "product_shape": "Round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [609.86 , -342.95 , 432.63 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "Rood"
         },
         {
-          "crateNumber": "2",
+          "crateNumber": "4",
+          "dropdown_coordinate": [
+            474.63,
+            -339.83,
+            474.98,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "1_6",
-          "isActive": false,
+          "isActive": "true",
           "product_HSVRange": [
             0,
             57,
@@ -121,16 +164,23 @@
             255
           ],
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/bloemkool.png?raw=true",
-          "product_maxSize": "25",
-          "product_minSize": "16",
+          "product_maxSize": 25,
+          "product_minSize": 16,
           "product_name": "Bloemkool",
           "product_package": "Curry Madras",
           "product_shape": "Round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [474.63 , -339.83 , 474.98 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "1",
+          "dropdown_coordinate": [
+            437.49,
+            -261.67,
+            424.27,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "1_7",
           "isActive": "true",
           "product_HSVRange": [
@@ -142,16 +192,23 @@
             255
           ],
           "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
-          "product_maxSize": 27,
-          "product_minSize": 23,
+          "product_maxSize": 30,
+          "product_minSize": 26,
           "product_name": "Tomaat",
           "product_package": "Curry Madras",
           "product_shape": "Round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [437.49 , -261.67 , 424.27 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "Rood"
         },
         {
-          "crateNumber": "1",
+          "crateNumber": "3",
+          "dropdown_coordinate": [
+            504.18,
+            -257.22,
+            436.09,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "1_8",
           "isActive": "true",
           "product_HSVRange": [
@@ -163,16 +220,23 @@
             255
           ],
           "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
-          "product_maxSize": 27,
-          "product_minSize": 23,
+          "product_maxSize": 30,
+          "product_minSize": 26,
           "product_name": "Tomaat",
           "product_package": "Curry Madras",
           "product_shape": "Round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [504.18 , -257.22 , 436.09 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "4",
+          "dropdown_coordinate": [
+            557.1,
+            -325.08,
+            468.67,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "1_9",
           "isActive": null,
           "product_HSVRange": [
@@ -189,8 +253,7 @@
           "product_name": "Paprika",
           "product_package": "Curry Madras",
           "product_shape": "Not round with stem",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [557.10 , -325.08 , 468.67 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "Blauw"
         }
       ]
     },
@@ -199,6 +262,14 @@
       "products": [
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -215,11 +286,18 @@
           "product_name": "Tomaat",
           "product_package": "Tomaten Soep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "RoodBlauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -236,11 +314,18 @@
           "product_name": "Tomaat",
           "product_package": "Tomaten Soep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "RoodBlauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -257,11 +342,18 @@
           "product_name": "Tomaat",
           "product_package": "Tomaten Soep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "RoodBlauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -278,11 +370,18 @@
           "product_name": "Tomaat",
           "product_package": "Tomaten Soep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "RoodBlauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -299,11 +398,18 @@
           "product_name": "Tomaat",
           "product_package": "Tomaten Soep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "RoodBlauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -320,11 +426,18 @@
           "product_name": "Tomaat",
           "product_package": "Tomaten Soep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "RoodBlauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -341,11 +454,18 @@
           "product_name": "Tomaat",
           "product_package": "Tomaten Soep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "RoodBlauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -362,11 +482,18 @@
           "product_name": "Tomaat",
           "product_package": "Tomaten Soep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "RoodBlauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": "",
@@ -376,11 +503,18 @@
           "product_name": "Tym",
           "product_package": "Tomaten Soep",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -397,11 +531,18 @@
           "product_name": "Bouillonblok",
           "product_package": "Tomaten Soep",
           "product_shape": "Not round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -418,11 +559,18 @@
           "product_name": "Bouillonblok",
           "product_package": "Tomaten Soep",
           "product_shape": "Not round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -439,11 +587,18 @@
           "product_name": "Knoflookteen",
           "product_package": "Tomaten Soep",
           "product_shape": "Not round",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -460,11 +615,18 @@
           "product_name": "Knoflookteen",
           "product_package": "Tomaten Soep",
           "product_shape": "Not round",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -481,11 +643,18 @@
           "product_name": "Peen",
           "product_package": "Tomaten Soep",
           "product_shape": "Not round with stem",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -502,11 +671,18 @@
           "product_name": "Tomatenpuree",
           "product_package": "Tomaten Soep",
           "product_shape": "Not round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -523,8 +699,7 @@
           "product_name": "Ui Wit",
           "product_package": "Tomaten Soep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "RoodBlauw"
         }
       ]
     },
@@ -533,8 +708,16 @@
       "products": [
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "3_1",
-          "isActive": "on",
+          "isActive": null,
           "product_HSVRange": "",
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Marrokaanse%20kruiden.jpeg?raw=true",
           "product_maxSize": "",
@@ -542,13 +725,20 @@
           "product_name": "Marokkaanse Kruiden",
           "product_package": "Couscous",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "3_2",
-          "isActive": "on",
+          "isActive": null,
           "product_HSVRange": [
             0,
             0,
@@ -563,13 +753,20 @@
           "product_name": "Couscous",
           "product_package": "Couscous",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "3_3",
-          "isActive": "on",
+          "isActive": null,
           "product_HSVRange": [
             0,
             20,
@@ -584,13 +781,20 @@
           "product_name": "Rozijn & Abrikozenmix",
           "product_package": "Couscous",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "3_4",
-          "isActive": "on",
+          "isActive": null,
           "product_HSVRange": [
             0,
             56,
@@ -605,13 +809,20 @@
           "product_name": "Marokkaanse Saus",
           "product_package": "Couscous",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            513.58,
+            -312.35,
+            414.43,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "3_5",
-          "isActive": "on",
+          "isActive": null,
           "product_HSVRange": [
             0,
             14,
@@ -622,17 +833,24 @@
           ],
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/knoflook-kruiden-veggipedia.png?raw=true",
           "product_maxSize": "",
-          "product_minSize": "200",
+          "product_minSize": 200,
           "product_name": "Knoflookteen",
           "product_package": "Couscous",
           "product_shape": "Not round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [513.58 , -312.35 , 414.43 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            513.58,
+            -312.35,
+            414.43,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "3_6",
-          "isActive": "on",
+          "isActive": null,
           "product_HSVRange": [
             0,
             14,
@@ -643,17 +861,24 @@
           ],
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/knoflook-kruiden-veggipedia.png?raw=true",
           "product_maxSize": "",
-          "product_minSize": "200",
+          "product_minSize": 200,
           "product_name": "Knoflookteen",
           "product_package": "Couscous",
           "product_shape": "Not round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [513.58 , -312.35 , 414.43 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "Rood"
         },
         {
-          "crateNumber": "2",
+          "crateNumber": "1",
+          "dropdown_coordinate": [
+            524.08,
+            -338.5,
+            478.32,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "3_7",
-          "isActive": "on",
+          "isActive": "true",
           "product_HSVRange": [
             0,
             12,
@@ -668,13 +893,20 @@
           "product_name": "Aubergine",
           "product_package": "Couscous",
           "product_shape": "Not round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [524.08 , -338.50 , 478.32 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "RoodBlauw"
         },
         {
-          "crateNumber": "2",
+          "crateNumber": "4",
+          "dropdown_coordinate": [
+            510.26,
+            -265.57,
+            459.39,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "3_8",
-          "isActive": "on",
+          "isActive": "true",
           "product_HSVRange": [
             35,
             30,
@@ -689,13 +921,20 @@
           "product_name": "Courgette",
           "product_package": "Couscous",
           "product_shape": "Not round",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [510.26 , -265.57 , 459.39 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "Rood"
         },
         {
-          "crateNumber": "2",
+          "crateNumber": "3",
+          "dropdown_coordinate": [
+            440.45,
+            -302.83,
+            474.22,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "3_9",
-          "isActive": "on",
+          "isActive": "true",
           "product_HSVRange": [
             10,
             81,
@@ -705,13 +944,12 @@
             255
           ],
           "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Uien.jpg?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "",
+          "product_maxSize": 27,
+          "product_minSize": 24,
           "product_name": "Ui Wit",
           "product_package": "Couscous",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [440.45 , -302.83 , 474.22 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "Rood"
         }
       ]
     },
@@ -720,6 +958,14 @@
       "products": [
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": "",
@@ -729,11 +975,18 @@
           "product_name": "Groene Curry Saus",
           "product_package": "Groene Curry",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -750,11 +1003,18 @@
           "product_name": "Kokosmelk",
           "product_package": "Groene Curry",
           "product_shape": "Not round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -771,11 +1031,18 @@
           "product_name": "Peen",
           "product_package": "Groene Curry",
           "product_shape": "Not round with stem",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -792,11 +1059,18 @@
           "product_name": "Ui Rood",
           "product_package": "Groene Curry",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "RoodBlauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -813,11 +1087,18 @@
           "product_name": "Komkommer",
           "product_package": "Groene Curry",
           "product_shape": "Not round",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -834,11 +1115,18 @@
           "product_name": "Aubergine",
           "product_package": "Groene Curry",
           "product_shape": "Not round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "RoodBlauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -855,11 +1143,18 @@
           "product_name": "Peper",
           "product_package": "Groene Curry",
           "product_shape": "Not round",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -876,11 +1171,18 @@
           "product_name": "Punt Paprika",
           "product_package": "Groene Curry",
           "product_shape": "Not round",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -897,11 +1199,18 @@
           "product_name": "Tomaat",
           "product_package": "Groene Curry",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "RoodBlauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -918,11 +1227,18 @@
           "product_name": "Tomaat",
           "product_package": "Groene Curry",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "RoodBlauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "1_9",
           "isActive": "on",
           "product_HSVRange": [
@@ -939,8 +1255,7 @@
           "product_name": "Paprika",
           "product_package": "Groene Curry",
           "product_shape": "Not round with stem",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Blauw"
         }
       ]
     },
@@ -949,8 +1264,16 @@
       "products": [
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "5_1",
-          "isActive": "on",
+          "isActive": false,
           "product_HSVRange": [
             0,
             41,
@@ -965,13 +1288,20 @@
           "product_name": "Lasagnabladden",
           "product_package": "Lasagne",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "5_2",
-          "isActive": "on",
+          "isActive": false,
           "product_HSVRange": "",
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Lasagnesaus.jpg?raw=true",
           "product_maxSize": "",
@@ -979,13 +1309,20 @@
           "product_name": "Lasagnasaus",
           "product_package": "Lasagne",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            471.27,
+            -388.96,
+            419.58,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "5_3",
-          "isActive": "on",
+          "isActive": false,
           "product_HSVRange": [
             0,
             142,
@@ -996,17 +1333,24 @@
           ],
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Peen.jpg?raw=true",
           "product_maxSize": "",
-          "product_minSize": "750",
+          "product_minSize": 750,
           "product_name": "Peen",
           "product_package": "Lasagne",
           "product_shape": "Not round with stem",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [471.27 , -388.96 , 419.58 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            473.19,
+            -353.92,
+            417.32,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "5_4",
-          "isActive": "on",
+          "isActive": false,
           "product_HSVRange": [
             0,
             37,
@@ -1017,17 +1361,24 @@
           ],
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Prei.jpg?raw=true",
           "product_maxSize": "",
-          "product_minSize": "750",
+          "product_minSize": 750,
           "product_name": "Prei",
           "product_package": "Lasagne",
           "product_shape": "Not round",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [473.19 , -353.92 , 417.32 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            4410.79,
+            -283.87,
+            448.8,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "5_5",
-          "isActive": "on",
+          "isActive": false,
           "product_HSVRange": [
             0,
             77,
@@ -1042,13 +1393,20 @@
           "product_name": "Paprika",
           "product_package": "Lasagne",
           "product_shape": "Not round with stem",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [4410.79 , -283.87 , 448.80 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "Blauw"
         },
         {
-          "crateNumber": "2",
+          "crateNumber": "1",
+          "dropdown_coordinate": [
+            531.9,
+            -308.85,
+            436.93,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "5_6",
-          "isActive": "on",
+          "isActive": "true",
           "product_HSVRange": [
             0,
             96,
@@ -1058,18 +1416,25 @@
             255
           ],
           "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
-          "product_maxSize": "27",
-          "product_minSize": "23",
+          "product_maxSize": 30,
+          "product_minSize": 26,
           "product_name": "Tomaat",
           "product_package": "Lasagne",
           "product_shape": "Round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [531.90 , -308.85 , 436.93 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "Rood"
         },
         {
-          "crateNumber": "2",
+          "crateNumber": "1",
+          "dropdown_coordinate": [
+            526.53,
+            -263.06,
+            442.48,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "5_7",
-          "isActive": "on",
+          "isActive": "true",
           "product_HSVRange": [
             0,
             96,
@@ -1079,18 +1444,25 @@
             255
           ],
           "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
-          "product_maxSize": "27",
-          "product_minSize": "23",
+          "product_maxSize": 30,
+          "product_minSize": 26,
           "product_name": "Tomaat",
           "product_package": "Lasagne",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [526.53 , -263.06 , 442.48 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "RoodBlauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            601.18,
+            -363.89,
+            461.91,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "5_8",
-          "isActive": "on",
+          "isActive": "true",
           "product_HSVRange": [
             0,
             96,
@@ -1100,18 +1472,25 @@
             255
           ],
           "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
-          "product_maxSize": "27",
-          "product_minSize": "23",
+          "product_maxSize": 30,
+          "product_minSize": 26,
           "product_name": "Tomaat",
           "product_package": "Lasagne",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [601.18 , -363.89 , 461.91 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "Rood"
         },
         {
-          "crateNumber": "2",
+          "crateNumber": "3",
+          "dropdown_coordinate": [
+            596.58,
+            -323.71,
+            438.75,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "5_9",
-          "isActive": "on",
+          "isActive": "true",
           "product_HSVRange": [
             0,
             96,
@@ -1121,18 +1500,25 @@
             255
           ],
           "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
-          "product_maxSize": "27",
-          "product_minSize": "23",
+          "product_maxSize": 30,
+          "product_minSize": 26,
           "product_name": "Tomaat",
           "product_package": "Lasagne",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [596.58 , -323.71 , 438.75 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "Rood"
         },
         {
-          "crateNumber": "2",
+          "crateNumber": "4",
+          "dropdown_coordinate": [
+            590.21,
+            -269.87,
+            453.15,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "5_10",
-          "isActive": "on",
+          "isActive": "true",
           "product_HSVRange": [
             0,
             96,
@@ -1142,18 +1528,25 @@
             255
           ],
           "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
-          "product_maxSize": "27",
-          "product_minSize": "23",
+          "product_maxSize": 30,
+          "product_minSize": 26,
           "product_name": "Tomaat",
           "product_package": "Lasagne",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [590.21 , -269.87 , 453.15 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            497.32,
+            -319.66,
+            477.24,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "5_11",
-          "isActive": "on",
+          "isActive": null,
           "product_HSVRange": [
             0,
             14,
@@ -1168,13 +1561,20 @@
           "product_name": "Knoflookteen",
           "product_package": "Lasagne",
           "product_shape": "not round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [497.32 , -319.66 , 477.24 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "5_12",
-          "isActive": "on",
+          "isActive": null,
           "product_HSVRange": "",
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Rozemarijn-kruiden-veggipedia.png?raw=true",
           "product_maxSize": "",
@@ -1182,13 +1582,20 @@
           "product_name": "Rozemarijn",
           "product_package": "Lasagne",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "5_13",
-          "isActive": "on",
+          "isActive": null,
           "product_HSVRange": "",
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/tijm-kruiden-Veggipedia.png?raw=true",
           "product_maxSize": "",
@@ -1196,13 +1603,20 @@
           "product_name": "Tym",
           "product_package": "Lasagne",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            479.84,
+            -324.64,
+            480.03,
+            -180.0,
+            0.0,
+            90.0
+          ],
           "id": "5_14",
-          "isActive": "on",
+          "isActive": null,
           "product_HSVRange": [
             10,
             81,
@@ -1217,8 +1631,7 @@
           "product_name": "Ui Wit",
           "product_package": "Lasagne",
           "product_shape": "Round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [479.84 , -324.64 , 480.03 , -180.0 , 0.0 , 90.0]
+          "suctioncup": "Rood"
         }
       ]
     },
@@ -1227,6 +1640,14 @@
       "products": [
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "1_9",
           "isActive": "on",
           "product_HSVRange": [
@@ -1243,11 +1664,18 @@
           "product_name": "Paprika",
           "product_package": "Mexicaanse Warps",
           "product_shape": "Not round with stem",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "1_9",
           "isActive": "on",
           "product_HSVRange": [
@@ -1264,11 +1692,18 @@
           "product_name": "Paprika",
           "product_package": "Mexicaanse Warps",
           "product_shape": "Not round with stem",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1285,11 +1720,18 @@
           "product_name": "Knoflookteen",
           "product_package": "Mexicaanse Warps",
           "product_shape": "Not round",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1306,11 +1748,18 @@
           "product_name": "Ui Wit",
           "product_package": "Mexicaanse Warps",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "RoodBlauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": "",
@@ -1320,11 +1769,18 @@
           "product_name": "Tortilla",
           "product_package": "Mexicaanse Warps",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": "",
@@ -1334,11 +1790,18 @@
           "product_name": "Tortilla",
           "product_package": "Mexicaanse Warps",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": "",
@@ -1348,11 +1811,18 @@
           "product_name": "Faijtasaus",
           "product_package": "Mexicaanse Warps",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": "",
@@ -1362,8 +1832,7 @@
           "product_name": "Mais",
           "product_package": "Mexicaanse Warps",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         }
       ]
     },
@@ -1372,6 +1841,14 @@
       "products": [
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": "",
@@ -1381,11 +1858,18 @@
           "product_name": "Laurierblad",
           "product_package": "Erwtensoep",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": "",
@@ -1395,11 +1879,18 @@
           "product_name": "Laurierblad",
           "product_package": "Erwtensoep",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": "",
@@ -1409,11 +1900,18 @@
           "product_name": "Laurierblad",
           "product_package": "Erwtensoep",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": "",
@@ -1423,11 +1921,18 @@
           "product_name": "Selderij",
           "product_package": "Erwtensoep",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": "",
@@ -1437,11 +1942,18 @@
           "product_name": "Selderij",
           "product_package": "Erwtensoep",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": "",
@@ -1451,11 +1963,18 @@
           "product_name": "Selderij",
           "product_package": "Erwtensoep",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": "",
@@ -1465,11 +1984,18 @@
           "product_name": "Selderij",
           "product_package": "Erwtensoep",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1486,11 +2012,18 @@
           "product_name": "Ui Wit",
           "product_package": "Erwtensoep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "RoodBlauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1507,11 +2040,18 @@
           "product_name": "Knolselderij",
           "product_package": "Erwtensoep",
           "product_shape": "Not round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1528,11 +2068,18 @@
           "product_name": "Prei",
           "product_package": "Erwtensoep",
           "product_shape": "Not round",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1549,11 +2096,18 @@
           "product_name": "Peen",
           "product_package": "Erwtensoep",
           "product_shape": "Not round with stem",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1570,11 +2124,18 @@
           "product_name": "Peen",
           "product_package": "Erwtensoep",
           "product_shape": "Not round with stem",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": "",
@@ -1584,8 +2145,7 @@
           "product_name": "Spliterwten",
           "product_package": "Erwtensoep",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         }
       ]
     },
@@ -1594,6 +2154,14 @@
       "products": [
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1610,11 +2178,18 @@
           "product_name": "Bouillonblok",
           "product_package": "Pompoensoep",
           "product_shape": "Not round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1631,11 +2206,18 @@
           "product_name": "Bouillonblok",
           "product_package": "Pompoensoep",
           "product_shape": "Not round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1652,11 +2234,18 @@
           "product_name": "Knoflookteen",
           "product_package": "Pompoensoep",
           "product_shape": "Not round",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1673,11 +2262,18 @@
           "product_name": "Ui rood",
           "product_package": "Pompoensoep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "RoodBlauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1694,11 +2290,18 @@
           "product_name": "Gember",
           "product_package": "Pompoensoep",
           "product_shape": "Not round",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1715,11 +2318,18 @@
           "product_name": "Appel",
           "product_package": "Pompoensoep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "RoodBlauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1736,11 +2346,18 @@
           "product_name": "Sinaasappel",
           "product_package": "Pompoensoep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "RoodBlauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1757,11 +2374,18 @@
           "product_name": "Flespompoen",
           "product_package": "Pompoensoep",
           "product_shape": "Not round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1778,8 +2402,7 @@
           "product_name": "Peen",
           "product_package": "Pompoensoep",
           "product_shape": "Not round with stem",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Blauw"
         }
       ]
     },
@@ -1788,6 +2411,14 @@
       "products": [
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1804,11 +2435,18 @@
           "product_name": "Bouillonblok",
           "product_package": "Courgette Soep",
           "product_shape": "Not round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1825,11 +2463,18 @@
           "product_name": "Bouillonblok",
           "product_package": "Courgette Soep",
           "product_shape": "Not round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": "",
@@ -1839,11 +2484,18 @@
           "product_name": "Tym",
           "product_package": "Courgette Soep",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Geen suctioncup"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1860,11 +2512,18 @@
           "product_name": "Knoflookteen",
           "product_package": "Courgette Soep",
           "product_shape": "Not round",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1881,11 +2540,18 @@
           "product_name": "Knoflookteen",
           "product_package": "Courgette Soep",
           "product_shape": "Not round",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": "",
@@ -1895,11 +2561,18 @@
           "product_name": "Sjalotten",
           "product_package": "Courgette Soep",
           "product_shape": "Not round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": "",
@@ -1909,11 +2582,18 @@
           "product_name": "Sjalotten",
           "product_package": "Courgette Soep",
           "product_shape": "Not round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1930,11 +2610,18 @@
           "product_name": "Citroen",
           "product_package": "Courgette Soep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "RoodBlauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1951,11 +2638,18 @@
           "product_name": "Courgette",
           "product_package": "Courgette Soep",
           "product_shape": "Not round",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
@@ -1972,11 +2666,18 @@
           "product_name": "Courgette",
           "product_package": "Courgette Soep",
           "product_shape": "Not round",
-          "suctioncup": "Blauw",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": "",
@@ -1986,8 +2687,7 @@
           "product_name": "Kookroom",
           "product_package": "Courgette Soep",
           "product_shape": "Not round",
-          "suctioncup": "Rood",
-          "dropdown_coordinate" : [0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0]
+          "suctioncup": "Rood"
         }
       ]
     }

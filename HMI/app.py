@@ -10,16 +10,16 @@ import time
 import copy
 import os
 import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
+#sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
 from Vegetables_V4 import *
 
-
+# ---------------------------------------------------------------------
+# Settings Flask App
 app = Flask(__name__, template_folder=r'C:\Users\Jarik\OneDrive\Documenten\GitHub\Dero-Project\HMI\templates')
 app.static_folder = 'static'
 
-# -----------------------------------------------------------
+# ---------------------------------------------------------------------
 # PLC
-
 ip = '192.168.0.204'
 
 # ---------------------------------------------------------------------
@@ -47,32 +47,6 @@ async def setSuctionCup(positionArray, status):
 async def setSuctionCupTest(status):
     async with techmanpy.connect_svr(robot_ip=ip) as conn:
             await conn.set_value("Ctrl_DO1", status)
-
-# -----------------------------------------------------------
-# Pause an ongoing project
-
-async def pauseProject():
-    async with techmanpy.connect_sct(robot_ip=ip) as conn:
-            await conn.pause_project()
-
-@app.route('/PauseProject')
-def PauseProject():
-    asyncio.run(pauseProject())
-
-    return Response(status=204)
-
-# -----------------------------------------------------------
-# Resume an paused project
-
-async def resumeProject():
-    async with techmanpy.connect_sct(robot_ip=ip) as conn:
-            await conn.resume_project()
-
-@app.route('/ResumeProject')
-def ResumeProject():
-    asyncio.run(resumeProject())
-
-    return Response(status=204)
 
 # -----------------------------------------------------------
 # Calibrate Camera 1
@@ -180,10 +154,6 @@ def resetConveyer():
 @app.route('/')
 def routeView():
         return render_template('Home.html')
-
-@app.route('/ManualControl')
-def ManualControl():
-    return render_template('ManualControl.html')
 
 @app.route('/AutomaticControlSettings', methods=['GET', 'POST'])
 def AutomaticControlSettings():
@@ -299,39 +269,29 @@ def updateJsonData():
 
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-def getHoverCoordinates(crateNumber, x, y, z, xOffset, yOffset, zOffset):
+def getHoverCoordinates(crateNumber, x, y, xOffset, yOffset):
 
-    hoverCrate1 = [0.0 , 0.0 , 400.0 , -180.0 , 0.0 , -90.0]
-    hoverCrate2 = [0.0 , 0.0 , 400.0 , -180.0 , 0.0 , -90.0]
-    hoverCrate3 = [0.0 , 0.0 , 400.0 , -180.0 , 0.0 , -90.0]
-    hoverCrate4 = [0.0 , 0.0 , 400.0 , -180.0 , 0.0 , -90.0]
+    hoverCrate = [0.0 , 0.0 , 400.0 , -180.0 , 0.0 , -90.0]
 
     if crateNumber == "1":
-        hoverCrate1[0] = x + xOffset
-        hoverCrate1[1] = y + yOffset
-        hoverCrate1[2] = z + zOffset
-        asyncio.run(position(hoverCrate1))
+        hoverCrate[0] = x + xOffset
+        hoverCrate[1] = y + yOffset
+        print("Hover Crate 1:", hoverCrate)
+        asyncio.run(position(hoverCrate))
     elif crateNumber == "2":
-        hoverCrate2[0] += xOffset
-        hoverCrate2[1] += yOffset
-        hoverCrate2[2] += zOffset
-        asyncio.run(position(hoverCrate2))
+        hoverCrate[0] += x + xOffset
+        hoverCrate[1] += y + yOffset
+        print("Hover Crate 2:", hoverCrate)
+        asyncio.run(position(hoverCrate))
     elif crateNumber == "3":
-        hoverCrate3[0] += xOffset
-        hoverCrate3[1] += yOffset
-        hoverCrate3[2] += zOffset
-        asyncio.run(position(hoverCrate3))
+        hoverCrate[0] += x + xOffset
+        hoverCrate[1] += y + yOffset
+        asyncio.run(position(hoverCrate))
     elif crateNumber == "4":
-        hoverCrate4[0] += xOffset
-        hoverCrate4[1] += yOffset
-        hoverCrate4[2] += zOffset
-        asyncio.run(position(hoverCrate4))
+        hoverCrate[0] += x + xOffset
+        hoverCrate[1] += y + yOffset
+        asyncio.run(position(hoverCrate))
 
-@app.route('/nextPackage')
-def nextPackage():
-    asyncio.run(moveConveyerBelt())
-
-    return Response(status=204)
 
 async def moveConveyerBelt():
 
@@ -360,25 +320,25 @@ def crateOffset(crateNumber):
     if crateNumber == "1":
         x_offset1 = 15.0
         y_offset1 = 5.0
-        z_offset1 = 460.0
+        z_offset1 = 450.0
         return [x_offset1, y_offset1, z_offset1]
     
     elif crateNumber == "2":
-        x_offset2 = 85.0
-        y_offset2 = -10.0
-        z_offset2 = 480.0
+        x_offset2 = 5.0
+        y_offset2 = -15.0
+        z_offset2 = 430.0
         return [x_offset2, y_offset2, z_offset2]
     
     elif crateNumber == "3":
-        x_offset3 = 70.0
-        y_offset3 = 40.0
-        z_offset3 = 505.0
+        x_offset3 = -20.0
+        y_offset3 = 25.0
+        z_offset3 = 450.0
         return [x_offset3, y_offset3, z_offset3]
     
     elif crateNumber == "4":
-        x_offset4 = 50.0
-        y_offset4 = 20.0
-        z_offset4 = 495.0
+        x_offset4 = -45.0
+        y_offset4 = 25.0
+        z_offset4 = 425.0
         return [x_offset4, y_offset4, z_offset4]
 
         
@@ -395,6 +355,7 @@ def Start():
     # ry (-27.99 or 0.0), because of the other suction cup
     # rz (90.0 or -90.0), because of the lamp of the camera
     Orientation = [0.0 , 0.0 , 400.0 , -180.0 , 0.0 ,  -90.0] # Top of the crate
+    location = [0.0 , 0.0 , 0.0]
 
     # Initializing Camera
     pipeline1,pipeline2=initizalize_rs()
@@ -412,24 +373,25 @@ def Start():
             for index, item in enumerate(product["products"]):
                 if item["isActive"] == "true":
                 # Make Picture and Calculate Coordinates
-                    got_frame = 0
+                    
                     while True:
+                        got_frame = 0
+                        pickup_coordinates = []
                         #Use filters and circle detection to get center coordinate
                         image_with_points,pickup_coordinates,gray_image,crop,original_color_frame,camera,pipeline,place=getpoint(pipeline1,pipeline2,item)
                             
                         if pickup_coordinates != []:
                             location=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline,camera)
                             original_with_points=draw_original(original_color_frame, pickup_coordinates,crop[0],crop[2])
-                            print(location)
                             
-                        got_frame = 1
+                        got_frame += 5
                             
-                        if got_frame == 1:
+                        if got_frame == 5:
                             break
 
-                    if got_frame == 1:
-
-                        getHoverCoordinates(item["crateNumber"], location[0], location[1], 400.0, crateOffset(item["crateNumber"])[0], crateOffset(item["crateNumber"])[1] , 0.0)
+                    if got_frame == 5:
+                        print("Test:", location)
+                        getHoverCoordinates(item["crateNumber"], location[0], location[1], crateOffset(item["crateNumber"])[0], crateOffset(item["crateNumber"])[1])
 
                         Orientation[0] = location[0] + crateOffset(item["crateNumber"])[0]
                         Orientation[1] = location[1] + crateOffset(item["crateNumber"])[1]
@@ -437,7 +399,7 @@ def Start():
 
                         asyncio.run(setSuctionCup(Orientation, 1))
 
-                        getHoverCoordinates(item["crateNumber"], location[0], location[1], 400.0, crateOffset(item["crateNumber"])[0], crateOffset(item["crateNumber"])[1] , 0.0)
+                        getHoverCoordinates(item["crateNumber"], location[0], location[1], crateOffset(item["crateNumber"])[0], crateOffset(item["crateNumber"])[1])
                                         
                         suction = True
                                 
