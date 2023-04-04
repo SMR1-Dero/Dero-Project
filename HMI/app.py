@@ -181,7 +181,6 @@ def AutomaticControl():
 
     return render_template('AutomaticControl.html', link=link, package=package, items=data['items'])
 
-
 # Move Robot
 @app.route('/move_robot', methods=['POST'])
 def move_robot():
@@ -194,32 +193,6 @@ def move_robot():
     
     positionArray = [x,y,z,rx,ry,rz]
     asyncio.run(position(positionArray,0))
-    return Response(status=204)
-
-@app.route('/testPosition', methods=['GET', 'POST'])
-def move_robottest():
-
-    value = request.form['value']
-    x = 0.0
-    y = 0.0
-    z = 0.0
-    topPlane = 400.0
-    rx = 180.0
-    ry = 0.0
-    rz_crateSide = -90.0
-    rz_boxSide = 90.0
-
-    hoverCrate1 = [-536.42 , -799.43 , topPlane , rx , ry , rz_crateSide]
-    hoverCrate2 = [-633.77 , -356.43 , topPlane , rx , ry , rz_crateSide]
-    hoverCrate3 = [-647.11 , 139.67 , topPlane , rx , ry , rz_crateSide]
-    hoverCrate4 = [-646.80 , 387.27 , topPlane , rx , 31.19 , rz_crateSide]
-
-    getVegetable = [-699.18 , -844.69 , 100.0 , rx , ry , rz_crateSide]
-
-
-    asyncio.run(setSuctionCup(hoverCrate1, 0))
-
-    
     return Response(status=204)
 
 @app.route('/setOutput', methods=['POST'])
@@ -341,13 +314,18 @@ def crateOffset(crateNumber):
         z_offset4 = 425.0
         return [x_offset4, y_offset4, z_offset4]
 
-        
+async def isSucking():
+    
+    suction = False
 
+    async with techmanpy.connect_svr(robot_ip=ip) as conn:
+        suction = bool(await conn.get_value("Ctrl_DI1"))
+        print(suction)
+
+    return suction
 
 @app.route('/Start', methods=['POST'])
 def Start():
-
-    suction = False
 
     hoverBox = [505.24 , -317.63 , 700.0 , 180.0 , 0.0 , 90.0]
 
@@ -370,39 +348,67 @@ def Start():
 
     for product in data["items"]:
         if product["package"] == package:
-            for index, item in enumerate(product["products"]):
-                if item["isActive"] == "true":
-                # Make Picture and Calculate Coordinates
-                    
-                    while True:
-                        got_frame = 0
-                        pickup_coordinates = []
-                        #Use filters and circle detection to get center coordinate
-                        image_with_points,pickup_coordinates,gray_image,crop,original_color_frame,camera,pipeline,place=getpoint(pipeline1,pipeline2,item)
-                            
-                        if pickup_coordinates != []:
-                            location=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline,camera)
-                            original_with_points=draw_original(original_color_frame, pickup_coordinates,crop[0],crop[2])
-                            
-                        got_frame += 5
-                            
-                        if got_frame == 5:
-                            break
+                
+            # Will count how many packages need to packed
+            amount = 0
 
-                    if got_frame == 5:
-                        print("Test:", location)
-                        getHoverCoordinates(item["crateNumber"], location[0], location[1], crateOffset(item["crateNumber"])[0], crateOffset(item["crateNumber"])[1])
+            while amount != product["amount"]:
+                for index, item in enumerate(product["products"]):
+                    if item["isActive"] == "true":
 
-                        Orientation[0] = location[0] + crateOffset(item["crateNumber"])[0]
-                        Orientation[1] = location[1] + crateOffset(item["crateNumber"])[1]
-                        Orientation[2] = location[2] + crateOffset(item["crateNumber"])[2]
+                        # Maximum number of attempts
+                        max_attempts = 3
+                        attempt_count = 0
+                        # Suction
+                        suction = False
+                        get_newPhoto = True
 
-                        asyncio.run(setSuctionCup(Orientation, 1))
+                        while suction == False and attempt_count != max_attempts:
 
-                        getHoverCoordinates(item["crateNumber"], location[0], location[1], crateOffset(item["crateNumber"])[0], crateOffset(item["crateNumber"])[1])
-                                        
-                        suction = True
+                            # Reset got_Frame and coordinates array
+                            pickup_coordinates = []
+                            got_frame = 0
+
+                            # Make Picture and Calculate Coordinates                    
+                            while get_newPhoto == True:
                                 
+                                #Use filters and circle detection to get center coordinate
+                                image_with_points,pickup_coordinates,gray_image,crop,original_color_frame,camera,pipeline,place=getpoint(pipeline1,pipeline2,item)
+                                    
+                                if pickup_coordinates != []:
+                                    location=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline,camera)
+                                    original_with_points=draw_original(original_color_frame, pickup_coordinates,crop[0],crop[2])
+                                    got_frame = 1
+                                
+                                if got_frame == 1:
+                                    get_newPhoto = False
+                                    break
+
+                            if got_frame == 1:
+                                getHoverCoordinates(item["crateNumber"], location[0], location[1], crateOffset(item["crateNumber"])[0], crateOffset(item["crateNumber"])[1])
+
+                                Orientation[0] = location[0] + crateOffset(item["crateNumber"])[0]
+                                Orientation[1] = location[1] + crateOffset(item["crateNumber"])[1]
+                                Orientation[2] = location[2] + crateOffset(item["crateNumber"])[2]
+
+                                asyncio.run(setSuctionCup(Orientation, 1))
+
+                                getHoverCoordinates(item["crateNumber"], location[0], location[1], crateOffset(item["crateNumber"])[0], crateOffset(item["crateNumber"])[1])
+                                                    
+                                suction = asyncio.run(isSucking())
+
+                                attempt_count += 1
+
+                                if suction == False:
+                                    asyncio.run(setSuctionCup(hoverBox, 0))
+                                    suction = asyncio.run(isSucking())
+
+                                    if suction == False:
+                                        get_newPhoto = True
+
+                                elif suction == True:
+                                    break
+                                    
                         # Go Home Last Item
                         asyncio.run(position(hoverBox))
                         asyncio.run(setSuctionCup(item["dropdown_coordinate"], 0))
@@ -411,7 +417,8 @@ def Start():
                         # Reset
                         suction = False
 
-    asyncio.run(moveConveyerBelt())
+                asyncio.run(moveConveyerBelt())
+                amount += 1
 
     return Response(status=204) 
     

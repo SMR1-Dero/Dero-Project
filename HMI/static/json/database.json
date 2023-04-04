@@ -2,6 +2,7 @@
   "items": [
     {
       "package": "CurryMadras",
+      "amount": 1,
       "products": [
         {
           "crateNumber": "2",
@@ -15,6 +16,7 @@
           ],
           "id": "1_1",
           "isActive": null,
+          "isSucking": 0,
           "product_HSVRange": [
             3,
             78,
@@ -43,6 +45,7 @@
           ],
           "id": "1_2",
           "isActive": false,
+          "isSucking": 0,
           "product_HSVRange": [
             0,
             28,
@@ -71,6 +74,7 @@
           ],
           "id": "1_3",
           "isActive": false,
+          "isSucking": 0,
           "product_HSVRange": [
             0,
             164,
@@ -98,7 +102,8 @@
             90.0
           ],
           "id": "1_4",
-          "isActive": "true",
+          "isActive": null,
+          "isSucking": 0,
           "product_HSVRange": [
             10,
             81,
@@ -126,7 +131,8 @@
             90.0
           ],
           "id": "1_5",
-          "isActive": "true",
+          "isActive": null,
+          "isSucking": 0,
           "product_HSVRange": [
             21,
             42,
@@ -154,7 +160,8 @@
             90.0
           ],
           "id": "1_6",
-          "isActive": "true",
+          "isActive": null,
+          "isSucking": 0,
           "product_HSVRange": [
             0,
             57,
@@ -183,6 +190,7 @@
           ],
           "id": "1_7",
           "isActive": "true",
+          "isSucking": 0,
           "product_HSVRange": [
             0,
             96,
@@ -210,7 +218,8 @@
             90.0
           ],
           "id": "1_8",
-          "isActive": "true",
+          "isActive": null,
+          "isSucking": 0,
           "product_HSVRange": [
             0,
             96,
@@ -239,6 +248,7 @@
           ],
           "id": "1_9",
           "isActive": null,
+          "isSucking": 0,
           "product_HSVRange": [
             0,
             77,
@@ -259,6 +269,7 @@
     },
     {
       "package": "TomatenSoep",
+      "amount": 1,
       "products": [
         {
           "crateNumber": "2",
@@ -705,6 +716,7 @@
     },
     {
       "package": "Couscous",
+      "amount": 1,
       "products": [
         {
           "crateNumber": "2",
@@ -955,6 +967,7 @@
     },
     {
       "package": "GroeneCurry",
+      "amount": 1,
       "products": [
         {
           "crateNumber": "2",
@@ -1261,6 +1274,7 @@
     },
     {
       "package": "Lasagne",
+      "amount": 1,
       "products": [
         {
           "crateNumber": "2",
@@ -1637,6 +1651,7 @@
     },
     {
       "package": "MexicaanseWarps",
+      "amount": 1,
       "products": [
         {
           "crateNumber": "2",
@@ -1838,6 +1853,7 @@
     },
     {
       "package": "ErwtenSoep",
+      "amount": 1,
       "products": [
         {
           "crateNumber": "2",
@@ -2151,6 +2167,7 @@
     },
     {
       "package": "PompoenSoep",
+      "amount": 1,
       "products": [
         {
           "crateNumber": "2",
@@ -2408,6 +2425,7 @@
     },
     {
       "package": "CourgetteSoep",
+      "amount": 1,
       "products": [
         {
           "crateNumber": "2",
