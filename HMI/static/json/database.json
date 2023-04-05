@@ -1,7 +1,7 @@
 {
   "items": [
     {
-      "amount": 2,
+      "amount": 1,
       "package": "CurryMadras",
       "products": [
         {
@@ -30,7 +30,7 @@
           "product_name": "Curry Madras Saus",
           "product_package": "Curry Madras",
           "product_shape": "Not round",
-          "suctioncup": "Geen suctioncup"
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
@@ -71,7 +71,7 @@
             90.0
           ],
           "id": "1_3",
-          "isActive": false,
+          "isActive": "true",
           "product_HSVRange": [
             0,
             164,
@@ -99,7 +99,7 @@
             90.0
           ],
           "id": "1_4",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             10,
             81,
@@ -117,7 +117,7 @@
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "1",
+          "crateNumber": "2",
           "dropdown_coordinate": [
             609.86,
             -342.95,
@@ -127,7 +127,7 @@
             90.0
           ],
           "id": "1_5",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             21,
             42,
@@ -145,7 +145,7 @@
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "2",
+          "crateNumber": "1",
           "dropdown_coordinate": [
             474.63,
             -339.83,
@@ -155,7 +155,7 @@
             90.0
           ],
           "id": "1_6",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             0,
             0,
@@ -183,7 +183,7 @@
             90.0
           ],
           "id": "1_7",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             0,
             96,
@@ -211,7 +211,7 @@
             90.0
           ],
           "id": "1_8",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             0,
             96,
@@ -229,7 +229,7 @@
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "4",
+          "crateNumber": "3",
           "dropdown_coordinate": [
             557.1,
             -325.08,
@@ -239,7 +239,7 @@
             90.0
           ],
           "id": "1_9",
-          "isActive": null,
+          "isActive": "true",
           "product_HSVRange": [
             0,
             100,
@@ -2189,7 +2189,7 @@
       "package": "PompoenSoep",
       "products": [
         {
-          "crateNumber": "1",
+          "crateNumber": "3",
           "dropdown_coordinate": [
             487.66,
             -281.03,
@@ -2199,7 +2199,7 @@
             90.0
           ],
           "id": "8_1",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             13,
             59,
@@ -2255,7 +2255,7 @@
             90.0
           ],
           "id": "8_3",
-          "isActive": "on",
+          "isActive": null,
           "product_HSVRange": [
             0,
             80,
@@ -2283,7 +2283,7 @@
             90.0
           ],
           "id": "8_4",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             7,
             138,
@@ -2311,7 +2311,7 @@
             90.0
           ],
           "id": "8_5",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             0,
             63,
@@ -2326,7 +2326,7 @@
           "product_name": "Ui rood",
           "product_package": "Pompoensoep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw"
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
