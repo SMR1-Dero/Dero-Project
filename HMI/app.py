@@ -154,20 +154,10 @@ def resetConveyer():
 
 @app.route('/')
 def routeView():
-        return render_template('Home.html')
+    # Returns HTML Page (Home.html)
+    return render_template('Home.html')
 
-@app.route('/AutomaticControlSettings', methods=['GET', 'POST'])
-def AutomaticControlSettings():
-
-    # Get Title
-    package = request.form['package']
-    link = request.form['link']
-
-    # Load JSON data from file
-    with open(link, 'r') as f:
-        data = json.load(f)
-
-    return render_template('AutomaticControlSettings.html', link=link, package=package, items=data['items'])
+# -----------------------------------------------------------
 
 @app.route('/AutomaticControl', methods=['GET', 'POST'])
 def AutomaticControl():
@@ -181,6 +171,24 @@ def AutomaticControl():
         data = json.load(f)
 
     return render_template('AutomaticControl.html', link=link, package=package, items=data['items'])
+
+# -----------------------------------------------------------
+
+@app.route('/AutomaticControlSettings', methods=['GET', 'POST'])
+def AutomaticControlSettings():
+
+    # Get the Package name and the product image link from the HTML file (AutomaticControl.html)
+    package = request.form['package']
+    link = request.form['link']
+
+    # Load JSON data from file (database.json)
+    with open(link, 'r') as f:
+        data = json.load(f)
+
+    # Returns HTML Page (AutomaticControlSettings.html)
+    return render_template('AutomaticControlSettings.html', link=link, package=package, items=data['items'])
+
+# -----------------------------------------------------------
 
 # Move Robot
 @app.route('/move_robot', methods=['POST'])
@@ -306,30 +314,50 @@ async def moveConveyerBelt():
             async with techmanpy.connect_svr(robot_ip=ip) as conn:
                 await conn.set_value("Ctrl_DO5", 0)
 
-def crateOffset(crateNumber):
+def crateOffset(crateNumber, suctionCupColor):
 
     if crateNumber == "1":
         x_offset1 = 15.0
         y_offset1 = 5.0
-        z_offset1 = 450.0
+
+        if suctionCupColor == "Rood":
+            z_offset1 = 450.0
+        elif suctionCupColor == "Blauw":
+            z_offset1 = 440.0
+
         return [x_offset1, y_offset1, z_offset1]
     
     elif crateNumber == "2":
         x_offset2 = 5.0
         y_offset2 = -15.0
-        z_offset2 = 420.0
+
+        if suctionCupColor == "Rood":
+            z_offset2 = 420.0
+        elif suctionCupColor == "Blauw":
+            z_offset2 = 410.0
+
         return [x_offset2, y_offset2, z_offset2]
     
     elif crateNumber == "3":
         x_offset3 = -20.0
         y_offset3 = 25.0
-        z_offset3 = 455.0
+
+        if suctionCupColor == "Rood":
+            z_offset3 = 455.0
+        elif suctionCupColor == "Blauw":
+            z_offset3 = 445.0
+
         return [x_offset3, y_offset3, z_offset3]
     
     elif crateNumber == "4":
         x_offset4 = -45.0
         y_offset4 = 25.0
-        z_offset4 = 425.0
+
+        if suctionCupColor == "Rood":
+            z_offset4 = 425.0
+        elif suctionCupColor == "Blauw":
+            z_offset4 = 415.0
+
         return [x_offset4, y_offset4, z_offset4]
 
 async def isSucking():
@@ -407,16 +435,16 @@ def Start():
                                     break
 
                             if got_frame == 1:
-                                getHoverCoordinates(item["crateNumber"], location[0], location[1], crateOffset(item["crateNumber"])[0], crateOffset(item["crateNumber"])[1])
+                                getHoverCoordinates(item["crateNumber"], location[0], location[1], crateOffset(item["crateNumber"], item["suctioncup"])[0], crateOffset(item["crateNumber"], item["suctioncup"])[1])
 
-                                Orientation[0] = location[0] + crateOffset(item["crateNumber"])[0]
-                                Orientation[1] = location[1] + crateOffset(item["crateNumber"])[1]
-                                Orientation[2] = location[2] + crateOffset(item["crateNumber"])[2]
+                                Orientation[0] = location[0] + crateOffset(item["crateNumber"], item["suctioncup"])[0]
+                                Orientation[1] = location[1] + crateOffset(item["crateNumber"], item["suctioncup"])[1]
+                                Orientation[2] = location[2] + crateOffset(item["crateNumber"], item["suctioncup"])[2]
                                 Orientation[5] = corner
 
                                 asyncio.run(position(Orientation))
 
-                                getHoverCoordinates(item["crateNumber"], location[0], location[1], crateOffset(item["crateNumber"])[0], crateOffset(item["crateNumber"])[1])
+                                getHoverCoordinates(item["crateNumber"], location[0], location[1], crateOffset(item["crateNumber"], item["suctioncup"])[0], crateOffset(item["crateNumber"], item["suctioncup"])[1])
                                 
                                 suction = asyncio.run(isSucking())
 
