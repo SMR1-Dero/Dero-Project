@@ -8,12 +8,12 @@ vegetabledict = {
     "product_name": "Tomaat",
     "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
     "product_package": "Curry Madras",
-    "crateNumber": "1",
+    "crateNumber": "2",
     "isActive": "on",
     "product_shape": "Not round",
-    "product_HSVRange": [0,50,204,255,255,255],
-    "product_minSize": 26,
-    "product_maxSize": 30
+    "product_HSVRange": [0,14,199,46,51,255],
+    "product_minSize": 34,
+    "product_maxSize": 37
 }
 def main(debug=False):
     # Initialize Camera Intel Realsense
