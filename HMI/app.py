@@ -321,7 +321,7 @@ def crateOffset(crateNumber, suctionCupColor):
         y_offset1 = 5.0
 
         if suctionCupColor == "Rood":
-            z_offset1 = 450.0
+            z_offset1 = 440.0
         elif suctionCupColor == "Blauw":
             z_offset1 = 440.0
 
@@ -343,7 +343,7 @@ def crateOffset(crateNumber, suctionCupColor):
         y_offset3 = 25.0
 
         if suctionCupColor == "Rood":
-            z_offset3 = 455.0
+            z_offset3 = 450.0
         elif suctionCupColor == "Blauw":
             z_offset3 = 405.0
 
@@ -354,7 +354,7 @@ def crateOffset(crateNumber, suctionCupColor):
         y_offset4 = 25.0
 
         if suctionCupColor == "Rood":
-            z_offset4 = 425.0
+            z_offset4 = 405.0
         elif suctionCupColor == "Blauw":
             z_offset4 = 415.0
 
@@ -423,14 +423,15 @@ def Start():
                             while get_newPhoto == True:
                                 
                                 #Use filters and circle detection to get center coordinate
-                                image_with_points,pickup_coordinates,gray_image,crop,original_color_frame,camera,pipeline,place,corner,length=getpoint(pipeline1,pipeline2,item)
+                                image_with_points,pickup_coordinates,gray_image,crop,original_color_frame,camera,pipeline,place=getpoint(pipeline1,pipeline2,item)
+
+                                cv2.imshow("Origineel frame", image_with_points)
+                                cv2.waitKey(100)
 
                                 if pickup_coordinates != []:
-                                    location=make_3D_point(pickup_coordinates[0]+crop[2], pickup_coordinates[1]+crop[0],pipeline,camera)
+                                    location=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline,camera)
                                     original_with_points=draw_original(original_color_frame, pickup_coordinates,crop[0],crop[2])
                                     got_frame = 1
-
-                                    print(location)
                                 
                                 if got_frame == 1:
                                     get_newPhoto = False
@@ -442,7 +443,9 @@ def Start():
                                 Orientation[0] = location[0] + crateOffset(item["crateNumber"], item["suctioncup"])[0]
                                 Orientation[1] = location[1] + crateOffset(item["crateNumber"], item["suctioncup"])[1]
                                 Orientation[2] = location[2] + crateOffset(item["crateNumber"], item["suctioncup"])[2]
-                                Orientation[5] = corner
+                                
+                                # Jochem Gives Orientation
+                                #Orientation[5] = corner
 
                                 asyncio.run(position(Orientation))
 

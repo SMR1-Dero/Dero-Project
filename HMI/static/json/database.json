@@ -71,7 +71,7 @@
             90.0
           ],
           "id": "1_3",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             0,
             164,
@@ -89,7 +89,7 @@
           "suctioncup": "Blauw"
         },
         {
-          "crateNumber": "3",
+          "crateNumber": "1",
           "dropdown_coordinate": [
             551.38,
             -275.62,
@@ -145,7 +145,7 @@
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "1",
+          "crateNumber": "4",
           "dropdown_coordinate": [
             474.63,
             -339.83,
@@ -173,7 +173,7 @@
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "4",
+          "crateNumber": "3",
           "dropdown_coordinate": [
             437.49,
             -261.67,
@@ -183,7 +183,7 @@
             90.0
           ],
           "id": "1_7",
-          "isActive": null,
+          "isActive": "true",
           "product_HSVRange": [
             0,
             96,
@@ -201,7 +201,7 @@
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "4",
+          "crateNumber": "3",
           "dropdown_coordinate": [
             504.18,
             -257.22,
@@ -229,7 +229,7 @@
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "3",
+          "crateNumber": "4",
           "dropdown_coordinate": [
             557.1,
             -325.08,
@@ -1144,7 +1144,7 @@
           "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Uien.jpg?raw=true",
           "product_maxSize": 30,
           "product_minSize": 38,
-          "product_name": "Ui rood",
+          "product_name": "Ui rood",
           "product_package": "Groene Curry",
           "product_shape": "Round",
           "suctioncup": "Rood"
@@ -2323,7 +2323,7 @@
           "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Uien.jpg?raw=true",
           "product_maxSize": 30,
           "product_minSize": 38,
-          "product_name": "Ui rood",
+          "product_name": "Ui rood",
           "product_package": "Pompoensoep",
           "product_shape": "Round",
           "suctioncup": "Rood"
