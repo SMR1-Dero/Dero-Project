@@ -28,33 +28,33 @@
       </div>
 
       <!-- Product Grid -->
-      <div>
+        <div class="ControlCentre">
 
-        <h1>Products</h1>
+          <h1 class="grid_title">Products</h1>
 
-        <div class="grid">
-          {% for item in items %}
-            {% if item.package == package %}
-              {% for product in item.products %}
-                {% if product.isActive %}
-                  <div class="grid-item">
-                    <div>
-                      <img src="{{ product.product_image }}">
-                      <div class="caption">{{ product.product_name }}</div>
+          <div class="grid">
+            {% for item in items %}
+              {% if item.package == package %}
+                {% for product in item.products %}
+                  {% if product.isActive %}
+                    <div class="grid-item">
+                      <div>
+                        <img src="{{ product.product_image }}">
+                        <div class="caption">{{ product.product_name }}</div>
+                      </div>
                     </div>
-                  </div>
-                {% endif %}
-              {% endfor %}
-            {% endif %}
-          {% endfor %}
-        </div>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+          </div>
 
-      </div>
+        </div>
 
       <!-- Manual Control -->
       <div class="Control Centre">
         
-        <h1>Control Centre</h1>
+        <h1 class="grid_title">Control Center</h1>
 
         <!-- Working Bar -->
         <div class="btn-container">

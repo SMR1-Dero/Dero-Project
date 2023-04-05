@@ -1,26 +1,28 @@
 body {
+  display: flex;
   margin: 0;
   padding: 0;
   background-color: #111;
   font-family: Arial, sans-serif;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
 }
 
+/* Automatic Control Settings CSS */
+
+/* Container */
 .container {
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 50px;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: auto;
-  grid-gap: 20px;
-}
-
+/* Header */
 .header {
-  grid-column: 1 / -1;
-  font-size: 36px;
+  font-size: 36px; /* increased font size */
   font-weight: bold;
   color: #fff;
   display: flex;
@@ -28,116 +30,127 @@ body {
   align-items: center;
 }
 
-.btn-container {
-  grid-column: 2 / 4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+/* Navigation Bar */
+  .btn-container {
+    display: flex;
+    justify-content: center; /* centers the buttons horizontally */
+    align-items: center; /* centers the buttons vertically */
+    padding: 10px
+  }
+  
+  .btn {
+    background-color: #1a75ff;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px 20px;
+    transition: all 0.2s ease-in-out;
+    margin-right: 10px; /* adds some spacing between the buttons */
+  }
+  
+  .btn:hover {
+    background-color: #0077b3;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    transform: translateY(-2px);
+  }
 
-.btn {
-  background-color: #1a75ff;
-  border: none;
-  border-radius: 10px;
-  color: #fff;
-  font-size: 18px;
-  font-weight: bold;
-  padding: 12px 20px;
-  transition: all 0.2s ease-in-out;
-  margin-right: 10px;
-}
-
-.btn:hover {
-  background-color: #0077b3;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  color: #fff;
-  transform: translateY(-2px);
-}
-
-.grid-item {
+/* Style the amount section */
+.updateAmount {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  border-radius: 25px;
-  border: 1px solid #ccc;
-  padding: 25px;
-  background-color: #fff;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease-in-out;
-}
-
-.grid-item:hover {
-  transform: scale(1.05);
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-}
-
-.grid-item img {
-  max-width: 100%;
-  height: auto;
   margin-bottom: 10px;
 }
 
-.grid-item a {
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-bottom: 5px;
+.updateAmount label {
+  font-size: 18px;
+  margin-bottom: 20px;
 }
 
-.grid-item label {
-  display: flex;
-  align-items: center;
-  font-size: 1.1rem;
-  margin-bottom: 5px;
+.updateAmount input[type="text"] {
+  padding: 8px 10px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  font-size: 16px;
+  width: 400px; /* or any desired width */
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
-/* Checkbox */
-input[type="checkbox"] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  background-color: #fff;
-  border: 2px solid #ccc;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-
-/* Checked state */
-input[type="checkbox"]:checked {
-  background-color: #2196f3;
-  border-color: #2196f3;
-}
-
-/* Hover state */
-input[type="checkbox"]:hover {
-  border-color: #666;
-}
-
-/* Focus state */
-input[type="checkbox"]:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.5);
-}
-
-button[type="submit"] {
-  grid-column: 2 / 4;
-  margin-top: 20px;
+.updateAmount button {
   background-color: #1a75ff;
   border: none;
   border-radius: 10px;
   color: #fff;
   font-size: 18px;
   font-weight: bold;
-  padding: 12px 20px;
+  padding: 10px 20px;
   transition: all 0.2s ease-in-out;
-  }
-  
-  button[type="submit"]:hover {
+  cursor: pointer;
+}
+
+.updateAmount button:hover {
   background-color: #0077b3;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   color: #fff;
   transform: translateY(-2px);
-  }
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 2fr));
+  grid-gap: 20px;
+  padding: 50px;
+}
+
+.grid-item {
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+.grid-item img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+
+.form-container {
+  margin-top: 10px;
+}
+
+.form-container label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.form-container label input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.form-container button[type="submit"] {
+  background-color: #1a75ff;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 20px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.form-container button[type="submit"]:hover {
+  background-color: #0077b3;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  color: #fff;
+  transform: translateY(-2px);
+}

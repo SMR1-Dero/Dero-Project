@@ -239,6 +239,28 @@ def updateJsonData():
     # Redirect back to the items grid
     return Response(status=204)
 
+@app.route('/updateAmount', methods=['POST'])
+def updateAmount():
+     # Load JSON data from file
+    with open('HMI/static/json/database.json', 'r') as f:
+        data = json.load(f)
+
+    # Get the new values from the form
+    product_package = request.form['package']
+    amount = request.form['amount']
+
+    # Loop through each package and product
+    for item in data['items']:
+        if item['package'] == product_package:
+            item['amount'] = int(amount)
+
+    # Save the updated JSON data back to the file
+    with open('HMI/static/json/database.json', 'w') as f:
+        json.dump(data, f, indent=2)
+
+    # Redirect back to the items grid
+    return Response(status=204)
+
 
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -305,7 +327,7 @@ def crateOffset(crateNumber):
     elif crateNumber == "3":
         x_offset3 = -20.0
         y_offset3 = 25.0
-        z_offset3 = 450.0
+        z_offset3 = 455.0
         return [x_offset3, y_offset3, z_offset3]
     
     elif crateNumber == "4":
@@ -320,14 +342,17 @@ async def isSucking():
 
     async with techmanpy.connect_svr(robot_ip=ip) as conn:
         suction = bool(await conn.get_value("Ctrl_DI1"))
-        print(suction)
 
     return suction
+
 
 @app.route('/Start', methods=['POST'])
 def Start():
 
     hoverBox = [505.24 , -317.63 , 700.0 , 180.0 , 0.0 , 90.0]
+
+    # Will count how many packages need to packed
+    amount = 0
 
     # Suction
     # ry (-27.99 or 0.0), because of the other suction cup
@@ -348,11 +373,7 @@ def Start():
 
     for product in data["items"]:
         if product["package"] == package:
-                
-            # Will count how many packages need to packed
-            amount = 0
-
-            while amount != product["amount"]:
+            while amount < product["amount"]:
                 for index, item in enumerate(product["products"]):
                     if item["isActive"] == "true":
 
@@ -394,25 +415,29 @@ def Start():
                                 asyncio.run(setSuctionCup(Orientation, 1))
 
                                 getHoverCoordinates(item["crateNumber"], location[0], location[1], crateOffset(item["crateNumber"])[0], crateOffset(item["crateNumber"])[1])
-                                                    
+                                
                                 suction = asyncio.run(isSucking())
 
                                 attempt_count += 1
 
                                 if suction == False:
                                     asyncio.run(setSuctionCup(hoverBox, 0))
-                                    suction = asyncio.run(isSucking())
+                                    #suction = asyncio.run(isSucking())
 
-                                    if suction == False:
-                                        get_newPhoto = True
+                                    get_newPhoto = True
 
                                 elif suction == True:
                                     break
-                                    
-                        # Go Home Last Item
-                        asyncio.run(position(hoverBox))
-                        asyncio.run(setSuctionCup(item["dropdown_coordinate"], 0))
-                        asyncio.run(position(hoverBox))
+
+                        if suction == False:      
+                            # Go Home Last Item
+                            asyncio.run(position(hoverBox))
+
+                        if suction == True:
+                            # Go Home Last Item
+                            asyncio.run(position(hoverBox))
+                            asyncio.run(setSuctionCup(item["dropdown_coordinate"], 0))
+                            asyncio.run(position(hoverBox))
 
                         # Reset
                         suction = False
