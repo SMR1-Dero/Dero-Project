@@ -2230,10 +2230,10 @@
           "isActive": null,
           "product_HSVRange": [
             0,
-            142,
+            50,
             204,
             255,
-            202,
+            255,
             255
           ],
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Peen.jpg?raw=true",
