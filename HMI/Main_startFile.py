@@ -10,7 +10,7 @@ vegetabledict = {
     "product_package": "Curry Madras",
     "crateNumber": "1",
     "isActive": "on",
-    "product_shape": "Round",
+    "product_shape": "Not round",
     "product_HSVRange": [0,80,80,255,255,255],
     "product_minSize": 26,
     "product_maxSize": 30
@@ -35,7 +35,7 @@ def main(debug=False):
         #Use filters and circle detection to get center coordinate
         image_with_points,pickup_coordinates,gray_image,crop,original_color_frame,camera,pipeline,place=getpoint(pipeline1,pipeline2,vegetabledict)
         if pickup_coordinates != []:
-            point=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline,camera)
+            point=make_3D_point(pickup_coordinates[0]+crop[2], pickup_coordinates[1]+crop[0],pipeline,camera)
             point=[point[0]+offset[0],point[1]+offset[1],point[2]+offset[2]]
             print("3D Point in robot arm coordinates:", point,"and the following place:",place)
             #print(point)
@@ -57,4 +57,4 @@ def main(debug=False):
     # Stop streaming
     pipeline1.stop()
     pipeline2.stop()
-main(debug=False)
+main(debug=True)
