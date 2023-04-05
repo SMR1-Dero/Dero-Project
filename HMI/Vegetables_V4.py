@@ -137,7 +137,7 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
     mask,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)
     for c in cnts:
         area= cv2.contourArea(c)
-        if area>1000:
+        if area>500:
             M = cv2.moments(c)
             #print ("Area=",area)
             # Calculate the moments
@@ -145,30 +145,30 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
                 # Calculate the x and y pixelcoordinates of the moment
                 cx = int(M['m10']/M['m00'])
                 cy = int(M['m01']/M['m00'])
-                
+
                 # Draw point on each moment
                 cv2.circle(color_frame, (cx, cy), 7, (0, 0, 255), -1)
                 pointi=(cx,cy)
                 coordinates.append([pointi])
-                
+
                 # Determine and draw the contours
                 epsilon = 0.005 * cv2.arcLength(c, True)
                 approx = cv2.approxPolyDP(c, epsilon, True)
                 cv2.drawContours(color_frame, [approx], -1, (0, 255, 0), 4)
-                
+
                 # cv2.putText(color_frame, f'{length}', (x,y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,255), 1)
                 # Calculate the orientation of the contour
                 angle = 0.5 * np.arctan2(2*M['mu11'], M['mu20']-M['mu02'])
-    
+
                 # Calculate the length of the axis
                 length = int(M['m00'] ** 0.5)
-    
+
                 # Compute the end points of the line
                 x1 = int(cx - length*np.cos(angle))
                 y1 = int(cy - length*np.sin(angle))
                 x2 = int(cx + length*np.cos(angle))
                 y2 = int(cy + length*np.sin(angle))
-                
+
                 # Draw the line
                 cv2.line(color_frame, (x1, y1), (x2, y2), (255, 0, 255), 2)
                 cv2.putText(color_frame, f'{np.rad2deg(angle)}', (x1,y1-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,255), 1)
@@ -189,7 +189,7 @@ def getpoint(pipeline1,pipeline2, vegetable):
     Returns
     -------
     image_with_points : numpy array
-        The cropped image with the pickup points drawn on the image 
+        The cropped image with the pickup points drawn on the image
     pickup_coordinates : array of float
         An array containing all the (x, y) coordinates of the detected pickup points
     gray_image : numpy array
@@ -218,7 +218,7 @@ def getpoint(pipeline1,pipeline2, vegetable):
         pipeline=pipeline2
         camera=2
     depth_cut,color_cut,orginal_color_frame=getframe(pipeline,crop[crate_number-1])
-    
+
     if (shape == "Round"):
         image_with_points,pickup_coordinates,gray_image=getpoint_round(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5],min_size,max_size)
     elif (shape == "Not round"):
@@ -233,7 +233,7 @@ def getpoint(pipeline1,pipeline2, vegetable):
             place="Down"
     elif(pickup_coordinates == []):
         place=None
-    
+
     return image_with_points,pickup_coordinates,gray_image,crop[crate_number-1],orginal_color_frame,camera,pipeline,place
 def draw_original(original,coordinates,xcorrect=0,ycorrect=0):
     cv2.circle(original,(coordinates[0][0][0]+xcorrect,coordinates[0][0][1]+ycorrect),1,(0,255,0),2)
@@ -248,7 +248,7 @@ def initizalize_rs():
     serial_number1 = "839512061465" # Replace this with the serial number of your camera
     config1.enable_device(serial_number1)
     pipeline1.start(config1)
-    
+
     # Configure the second pipeline to stream depth frames with the serial number filter
     pipeline2 = rs.pipeline()
     config2 = rs.config()
@@ -299,7 +299,7 @@ def make_3D_point(x, y, pipeline, camera):
         world_coords = np.append(world_coords, [1])
         world_coords = np.dot(depth_to_color_extrinsics, world_coords)
         world_coords = world_coords[:3]*1000
-        
+
         xmean += world_coords[0]
         ymean += world_coords[1]
         zmean += world_coords[2]
@@ -352,7 +352,7 @@ def calibrateXY(pipeline, robot_coordinates,camera):
         depth_arr = np.asanyarray(depth_frame.get_data())
         color_arr = np.asanyarray(color_frame.get_data())
         Test_frame, camera_coordinates, _ = getpoint_round(depth_arr, color_arr,103,94,143,116,255,255,35,45)
-        
+
     # Get the depth value at the point of interest
     depth_value = depth_frame.get_distance(camera_coordinates[0][0][0], camera_coordinates[0][0][1])
     # Convert depth pixel coordinates to world coordinates
