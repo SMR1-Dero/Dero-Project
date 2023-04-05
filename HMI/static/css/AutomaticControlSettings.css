@@ -14,10 +14,12 @@ body {
 
 /* Container */
 .container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
-  box-sizing: border-box;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Header */
@@ -103,39 +105,91 @@ body {
 /* Grid */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 2fr));
+  grid-template-columns: repeat(5, 1fr);
   grid-gap: 20px;
-  padding: 50px;
+  max-width: 750px;
+  margin-top: 30px;
+  position: center;
+  justify-content: center; /* horizontally centers the grid */
+  align-content: center; /* vertically centers the grid */
 }
 
+
 .grid-item {
-  text-align: center;
-  background-color: #ffffff;
+  position: relative; /* enable absolute positioning of the caption */
   border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 
 .grid-item img {
-  width: 150px;
-  height: 150px;
-  object-fit: contain;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease-out;
 }
 
-.form-container {
-  margin-top: 10px;
+.grid-item .caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
 }
 
-.form-container label {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+.grid-item:hover img {
+  transform: scale(1.1); /* scale up the image on hover */
 }
 
+.grid-item:hover .caption {
+  opacity: 1; /* show the caption on hover */
+}
+
+.total-grid-item {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* Style the crate number input */
+.form-container input[type="text"] {
+  padding: 8px 10px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  font-size: 16px;
+  width: 150px; /* or any desired width */
+  box-sizing: border-box;
+}
+
+/* Style the checkbox */
 .form-container label input[type="checkbox"] {
   margin-right: 10px;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 3px;
+  cursor: pointer;
 }
 
+.form-container label input[type="checkbox"]:checked:before {
+  content: '\2713';
+  color: #1a75ff;
+  font-size: 14px;
+  line-height: 1;
+  text-align: center;
+}
+
+/* Add padding to the save button */
 .form-container button[type="submit"] {
   background-color: #1a75ff;
   border: none;
@@ -143,9 +197,10 @@ body {
   color: #fff;
   font-size: 18px;
   font-weight: bold;
-  padding: 10px 20px;
+  padding: 12px 30px; /* updated padding values */
   transition: all 0.2s ease-in-out;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 .form-container button[type="submit"]:hover {
@@ -154,3 +209,4 @@ body {
   color: #fff;
   transform: translateY(-2px);
 }
+

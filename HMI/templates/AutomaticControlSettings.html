@@ -8,7 +8,7 @@
     <div class="container">
 
       <div class="header">
-        <h1>Product settings</h1>
+        <h1>Product Settings</h1>
       </div>
 
       <!-- Navigation Bar -->
@@ -35,25 +35,34 @@
         {% for item in items %}
           {% if item.package == package %}
             {% for product in item.products %}
-              <div class="grid-item">
-                <form method="POST" action="{{ url_for('updateJsonData') }}" class="grid-item">
+              <div class="total-grid-item">
+
+                <div class="grid-item">
+
                   <img src="{{ product.product_image }}" alt="{{ product.product_name }}">
-                  <a>{{ product.product_name }}</a>
+                  <div class="caption">{{ product.product_name }}</div>
+  
+                </div>
+  
+                <form method="POST" action="{{ url_for('updateJsonData') }}" class="grid-item">
                   <div class="form-container">
-                    <label>
-                      Active: 
-                      <input type="checkbox" name="isActive" {% if product.isActive %}checked{% endif %} value="true" {% if product.isActive %}checked{% endif %}>
-                    </label>
                     <br>
                     <label>
-                      Crate: 
                       <input type="text" name="crateNumber" value="{{ product.crateNumber }}">
+                    </label>
+                    <label>
+                      Suctioncup: {{ product.suctioncup }}
+                    </label>
+                    <label>
+                      <input type="checkbox" name="isActive" {% if product.isActive %}checked{% endif %} value="true" {% if product.isActive %}checked{% endif %}>
                     </label>
                     <button type="submit">Save</button>
                   </div>
                   <input type="hidden" name="id" value="{{ product.id }}">
                   <input type="hidden" name="product_package" value="{{ package }}">
                 </form>
+              
+
               </div>
             {% endfor %}
           {% endif %}
