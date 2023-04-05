@@ -211,6 +211,7 @@ def getpoint(pipeline1,pipeline2, vegetable):
     max_size = vegetable["product_maxSize"]
     hsv_range = vegetable["product_HSVRange"]
     crate_number = int(vegetable["crateNumber"])
+    CurrentHeighest=2000
     if (crate_number==1) or (crate_number==2):
         pipeline=pipeline1
         camera=1
@@ -226,6 +227,14 @@ def getpoint(pipeline1,pipeline2, vegetable):
     elif (shape == "Not round with stem"):
         image_with_points,pickup_coordinates,gray_image=getpoint_notround_withstem(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5],min_size,max_size)
     #determine place in crate
+    for i in range(len(pickup_coordinates)):
+            depth_value = depth_cut[pickup_coordinates[i][0][1],pickup_coordinates[i][0][0]]
+            if depth_value<CurrentHeighest:
+                highest_coordinate=pickup_coordinates[i][0]
+                CurrentHeighest=depth_value
+    if highest_coordinate!=[]:
+        cv2.circle(image_with_points,(highest_coordinate[0],highest_coordinate[1]),10,(255,0,0),4)
+    #determine place in crate
     if (pickup_coordinates != []):
         if (pickup_coordinates[0][0][1]<(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
             place="Up"
@@ -234,7 +243,7 @@ def getpoint(pipeline1,pipeline2, vegetable):
     elif(pickup_coordinates == []):
         place=None
 
-    return image_with_points,pickup_coordinates,gray_image,crop[crate_number-1],orginal_color_frame,camera,pipeline,place
+    return image_with_points,highest_coordinate,gray_image,crop[crate_number-1],orginal_color_frame,camera,pipeline,place
 def draw_original(original,coordinates,xcorrect=0,ycorrect=0):
     cv2.circle(original,(coordinates[0][0][0]+xcorrect,coordinates[0][0][1]+ycorrect),1,(0,255,0),2)
     return original
