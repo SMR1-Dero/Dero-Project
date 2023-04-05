@@ -1,8 +1,8 @@
 {
   "items": [
     {
-      "package": "CurryMadras",
       "amount": 1,
+      "package": "CurryMadras",
       "products": [
         {
           "crateNumber": "2",
@@ -89,7 +89,7 @@
           "suctioncup": "Blauw"
         },
         {
-          "crateNumber": "2",
+          "crateNumber": "3",
           "dropdown_coordinate": [
             551.38,
             -275.62,
@@ -117,7 +117,7 @@
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "2",
+          "crateNumber": "1",
           "dropdown_coordinate": [
             609.86,
             -342.95,
@@ -145,7 +145,7 @@
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "4",
+          "crateNumber": "2",
           "dropdown_coordinate": [
             474.63,
             -339.83,
@@ -173,7 +173,7 @@
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "1",
+          "crateNumber": "4",
           "dropdown_coordinate": [
             437.49,
             -261.67,
@@ -201,7 +201,7 @@
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "3",
+          "crateNumber": "4",
           "dropdown_coordinate": [
             504.18,
             -257.22,
@@ -259,8 +259,8 @@
       ]
     },
     {
-      "package": "TomatenSoep",
       "amount": 1,
+      "package": "TomatenSoep",
       "products": [
         {
           "crateNumber": "2",
@@ -293,8 +293,8 @@
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
-            422.30,
-            -286.10,
+            422.3,
+            -286.1,
             454.03,
             -180.0,
             0.0,
@@ -321,8 +321,8 @@
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
-            535.70,
-            -374.00,
+            535.7,
+            -374.0,
             394.74,
             -180.0,
             0.0,
@@ -461,7 +461,7 @@
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
-            580.30,
+            580.3,
             -325.35,
             422.73,
             -180.0,
@@ -734,8 +734,8 @@
       ]
     },
     {
-      "package": "Couscous",
       "amount": 1,
+      "package": "Couscous",
       "products": [
         {
           "crateNumber": "2",
@@ -909,7 +909,7 @@
             90.0
           ],
           "id": "3_7",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             0,
             12,
@@ -927,7 +927,7 @@
           "suctioncup": "RoodBlauw"
         },
         {
-          "crateNumber": "4",
+          "crateNumber": "1",
           "dropdown_coordinate": [
             510.26,
             -265.57,
@@ -965,7 +965,7 @@
             90.0
           ],
           "id": "3_9",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             10,
             81,
@@ -985,8 +985,8 @@
       ]
     },
     {
-      "package": "GroeneCurry",
       "amount": 1,
+      "package": "GroeneCurry",
       "products": [
         {
           "crateNumber": "2",
@@ -1238,7 +1238,7 @@
           "dropdown_coordinate": [
             474.51,
             -270.61,
-            458.50,
+            458.5,
             -180.0,
             0.0,
             90.0
@@ -1264,7 +1264,7 @@
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
-            544.50,
+            544.5,
             -294.66,
             499.24,
             -180.0,
@@ -1292,8 +1292,8 @@
       ]
     },
     {
-      "package": "Lasagne",
       "amount": 1,
+      "package": "Lasagne",
       "products": [
         {
           "crateNumber": "2",
@@ -1669,8 +1669,8 @@
       ]
     },
     {
-      "package": "MexicaanseWarps",
       "amount": 1,
+      "package": "MexicaanseWarps",
       "products": [
         {
           "crateNumber": "2",
@@ -1871,8 +1871,8 @@
       ]
     },
     {
-      "package": "ErwtenSoep",
       "amount": 1,
+      "package": "ErwtenSoep",
       "products": [
         {
           "crateNumber": "2",
@@ -2025,7 +2025,7 @@
           "crateNumber": "2",
           "dropdown_coordinate": [
             439.26,
-            -344.60,
+            -344.6,
             476.46,
             -180.0,
             0.0,
@@ -2110,7 +2110,7 @@
           "dropdown_coordinate": [
             505.22,
             -265.57,
-            450.60,
+            450.6,
             -180.0,
             0.0,
             90.0
@@ -2138,7 +2138,7 @@
           "dropdown_coordinate": [
             505.22,
             -265.57,
-            450.60,
+            450.6,
             -180.0,
             0.0,
             90.0
@@ -2167,7 +2167,7 @@
             0.0,
             0.0,
             0.0,
-           -180.0,
+            -180.0,
             0.0,
             90.0
           ],
@@ -2185,8 +2185,8 @@
       ]
     },
     {
-      "package": "PompoenSoep",
       "amount": 1,
+      "package": "PompoenSoep",
       "products": [
         {
           "crateNumber": "2",
@@ -2277,7 +2277,7 @@
           "dropdown_coordinate": [
             601.98,
             -359.77,
-            435.20,
+            435.2,
             -180.0,
             0.0,
             90.0
@@ -2331,7 +2331,7 @@
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
-            547.40,
+            547.4,
             -337.19,
             458.06,
             -180.0,
@@ -2443,14 +2443,14 @@
       ]
     },
     {
-      "package": "CourgetteSoep",
       "amount": 1,
+      "package": "CourgetteSoep",
       "products": [
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
             433.48,
-            -368.20,
+            -368.2,
             456.66,
             -180.0,
             0.0,

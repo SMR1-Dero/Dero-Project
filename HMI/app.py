@@ -198,15 +198,10 @@ def move_robot():
 @app.route('/setOutput', methods=['POST'])
 def setOutput():
 
-    mode = request.form['mode']
     status = request.form['status']
 
-    if mode == "1":
-        asyncio.run(setSuctionCupTest(status))
-        print("Toggle Suction 1")
-    if mode == "2":
-        asyncio.run(setSuctionCupTest(status))
-        print("Toggle Suction 2")
+    asyncio.run(setSuctionCupTest(status))
+
 
     return Response(status=204)
 
@@ -272,20 +267,20 @@ def getHoverCoordinates(crateNumber, x, y, xOffset, yOffset):
         hoverCrate[0] = x + xOffset
         hoverCrate[1] = y + yOffset
         print("Hover Crate 1:", hoverCrate)
-        asyncio.run(position(hoverCrate))
+        asyncio.run(setSuctionCup(hoverCrate, 1))
     elif crateNumber == "2":
         hoverCrate[0] += x + xOffset
         hoverCrate[1] += y + yOffset
         print("Hover Crate 2:", hoverCrate)
-        asyncio.run(position(hoverCrate))
+        asyncio.run(setSuctionCup(hoverCrate, 1))
     elif crateNumber == "3":
         hoverCrate[0] += x + xOffset
         hoverCrate[1] += y + yOffset
-        asyncio.run(position(hoverCrate))
+        asyncio.run(setSuctionCup(hoverCrate, 1))
     elif crateNumber == "4":
         hoverCrate[0] += x + xOffset
         hoverCrate[1] += y + yOffset
-        asyncio.run(position(hoverCrate))
+        asyncio.run(setSuctionCup(hoverCrate, 1))
 
 
 async def moveConveyerBelt():
@@ -397,7 +392,7 @@ def Start():
                                 image_with_points,pickup_coordinates,gray_image,crop,original_color_frame,camera,pipeline,place=getpoint(pipeline1,pipeline2,item)
                                     
                                 if pickup_coordinates != []:
-                                    location=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline,camera)
+                                    location=make_3D_point(pickup_coordinates[0]+crop[2], pickup_coordinates[1]+crop[0],pipeline,camera)
                                     original_with_points=draw_original(original_color_frame, pickup_coordinates,crop[0],crop[2])
                                     got_frame = 1
                                 
@@ -411,8 +406,9 @@ def Start():
                                 Orientation[0] = location[0] + crateOffset(item["crateNumber"])[0]
                                 Orientation[1] = location[1] + crateOffset(item["crateNumber"])[1]
                                 Orientation[2] = location[2] + crateOffset(item["crateNumber"])[2]
+                                #Orientation[5] = 
 
-                                asyncio.run(setSuctionCup(Orientation, 1))
+                                asyncio.run(position(Orientation))
 
                                 getHoverCoordinates(item["crateNumber"], location[0], location[1], crateOffset(item["crateNumber"])[0], crateOffset(item["crateNumber"])[1])
                                 

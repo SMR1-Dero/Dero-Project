@@ -248,18 +248,18 @@ def getpoint(pipeline1,pipeline2, vegetable):
     elif (shape == "Not round with stem"):
         image_with_points,pickup_coordinates,gray_image,angle,lenght=getpoint_notround_withstem(color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5],min_size,max_size)
     #determine place in crate
-    if (pickup_coordinates != []):
-        if (pickup_coordinates[0][0][1]<(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
-            place="Up"
-        elif(pickup_coordinates[0][0][1]>=(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
-            place="Down"
-        
-        for i in range(len(pickup_coordinates)):
+    for i in range(len(pickup_coordinates)):
             depth_value = depth_cut[pickup_coordinates[i][0][1],pickup_coordinates[i][0][0]]
             if depth_value<CurrentHeighest:
                 highest_coordinate=pickup_coordinates[i][0]
                 CurrentHeighest=depth_value
+    if (pickup_coordinates != []):
+        if (highest_coordinate[1]<(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
+            place="Up"
+        elif(highest_coordinate[1]>=(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
+            place="Down"
     elif(pickup_coordinates == []):
+        highest_coordinate=[]
         place=None
     
         
