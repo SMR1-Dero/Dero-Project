@@ -16,7 +16,6 @@
           ],
           "id": "1_1",
           "isActive": null,
-          "isSucking": 0,
           "product_HSVRange": [
             3,
             78,
@@ -27,7 +26,7 @@
           ],
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/CurryMadrasSaus.jpg?raw=true",
           "product_maxSize": "",
-          "product_minSize": "500",
+          "product_minSize": 500,
           "product_name": "Curry Madras Saus",
           "product_package": "Curry Madras",
           "product_shape": "Not round",
@@ -45,7 +44,6 @@
           ],
           "id": "1_2",
           "isActive": false,
-          "isSucking": 0,
           "product_HSVRange": [
             0,
             28,
@@ -56,7 +54,7 @@
           ],
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/Kokosmelk.jpg?raw=true",
           "product_maxSize": "",
-          "product_minSize": "300",
+          "product_minSize": 300,
           "product_name": "Kokosmelk",
           "product_package": "Curry Madras",
           "product_shape": "Not round",
@@ -74,7 +72,6 @@
           ],
           "id": "1_3",
           "isActive": false,
-          "isSucking": 0,
           "product_HSVRange": [
             0,
             164,
@@ -102,8 +99,7 @@
             90.0
           ],
           "id": "1_4",
-          "isActive": null,
-          "isSucking": 0,
+          "isActive": "true",
           "product_HSVRange": [
             10,
             81,
@@ -131,8 +127,7 @@
             90.0
           ],
           "id": "1_5",
-          "isActive": null,
-          "isSucking": 0,
+          "isActive": "true",
           "product_HSVRange": [
             21,
             42,
@@ -160,8 +155,7 @@
             90.0
           ],
           "id": "1_6",
-          "isActive": null,
-          "isSucking": 0,
+          "isActive": "true",
           "product_HSVRange": [
             0,
             57,
@@ -190,7 +184,6 @@
           ],
           "id": "1_7",
           "isActive": "true",
-          "isSucking": 0,
           "product_HSVRange": [
             0,
             96,
@@ -218,8 +211,7 @@
             90.0
           ],
           "id": "1_8",
-          "isActive": null,
-          "isSucking": 0,
+          "isActive": "true",
           "product_HSVRange": [
             0,
             96,
@@ -248,7 +240,6 @@
           ],
           "id": "1_9",
           "isActive": null,
-          "isSucking": 0,
           "product_HSVRange": [
             0,
             77,
@@ -274,96 +265,96 @@
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            440.02,
+            -357.51,
+            407.18,
+            -180.0,
             0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
             0,
-            96,
-            88,
+            0,
+            210,
             255,
             255,
             255
           ],
-          "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
-          "product_maxSize": "27",
-          "product_minSize": "23",
-          "product_name": "Tomaat",
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Tomatenpuree.jpg?raw=true",
+          "product_maxSize": "",
+          "product_minSize": 750,
+          "product_name": "Tomatenpuree",
           "product_package": "Tomaten Soep",
-          "product_shape": "Round",
-          "suctioncup": "RoodBlauw"
+          "product_shape": "Not round",
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            422.30,
+            -286.10,
+            454.03,
+            -180.0,
             0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
-            0,
-            96,
-            88,
-            255,
+            10,
+            81,
+            20,
+            35,
             255,
             255
           ],
-          "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
-          "product_maxSize": "27",
-          "product_minSize": "23",
-          "product_name": "Tomaat",
+          "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Uien.jpg?raw=true",
+          "product_maxSize": 27,
+          "product_minSize": 24,
+          "product_name": "Ui wit",
           "product_package": "Tomaten Soep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw"
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            535.70,
+            -374.00,
+            394.74,
+            -180.0,
             0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
             0,
-            96,
-            88,
+            142,
+            204,
             255,
-            255,
+            202,
             255
           ],
-          "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
-          "product_maxSize": "27",
-          "product_minSize": "23",
-          "product_name": "Tomaat",
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Peen.jpg?raw=true",
+          "product_maxSize": "",
+          "product_minSize": 750,
+          "product_name": "Peen",
           "product_package": "Tomaten Soep",
-          "product_shape": "Round",
-          "suctioncup": "RoodBlauw"
+          "product_shape": "Not round with stem",
+          "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            475.79,
+            -329.93,
+            428.84,
+            -180.0,
             0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "89379832",
           "isActive": "on",
@@ -376,22 +367,22 @@
             255
           ],
           "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
-          "product_maxSize": "27",
-          "product_minSize": "23",
+          "product_maxSize": 30,
+          "product_minSize": 26,
           "product_name": "Tomaat",
           "product_package": "Tomaten Soep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw"
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            481.77,
+            -271.38,
+            423.96,
+            -180.0,
             0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "89379832",
           "isActive": "on",
@@ -404,22 +395,22 @@
             255
           ],
           "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
-          "product_maxSize": "27",
-          "product_minSize": "23",
+          "product_maxSize": 30,
+          "product_minSize": 26,
           "product_name": "Tomaat",
           "product_package": "Tomaten Soep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw"
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            521.62,
+            -324.94,
+            423.64,
+            -180.0,
             0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "89379832",
           "isActive": "on",
@@ -432,22 +423,22 @@
             255
           ],
           "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
-          "product_maxSize": "27",
-          "product_minSize": "23",
+          "product_maxSize": 30,
+          "product_minSize": 26,
           "product_name": "Tomaat",
           "product_package": "Tomaten Soep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw"
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            530.68,
+            -263.84,
+            423.39,
+            -180.0,
             0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "89379832",
           "isActive": "on",
@@ -460,22 +451,22 @@
             255
           ],
           "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
-          "product_maxSize": "27",
-          "product_minSize": "23",
+          "product_maxSize": 30,
+          "product_minSize": 26,
           "product_name": "Tomaat",
           "product_package": "Tomaten Soep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw"
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            580.30,
+            -325.35,
+            422.73,
+            -180.0,
             0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "89379832",
           "isActive": "on",
@@ -488,12 +479,180 @@
             255
           ],
           "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
-          "product_maxSize": "27",
-          "product_minSize": "23",
+          "product_maxSize": 30,
+          "product_minSize": 26,
           "product_name": "Tomaat",
           "product_package": "Tomaten Soep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw"
+          "suctioncup": "Rood"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            597.15,
+            -265.18,
+            418.32,
+            -180.0,
+            0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            0,
+            96,
+            88,
+            255,
+            255,
+            255
+          ],
+          "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
+          "product_maxSize": 30,
+          "product_minSize": 26,
+          "product_name": "Tomaat",
+          "product_package": "Tomaten Soep",
+          "product_shape": "Round",
+          "suctioncup": "Rood"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            507.92,
+            -292.29,
+            477.67,
+            -180.0,
+            0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            0,
+            96,
+            88,
+            255,
+            255,
+            255
+          ],
+          "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
+          "product_maxSize": 30,
+          "product_minSize": 26,
+          "product_name": "Tomaat",
+          "product_package": "Tomaten Soep",
+          "product_shape": "Round",
+          "suctioncup": "Rood"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            577.71,
+            -279.04,
+            463.46,
+            -180.0,
+            0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            0,
+            96,
+            88,
+            255,
+            255,
+            255
+          ],
+          "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
+          "product_maxSize": 30,
+          "product_minSize": 26,
+          "product_name": "Tomaat",
+          "product_package": "Tomaten Soep",
+          "product_shape": "Round",
+          "suctioncup": "Rood"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            530.47,
+            -350.94,
+            495.63,
+            -180.0,
+            0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            0,
+            14,
+            199,
+            46,
+            51,
+            255
+          ],
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/knoflook-kruiden-veggipedia.png?raw=true",
+          "product_maxSize": "",
+          "product_minSize": 200,
+          "product_name": "Knoflookteen",
+          "product_package": "Tomaten Soep",
+          "product_shape": "Not round",
+          "suctioncup": "Rood"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            530.47,
+            -350.94,
+            495.63,
+            -180.0,
+            0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            0,
+            14,
+            199,
+            46,
+            51,
+            255
+          ],
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/knoflook-kruiden-veggipedia.png?raw=true",
+          "product_maxSize": "",
+          "product_minSize": 200,
+          "product_name": "Knoflookteen",
+          "product_package": "Tomaten Soep",
+          "product_shape": "Not round",
+          "suctioncup": "Rood"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            530.47,
+            -350.94,
+            495.63,
+            -180.0,
+            0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            0,
+            14,
+            199,
+            46,
+            51,
+            255
+          ],
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/knoflook-kruiden-veggipedia.png?raw=true",
+          "product_maxSize": "",
+          "product_minSize": 200,
+          "product_name": "Knoflookteen",
+          "product_package": "Tomaten Soep",
+          "product_shape": "Not round",
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
@@ -538,7 +697,7 @@
           ],
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Bouillonblok.jpg?raw=true",
           "product_maxSize": "",
-          "product_minSize": "100",
+          "product_minSize": 100,
           "product_name": "Bouillonblok",
           "product_package": "Tomaten Soep",
           "product_shape": "Not round",
@@ -566,151 +725,11 @@
           ],
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Bouillonblok.jpg?raw=true",
           "product_maxSize": "",
-          "product_minSize": "100",
+          "product_minSize": 100,
           "product_name": "Bouillonblok",
           "product_package": "Tomaten Soep",
           "product_shape": "Not round",
           "suctioncup": "Rood"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            0,
-            14,
-            199,
-            46,
-            51,
-            255
-          ],
-          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/knoflook-kruiden-veggipedia.png?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "200",
-          "product_name": "Knoflookteen",
-          "product_package": "Tomaten Soep",
-          "product_shape": "Not round",
-          "suctioncup": "Blauw"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            0,
-            14,
-            199,
-            46,
-            51,
-            255
-          ],
-          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/knoflook-kruiden-veggipedia.png?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "200",
-          "product_name": "Knoflookteen",
-          "product_package": "Tomaten Soep",
-          "product_shape": "Not round",
-          "suctioncup": "Blauw"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            0,
-            142,
-            204,
-            255,
-            202,
-            255
-          ],
-          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Peen.jpg?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "750",
-          "product_name": "Peen",
-          "product_package": "Tomaten Soep",
-          "product_shape": "Not round with stem",
-          "suctioncup": "Blauw"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            0,
-            0,
-            210,
-            255,
-            255,
-            255
-          ],
-          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Tomatenpuree.jpg?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "750",
-          "product_name": "Tomatenpuree",
-          "product_package": "Tomaten Soep",
-          "product_shape": "Not round",
-          "suctioncup": "Rood"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            10,
-            81,
-            20,
-            35,
-            255,
-            255
-          ],
-          "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Uien.jpg?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "",
-          "product_name": "Ui Wit",
-          "product_package": "Tomaten Soep",
-          "product_shape": "Round",
-          "suctioncup": "RoodBlauw"
         }
       ]
     },
@@ -993,12 +1012,12 @@
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            425.23,
+            -371.33,
+            458.19,
+            -180.0,
             0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "89379832",
           "isActive": "on",
@@ -1012,7 +1031,7 @@
           ],
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/Kokosmelk.jpg?raw=true",
           "product_maxSize": "",
-          "product_minSize": "300",
+          "product_minSize": 300,
           "product_name": "Kokosmelk",
           "product_package": "Groene Curry",
           "product_shape": "Not round",
@@ -1021,96 +1040,40 @@
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            511.77,
+            -265.73,
+            431.31,
+            -180.0,
             0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
-            0,
-            142,
-            204,
-            255,
-            202,
-            255
-          ],
-          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Peen.jpg?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "750",
-          "product_name": "Peen",
-          "product_package": "Groene Curry",
-          "product_shape": "Not round with stem",
-          "suctioncup": "Blauw"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            10,
-            81,
-            20,
             35,
+            30,
+            35,
+            75,
             255,
             255
           ],
-          "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Uien.jpg?raw=true",
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Courgette-groente-veggipedia.png?raw=true",
           "product_maxSize": "",
           "product_minSize": "",
-          "product_name": "Ui Rood",
-          "product_package": "Groene Curry",
-          "product_shape": "Round",
-          "suctioncup": "RoodBlauw"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            0,
-            79,
-            116,
-            79,
-            255,
-            255
-          ],
-          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/komkommer-groente-veggipedia.png?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "300",
-          "product_name": "Komkommer",
-          "product_package": "Groene Curry",
+          "product_name": "Courgette",
+          "product_package": "Courgette Soep",
           "product_shape": "Not round",
           "suctioncup": "Blauw"
         },
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            551.22,
+            -361.37,
+            446.72,
+            -180.0,
             0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "89379832",
           "isActive": "on",
@@ -1133,12 +1096,152 @@
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            511.95,
+            -302.81,
+            407.75,
+            -180.0,
             0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            0,
+            142,
+            204,
+            255,
+            202,
+            255
+          ],
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Peen.jpg?raw=true",
+          "product_maxSize": "",
+          "product_minSize": "750",
+          "product_name": "Peen",
+          "product_package": "Groene Curry",
+          "product_shape": "Not round with stem",
+          "suctioncup": "Blauw"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            474.28,
+            -317.97,
+            468.58,
+            -180.0,
             0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            10,
+            81,
+            20,
+            35,
+            255,
+            255
+          ],
+          "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Uien.jpg?raw=true",
+          "product_maxSize": 27,
+          "product_minSize": 24,
+          "product_name": "Ui Rood",
+          "product_package": "Groene Curry",
+          "product_shape": "Round",
+          "suctioncup": "Rood"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            557.87,
+            -259.67,
+            478.97,
+            -180.0,
             0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            0,
+            96,
+            88,
+            255,
+            255,
+            255
+          ],
+          "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
+          "product_maxSize": 30,
+          "product_minSize": 26,
+          "product_name": "Tomaat",
+          "product_package": "Groene Curry",
+          "product_shape": "Round",
+          "suctioncup": "Rood"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            576.34,
+            -301.19,
+            463.18,
+            -180.0,
             0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            0,
+            96,
+            88,
+            255,
+            255,
+            255
+          ],
+          "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
+          "product_maxSize": 30,
+          "product_minSize": 26,
+          "product_name": "Tomaat",
+          "product_package": "Groene Curry",
+          "product_shape": "Round",
+          "suctioncup": "Rood"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            527.19,
+            -370.34,
+            461.33,
+            -180.0,
             0.0,
-            0.0
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            0,
+            79,
+            116,
+            79,
+            255,
+            255
+          ],
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/komkommer-groente-veggipedia.png?raw=true",
+          "product_maxSize": "",
+          "product_minSize": "300",
+          "product_name": "Komkommer",
+          "product_package": "Groene Curry",
+          "product_shape": "Not round",
+          "suctioncup": "Rood"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            474.51,
+            -270.61,
+            458.50,
+            -180.0,
+            0.0,
+            90.0
           ],
           "id": "89379832",
           "isActive": "on",
@@ -1161,12 +1264,12 @@
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            544.50,
+            -294.66,
+            499.24,
+            -180.0,
             0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "89379832",
           "isActive": "on",
@@ -1184,90 +1287,6 @@
           "product_name": "Punt Paprika",
           "product_package": "Groene Curry",
           "product_shape": "Not round",
-          "suctioncup": "Blauw"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            0,
-            96,
-            88,
-            255,
-            255,
-            255
-          ],
-          "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
-          "product_maxSize": "27",
-          "product_minSize": "23",
-          "product_name": "Tomaat",
-          "product_package": "Groene Curry",
-          "product_shape": "Round",
-          "suctioncup": "RoodBlauw"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            0,
-            96,
-            88,
-            255,
-            255,
-            255
-          ],
-          "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
-          "product_maxSize": "27",
-          "product_minSize": "23",
-          "product_name": "Tomaat",
-          "product_package": "Groene Curry",
-          "product_shape": "Round",
-          "suctioncup": "RoodBlauw"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "1_9",
-          "isActive": "on",
-          "product_HSVRange": [
-            0,
-            77,
-            137,
-            255,
-            255,
-            255
-          ],
-          "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Paprika.png?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "",
-          "product_name": "Paprika",
-          "product_package": "Groene Curry",
-          "product_shape": "Not round with stem",
           "suctioncup": "Blauw"
         }
       ]
@@ -1640,9 +1659,9 @@
             255
           ],
           "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Uien.jpg?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "",
-          "product_name": "Ui Wit",
+          "product_maxSize": 27,
+          "product_minSize": 24,
+          "product_name": "Ui wit",
           "product_package": "Lasagne",
           "product_shape": "Round",
           "suctioncup": "Rood"
@@ -1656,12 +1675,12 @@
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            603.39,
+            -266.07,
+            445.33,
+            -180.0,
             0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "1_9",
           "isActive": "on",
@@ -1684,12 +1703,12 @@
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            518.39,
+            -266.39,
+            447.59,
+            -180.0,
             0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "1_9",
           "isActive": "on",
@@ -1712,12 +1731,12 @@
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            457.62,
+            -351.91,
+            462.49,
+            -180.0,
             0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "89379832",
           "isActive": "on",
@@ -1740,12 +1759,12 @@
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            450.66,
+            -353.26,
+            444.78,
+            -180.0,
             0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "89379832",
           "isActive": "on",
@@ -1758,9 +1777,9 @@
             255
           ],
           "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Uien.jpg?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "",
-          "product_name": "Ui Wit",
+          "product_maxSize": 27,
+          "product_minSize": 24,
+          "product_name": "Ui wit",
           "product_package": "Mexicaanse Warps",
           "product_shape": "Round",
           "suctioncup": "RoodBlauw"
@@ -2005,40 +2024,12 @@
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            439.26,
+            -344.60,
+            476.46,
+            -180.0,
             0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            10,
-            81,
-            20,
-            35,
-            255,
-            255
-          ],
-          "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Uien.jpg?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "",
-          "product_name": "Ui Wit",
-          "product_package": "Erwtensoep",
-          "product_shape": "Round",
-          "suctioncup": "RoodBlauw"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "89379832",
           "isActive": "on",
@@ -2061,12 +2052,40 @@
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            549.04,
+            -339.01,
+            445.62,
+            -180.0,
             0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            10,
+            81,
+            20,
+            35,
+            255,
+            255
+          ],
+          "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Uien.jpg?raw=true",
+          "product_maxSize": 27,
+          "product_minSize": 24,
+          "product_name": "Ui wit",
+          "product_package": "Erwtensoep",
+          "product_shape": "Round",
+          "suctioncup": "RoodBlauw"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            523.65,
+            -254.23,
+            390.28,
+            -180.0,
             0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "89379832",
           "isActive": "on",
@@ -2089,12 +2108,40 @@
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            505.22,
+            -265.57,
+            450.60,
+            -180.0,
             0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            0,
+            142,
+            204,
+            255,
+            202,
+            255
+          ],
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Peen.jpg?raw=true",
+          "product_maxSize": "",
+          "product_minSize": "750",
+          "product_name": "Peen",
+          "product_package": "Erwtensoep",
+          "product_shape": "Not round with stem",
+          "suctioncup": "Blauw"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            505.22,
+            -265.57,
+            450.60,
+            -180.0,
             0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "89379832",
           "isActive": "on",
@@ -2120,37 +2167,9 @@
             0.0,
             0.0,
             0.0,
+           -180.0,
             0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            0,
-            142,
-            204,
-            255,
-            202,
-            255
-          ],
-          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Peen.jpg?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "750",
-          "product_name": "Peen",
-          "product_package": "Erwtensoep",
-          "product_shape": "Not round with stem",
-          "suctioncup": "Blauw"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "89379832",
           "isActive": "on",
@@ -2172,208 +2191,12 @@
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            487.66,
+            -281.03,
+            455.52,
+            -180.0,
             0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            0,
-            71,
-            54,
-            255,
-            255,
-            255
-          ],
-          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Bouillonblok.jpg?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "100",
-          "product_name": "Bouillonblok",
-          "product_package": "Pompoensoep",
-          "product_shape": "Not round",
-          "suctioncup": "Rood"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            0,
-            71,
-            54,
-            255,
-            255,
-            255
-          ],
-          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Bouillonblok.jpg?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "100",
-          "product_name": "Bouillonblok",
-          "product_package": "Pompoensoep",
-          "product_shape": "Not round",
-          "suctioncup": "Rood"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            0,
-            14,
-            199,
-            46,
-            51,
-            255
-          ],
-          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/knoflook-kruiden-veggipedia.png?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "200",
-          "product_name": "Knoflookteen",
-          "product_package": "Pompoensoep",
-          "product_shape": "Not round",
-          "suctioncup": "Blauw"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            10,
-            81,
-            20,
-            35,
-            255,
-            255
-          ],
-          "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Uien.jpg?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "",
-          "product_name": "Ui rood",
-          "product_package": "Pompoensoep",
-          "product_shape": "Round",
-          "suctioncup": "RoodBlauw"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            0,
-            63,
-            168,
-            228,
-            164,
-            206
-          ],
-          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Gember-kruiden-veggipedia.png?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "",
-          "product_name": "Gember",
-          "product_package": "Pompoensoep",
-          "product_shape": "Not round",
-          "suctioncup": "Blauw"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            0,
-            80,
-            80,
-            255,
-            255,
-            255
-          ],
-          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Appel-fruit-veggipedia.jpg?raw=true",
-          "product_maxSize": "34",
-          "product_minSize": "30",
-          "product_name": "Appel",
-          "product_package": "Pompoensoep",
-          "product_shape": "Round",
-          "suctioncup": "RoodBlauw"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            7,
-            138,
-            135,
-            20,
-            255,
-            255
-          ],
-          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/sinaasappel-fruit-veggipedia.png?raw=true",
-          "product_maxSize": "37",
-          "product_minSize": "34",
-          "product_name": "Sinaasappel",
-          "product_package": "Pompoensoep",
-          "product_shape": "Round",
-          "suctioncup": "RoodBlauw"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "89379832",
           "isActive": "on",
@@ -2396,12 +2219,12 @@
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
+            465.66,
+            -378.02,
+            400.61,
+            -180.0,
             0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
+            90.0
           ],
           "id": "89379832",
           "isActive": "on",
@@ -2420,6 +2243,202 @@
           "product_package": "Pompoensoep",
           "product_shape": "Not round with stem",
           "suctioncup": "Blauw"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            508.01,
+            -341.87,
+            449.12,
+            -180.0,
+            0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            0,
+            80,
+            80,
+            255,
+            255,
+            255
+          ],
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Appel-fruit-veggipedia.jpg?raw=true",
+          "product_maxSize": "34",
+          "product_minSize": "30",
+          "product_name": "Appel",
+          "product_package": "Pompoensoep",
+          "product_shape": "Round",
+          "suctioncup": "RoodBlauw"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            601.98,
+            -359.77,
+            435.20,
+            -180.0,
+            0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            7,
+            138,
+            135,
+            20,
+            255,
+            255
+          ],
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/sinaasappel-fruit-veggipedia.png?raw=true",
+          "product_maxSize": "37",
+          "product_minSize": "34",
+          "product_name": "Sinaasappel",
+          "product_package": "Pompoensoep",
+          "product_shape": "Round",
+          "suctioncup": "RoodBlauw"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            604.64,
+            -276.81,
+            462.23,
+            -180.0,
+            0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            10,
+            81,
+            20,
+            35,
+            255,
+            255
+          ],
+          "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Uien.jpg?raw=true",
+          "product_maxSize": 27,
+          "product_minSize": 24,
+          "product_name": "Ui Rood",
+          "product_package": "Pompoensoep",
+          "product_shape": "Round",
+          "suctioncup": "RoodBlauw"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            547.40,
+            -337.19,
+            458.06,
+            -180.0,
+            0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            0,
+            63,
+            168,
+            228,
+            164,
+            206
+          ],
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Gember-kruiden-veggipedia.png?raw=true",
+          "product_maxSize": "",
+          "product_minSize": "",
+          "product_name": "Gember",
+          "product_package": "Pompoensoep",
+          "product_shape": "Not round",
+          "suctioncup": "Blauw"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            457.62,
+            -351.91,
+            462.49,
+            -180.0,
+            0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            0,
+            14,
+            199,
+            46,
+            51,
+            255
+          ],
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/knoflook-kruiden-veggipedia.png?raw=true",
+          "product_maxSize": "",
+          "product_minSize": 200,
+          "product_name": "Knoflookteen",
+          "product_package": "Pompoensoep",
+          "product_shape": "Not round",
+          "suctioncup": "Blauw"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            0,
+            71,
+            54,
+            255,
+            255,
+            255
+          ],
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Bouillonblok.jpg?raw=true",
+          "product_maxSize": "",
+          "product_minSize": "100",
+          "product_name": "Bouillonblok",
+          "product_package": "Pompoensoep",
+          "product_shape": "Not round",
+          "suctioncup": "Rood"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            0,
+            71,
+            54,
+            255,
+            255,
+            255
+          ],
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Bouillonblok.jpg?raw=true",
+          "product_maxSize": "",
+          "product_minSize": "100",
+          "product_name": "Bouillonblok",
+          "product_package": "Pompoensoep",
+          "product_shape": "Not round",
+          "suctioncup": "Rood"
         }
       ]
     },
@@ -2427,6 +2446,209 @@
       "package": "CourgetteSoep",
       "amount": 1,
       "products": [
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            433.48,
+            -368.20,
+            456.66,
+            -180.0,
+            0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": "",
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Kookrrom.jpg?raw=true",
+          "product_maxSize": "",
+          "product_minSize": "",
+          "product_name": "Kookroom",
+          "product_package": "Courgette Soep",
+          "product_shape": "Not round",
+          "suctioncup": "Rood"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            522.99,
+            -264.66,
+            414.26,
+            -180.0,
+            0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            35,
+            30,
+            35,
+            75,
+            255,
+            255
+          ],
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Courgette-groente-veggipedia.png?raw=true",
+          "product_maxSize": "",
+          "product_minSize": "",
+          "product_name": "Courgette",
+          "product_package": "Courgette Soep",
+          "product_shape": "Not round",
+          "suctioncup": "Blauw"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            527.77,
+            -301.11,
+            446.74,
+            -180.0,
+            0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            35,
+            30,
+            35,
+            75,
+            255,
+            255
+          ],
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Courgette-groente-veggipedia.png?raw=true",
+          "product_maxSize": "",
+          "product_minSize": "",
+          "product_name": "Courgette",
+          "product_package": "Courgette Soep",
+          "product_shape": "Not round",
+          "suctioncup": "Blauw"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            611.09,
+            -277.82,
+            469.79,
+            -180.0,
+            0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            17,
+            80,
+            80,
+            63,
+            255,
+            255
+          ],
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Citroen.jpg?raw=true",
+          "product_maxSize": 37,
+          "product_minSize": 34,
+          "product_name": "Citroen",
+          "product_package": "Courgette Soep",
+          "product_shape": "Round",
+          "suctioncup": "RoodBlauw"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            540.83,
+            -357.85,
+            473.04,
+            -180.0,
+            0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": "",
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/sjalot.jpg?raw=true",
+          "product_maxSize": "",
+          "product_minSize": "",
+          "product_name": "Sjalotten",
+          "product_package": "Courgette Soep",
+          "product_shape": "Not round",
+          "suctioncup": "Rood"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            540.83,
+            -357.85,
+            473.04,
+            -180.0,
+            0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": "",
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/sjalot.jpg?raw=true",
+          "product_maxSize": "",
+          "product_minSize": "",
+          "product_name": "Sjalotten",
+          "product_package": "Courgette Soep",
+          "product_shape": "Not round",
+          "suctioncup": "Rood"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            540.83,
+            -357.85,
+            473.04,
+            -180.0,
+            0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            0,
+            14,
+            199,
+            46,
+            51,
+            255
+          ],
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/knoflook-kruiden-veggipedia.png?raw=true",
+          "product_maxSize": "",
+          "product_minSize": 200,
+          "product_name": "Knoflookteen",
+          "product_package": "Courgette Soep",
+          "product_shape": "Not round",
+          "suctioncup": "Blauw"
+        },
+        {
+          "crateNumber": "2",
+          "dropdown_coordinate": [
+            540.83,
+            -357.85,
+            473.04,
+            -180.0,
+            0.0,
+            90.0
+          ],
+          "id": "89379832",
+          "isActive": "on",
+          "product_HSVRange": [
+            0,
+            14,
+            199,
+            46,
+            51,
+            255
+          ],
+          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/knoflook-kruiden-veggipedia.png?raw=true",
+          "product_maxSize": "",
+          "product_minSize": 200,
+          "product_name": "Knoflookteen",
+          "product_package": "Courgette Soep",
+          "product_shape": "Not round",
+          "suctioncup": "Blauw"
+        },
         {
           "crateNumber": "2",
           "dropdown_coordinate": [
@@ -2503,209 +2725,6 @@
           "product_package": "Courgette Soep",
           "product_shape": "Not round",
           "suctioncup": "Geen suctioncup"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            0,
-            14,
-            199,
-            46,
-            51,
-            255
-          ],
-          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/knoflook-kruiden-veggipedia.png?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "200",
-          "product_name": "Knoflookteen",
-          "product_package": "Courgette Soep",
-          "product_shape": "Not round",
-          "suctioncup": "Blauw"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            0,
-            14,
-            199,
-            46,
-            51,
-            255
-          ],
-          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/knoflook-kruiden-veggipedia.png?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "200",
-          "product_name": "Knoflookteen",
-          "product_package": "Courgette Soep",
-          "product_shape": "Not round",
-          "suctioncup": "Blauw"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": "",
-          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/sjalot.jpg?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "",
-          "product_name": "Sjalotten",
-          "product_package": "Courgette Soep",
-          "product_shape": "Not round",
-          "suctioncup": "Rood"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": "",
-          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/sjalot.jpg?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "",
-          "product_name": "Sjalotten",
-          "product_package": "Courgette Soep",
-          "product_shape": "Not round",
-          "suctioncup": "Rood"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            17,
-            80,
-            80,
-            63,
-            255,
-            255
-          ],
-          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Citroen.jpg?raw=true",
-          "product_maxSize": "37",
-          "product_minSize": "34",
-          "product_name": "Citroen",
-          "product_package": "Courgette Soep",
-          "product_shape": "Round",
-          "suctioncup": "RoodBlauw"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            35,
-            30,
-            35,
-            75,
-            255,
-            255
-          ],
-          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Courgette-groente-veggipedia.png?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "",
-          "product_name": "Courgette",
-          "product_package": "Courgette Soep",
-          "product_shape": "Not round",
-          "suctioncup": "Blauw"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": [
-            35,
-            30,
-            35,
-            75,
-            255,
-            255
-          ],
-          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Courgette-groente-veggipedia.png?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "",
-          "product_name": "Courgette",
-          "product_package": "Courgette Soep",
-          "product_shape": "Not round",
-          "suctioncup": "Blauw"
-        },
-        {
-          "crateNumber": "2",
-          "dropdown_coordinate": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "id": "89379832",
-          "isActive": "on",
-          "product_HSVRange": "",
-          "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Kookrrom.jpg?raw=true",
-          "product_maxSize": "",
-          "product_minSize": "",
-          "product_name": "Kookroom",
-          "product_package": "Courgette Soep",
-          "product_shape": "Not round",
-          "suctioncup": "Rood"
         }
       ]
     }

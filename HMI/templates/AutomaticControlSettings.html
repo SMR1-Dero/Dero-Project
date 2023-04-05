@@ -21,30 +21,45 @@
         </form>
         
       </div>
-      
-      {% for item in items %}
-  {% if item.package == package %}
-    {% for product in item.products %}
-      <form method="POST" action="{{ url_for('updateJsonData') }}" class="grid-item">
-        <img src="{{ product.product_image }}" alt="{{ product.product_name }}">
-        <a>{{ product.product_name }}</a>
-        <input type="hidden" name="id" value="{{ product.id }}">
-        <input type="hidden" name="product_package" value="{{ package }}">
-        <label>
-          Active: 
-          <input type="checkbox" name="isActive" {% if product.isActive %}checked{% endif %} value="true" {% if product.isActive %}checked{% endif %}>
-        </label>
-        <br>
-        <label>
-          Crate Number: 
-          <input type="text" name="crateNumber" value="{{ product.crateNumber }}">
-        </label>
-        <button type="submit">Save</button>
-      </form>
-    {% endfor %}
-  {% endif %}
-{% endfor %}
+     
+      <div class="updateAmount">
+        <form action="/updateAmount" method="post">
+          <input type="hidden" name="package" value={{package}}>
+          <input type="text" name="amount" id="amount" placeholder="How many vegetable packages need to be filled?">
+          <button type="submit">Set Amount</button>
+        </form>
+      </div>
 
+      <div class="grid">
+
+        {% for item in items %}
+          {% if item.package == package %}
+            {% for product in item.products %}
+              <div class="grid-item">
+                <form method="POST" action="{{ url_for('updateJsonData') }}" class="grid-item">
+                  <img src="{{ product.product_image }}" alt="{{ product.product_name }}">
+                  <a>{{ product.product_name }}</a>
+                  <div class="form-container">
+                    <label>
+                      Active: 
+                      <input type="checkbox" name="isActive" {% if product.isActive %}checked{% endif %} value="true" {% if product.isActive %}checked{% endif %}>
+                    </label>
+                    <br>
+                    <label>
+                      Crate: 
+                      <input type="text" name="crateNumber" value="{{ product.crateNumber }}">
+                    </label>
+                    <button type="submit">Save</button>
+                  </div>
+                  <input type="hidden" name="id" value="{{ product.id }}">
+                  <input type="hidden" name="product_package" value="{{ package }}">
+                </form>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+
+      </div>
 
     </div>
 
