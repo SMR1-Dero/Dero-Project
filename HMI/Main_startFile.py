@@ -11,7 +11,7 @@ vegetabledict = {
     "crateNumber": "2",
     "isActive": "on",
     "product_shape": "Not round",
-    "product_HSVRange": [0,14,199,46,51,255],
+    "product_HSVRange": [0,164,130,207,255,255],
     "product_minSize": 34,
     "product_maxSize": 37
 }

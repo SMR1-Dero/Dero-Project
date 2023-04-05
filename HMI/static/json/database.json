@@ -242,8 +242,8 @@
           "isActive": null,
           "product_HSVRange": [
             0,
-            77,
-            137,
+            100,
+            140,
             255,
             255,
             255
@@ -1275,8 +1275,8 @@
           "isActive": "on",
           "product_HSVRange": [
             0,
-            137,
-            82,
+            100,
+            140,
             255,
             255,
             255
@@ -1414,8 +1414,8 @@
           "isActive": false,
           "product_HSVRange": [
             0,
-            77,
-            137,
+            100,
+            140,
             255,
             255,
             255
@@ -1686,8 +1686,8 @@
           "isActive": "on",
           "product_HSVRange": [
             0,
-            77,
-            137,
+            100,
+            140,
             255,
             255,
             255
@@ -1714,8 +1714,8 @@
           "isActive": "on",
           "product_HSVRange": [
             0,
-            77,
-            137,
+            100,
+            140,
             255,
             255,
             255

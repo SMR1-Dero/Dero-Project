@@ -83,11 +83,11 @@ def getpoint_notround_withstem(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvuppe
     loc1=[]
     pointi=(10,10)
     mask,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)#0,80,30,255,255,255
-    mask2,cnts2=image_edits(color_frame,10,60,0,35,200,255)#10,60,0,35,200,255
+    mask2,cnts2=image_edits(color_frame,25,70,50,35,200,255)#10,60,0,35,200,255
     for i in cnts2:
         area= cv2.contourArea(i)
         #print ("Area",area)
-        if area>20:
+        if area>100:
             M = cv2.moments(i)
             # Calculate the moments
             if M['m00'] != 0:
