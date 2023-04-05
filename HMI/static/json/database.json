@@ -117,7 +117,7 @@
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "2",
+          "crateNumber": "1",
           "dropdown_coordinate": [
             609.86,
             -342.95,
@@ -127,7 +127,7 @@
             90.0
           ],
           "id": "1_5",
-          "isActive": null,
+          "isActive": "true",
           "product_HSVRange": [
             21,
             42,
@@ -183,7 +183,7 @@
             90.0
           ],
           "id": "1_7",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             0,
             96,

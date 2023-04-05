@@ -475,6 +475,7 @@ def Start():
                             asyncio.run(position(hoverBox))
 
                         # Reset
+                        cv2.destroyAllWindows()
                         suction = False
 
                 asyncio.run(moveConveyerBelt())
