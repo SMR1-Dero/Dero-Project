@@ -141,6 +141,8 @@ def getpoint_notround(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupp
     coordinates=[]
     cx=0
     cy=0
+    angle=-90.0
+    length = 0.0
     pointi=(10,10)
     mask,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)
     for c in cnts:

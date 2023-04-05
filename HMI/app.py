@@ -10,6 +10,7 @@ import time
 import copy
 import os
 import sys
+import math
 #sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
 from Vegetables_V4 import *
 
@@ -316,7 +317,7 @@ def crateOffset(crateNumber):
     elif crateNumber == "2":
         x_offset2 = 5.0
         y_offset2 = -15.0
-        z_offset2 = 430.0
+        z_offset2 = 420.0
         return [x_offset2, y_offset2, z_offset2]
     
     elif crateNumber == "3":
@@ -357,7 +358,6 @@ def Start():
 
     # Initializing Camera
     pipeline1,pipeline2=initizalize_rs()
-    camera=1
 
     # Open JSON
     with open('HMI\static\json\database.json', 'r') as f:
@@ -385,12 +385,18 @@ def Start():
                             pickup_coordinates = []
                             got_frame = 0
 
+                            # Choosing Camera
+                            if ((item['crateNumber'] == "1") or (item['crateNumber'] == "2")):
+                                camera = 1
+                            elif ((item['crateNumber'] == "3") or (item['crateNumber'] == "4")):
+                                camera = 2
+
                             # Make Picture and Calculate Coordinates                    
                             while get_newPhoto == True:
                                 
                                 #Use filters and circle detection to get center coordinate
-                                image_with_points,pickup_coordinates,gray_image,crop,original_color_frame,camera,pipeline,place=getpoint(pipeline1,pipeline2,item)
-                                    
+                                image_with_points,pickup_coordinates,gray_image,crop,original_color_frame,camera,pipeline,place,corner,length=getpoint(pipeline1,pipeline2,item)
+
                                 if pickup_coordinates != []:
                                     location=make_3D_point(pickup_coordinates[0]+crop[2], pickup_coordinates[1]+crop[0],pipeline,camera)
                                     original_with_points=draw_original(original_color_frame, pickup_coordinates,crop[0],crop[2])
@@ -406,7 +412,7 @@ def Start():
                                 Orientation[0] = location[0] + crateOffset(item["crateNumber"])[0]
                                 Orientation[1] = location[1] + crateOffset(item["crateNumber"])[1]
                                 Orientation[2] = location[2] + crateOffset(item["crateNumber"])[2]
-                                #Orientation[5] = 
+                                Orientation[5] = corner
 
                                 asyncio.run(position(Orientation))
 
