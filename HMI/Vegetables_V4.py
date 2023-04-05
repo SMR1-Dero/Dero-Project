@@ -345,12 +345,14 @@ def make_3D_point(x, y, pipeline, camera):
         cam1 = np.loadtxt('Cam_Off_1.txt')  # difference from the camera to the robot coordinates  HMI
         point = [-(world_coords[1]) + cam1[0], -(world_coords[0] ) + cam1[1],
                  (-world_coords[2] ) + cam1[2]]
+        slope=0.07
+        intercept=50
     elif camera == 2:
         cam2 = np.loadtxt('Cam_Off_2.txt')  # difference from the camera to the robot coordinates
         point = [-(world_coords[1]) + cam2[0], -(world_coords[0] ) + cam2[1],
                  (-world_coords[2] + cam2[2])]
-    slope=0.07
-    intercept=50
+        slope=0.018
+        intercept=10
     correction=+(slope*point[0]+intercept)
     print(correction)
     point[2]=point[2]+correction
