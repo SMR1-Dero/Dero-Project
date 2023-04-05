@@ -147,7 +147,11 @@ def getpoint_notround(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupp
     mask,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)
     for c in cnts:
         area= cv2.contourArea(c)
+<<<<<<< Updated upstream
         if area>200:
+=======
+        if area>500:
+>>>>>>> Stashed changes
             M = cv2.moments(c)
             #print ("Area=",area)
             # Calculate the moments

@@ -334,7 +334,7 @@ def crateOffset(crateNumber, suctionCupColor):
         if suctionCupColor == "Rood":
             z_offset2 = 420.0
         elif suctionCupColor == "Blauw":
-            z_offset2 = 410.0
+            z_offset2 = 400.0
 
         return [x_offset2, y_offset2, z_offset2]
     
@@ -345,7 +345,7 @@ def crateOffset(crateNumber, suctionCupColor):
         if suctionCupColor == "Rood":
             z_offset3 = 455.0
         elif suctionCupColor == "Blauw":
-            z_offset3 = 445.0
+            z_offset3 = 405.0
 
         return [x_offset3, y_offset3, z_offset3]
     
@@ -429,6 +429,8 @@ def Start():
                                     location=make_3D_point(pickup_coordinates[0]+crop[2], pickup_coordinates[1]+crop[0],pipeline,camera)
                                     original_with_points=draw_original(original_color_frame, pickup_coordinates,crop[0],crop[2])
                                     got_frame = 1
+
+                                    print(location)
                                 
                                 if got_frame == 1:
                                     get_newPhoto = False

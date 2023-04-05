@@ -239,7 +239,7 @@
             90.0
           ],
           "id": "1_9",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             0,
             100,
@@ -254,7 +254,7 @@
           "product_name": "Paprika",
           "product_package": "Curry Madras",
           "product_shape": "Not round with stem",
-          "suctioncup": "Blauw"
+          "suctioncup": "Rood"
         }
       ]
     },
@@ -1287,7 +1287,7 @@
           "product_name": "Punt Paprika",
           "product_package": "Groene Curry",
           "product_shape": "Not round",
-          "suctioncup": "Blauw"
+          "suctioncup": "Rood"
         }
       ]
     },
@@ -1426,7 +1426,7 @@
           "product_name": "Paprika",
           "product_package": "Lasagne",
           "product_shape": "Not round with stem",
-          "suctioncup": "Blauw"
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "1",
@@ -1698,7 +1698,7 @@
           "product_name": "Paprika",
           "product_package": "Mexicaanse Warps",
           "product_shape": "Not round with stem",
-          "suctioncup": "Blauw"
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
@@ -1726,7 +1726,7 @@
           "product_name": "Paprika",
           "product_package": "Mexicaanse Warps",
           "product_shape": "Not round with stem",
-          "suctioncup": "Blauw"
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
@@ -1875,7 +1875,7 @@
       "package": "ErwtenSoep",
       "products": [
         {
-          "crateNumber": "2",
+          "crateNumber": "3",
           "dropdown_coordinate": [
             0.0,
             0.0,
@@ -1884,8 +1884,8 @@
             0.0,
             0.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "7_1",
+          "isActive": null,
           "product_HSVRange": "",
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/laurier-laurierblad-kruiden-veggipedia.png?raw=true",
           "product_maxSize": "",
@@ -1905,8 +1905,8 @@
             0.0,
             0.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "7_2",
+          "isActive": null,
           "product_HSVRange": "",
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/laurier-laurierblad-kruiden-veggipedia.png?raw=true",
           "product_maxSize": "",
@@ -1926,8 +1926,8 @@
             0.0,
             0.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "7_3",
+          "isActive": null,
           "product_HSVRange": "",
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/laurier-laurierblad-kruiden-veggipedia.png?raw=true",
           "product_maxSize": "",
@@ -1947,8 +1947,8 @@
             0.0,
             0.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "7_4",
+          "isActive": null,
           "product_HSVRange": "",
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/selderij.jpg?raw=true",
           "product_maxSize": "",
@@ -1968,8 +1968,8 @@
             0.0,
             0.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "7_5",
+          "isActive": null,
           "product_HSVRange": "",
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/selderij.jpg?raw=true",
           "product_maxSize": "",
@@ -1989,8 +1989,8 @@
             0.0,
             0.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "7_6",
+          "isActive": null,
           "product_HSVRange": "",
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/selderij.jpg?raw=true",
           "product_maxSize": "",
@@ -2010,8 +2010,8 @@
             0.0,
             0.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "7_7",
+          "isActive": null,
           "product_HSVRange": "",
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/selderij.jpg?raw=true",
           "product_maxSize": "",
@@ -2031,8 +2031,8 @@
             0.0,
             90.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "7_8",
+          "isActive": null,
           "product_HSVRange": [
             11,
             32,
@@ -2059,8 +2059,8 @@
             0.0,
             90.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "7_9",
+          "isActive": null,
           "product_HSVRange": [
             10,
             81,
@@ -2078,7 +2078,7 @@
           "suctioncup": "RoodBlauw"
         },
         {
-          "crateNumber": "2",
+          "crateNumber": "3",
           "dropdown_coordinate": [
             523.65,
             -254.23,
@@ -2087,8 +2087,8 @@
             0.0,
             90.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "7_10",
+          "isActive": "true",
           "product_HSVRange": [
             0,
             37,
@@ -2099,7 +2099,7 @@
           ],
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Prei.jpg?raw=true",
           "product_maxSize": "",
-          "product_minSize": "750",
+          "product_minSize": 750,
           "product_name": "Prei",
           "product_package": "Erwtensoep",
           "product_shape": "Not round",
@@ -2115,8 +2115,8 @@
             0.0,
             90.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "7_11",
+          "isActive": "true",
           "product_HSVRange": [
             0,
             142,
@@ -2127,7 +2127,7 @@
           ],
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Peen.jpg?raw=true",
           "product_maxSize": "",
-          "product_minSize": "750",
+          "product_minSize": 750,
           "product_name": "Peen",
           "product_package": "Erwtensoep",
           "product_shape": "Not round with stem",
@@ -2143,8 +2143,8 @@
             0.0,
             90.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "7_12",
+          "isActive": "true",
           "product_HSVRange": [
             0,
             142,
@@ -2155,7 +2155,7 @@
           ],
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Peen.jpg?raw=true",
           "product_maxSize": "",
-          "product_minSize": "750",
+          "product_minSize": 750,
           "product_name": "Peen",
           "product_package": "Erwtensoep",
           "product_shape": "Not round with stem",
@@ -2171,8 +2171,8 @@
             0.0,
             90.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "7_13",
+          "isActive": null,
           "product_HSVRange": "",
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Spliterwten.jpeg?raw=true",
           "product_maxSize": "",
