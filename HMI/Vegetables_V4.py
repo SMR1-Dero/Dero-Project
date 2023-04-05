@@ -342,11 +342,11 @@ def make_3D_point(x, y, pipeline, camera):
 
     world_coords = np.array([xmean, ymean, zmean]) / number
     if camera == 1:
-        cam1 = np.loadtxt('Cam_Off_1.txt')  # difference from the camera to the robot coordinates  HMI
+        cam1 = np.loadtxt('HMI\Cam_Off_1.txt')  # difference from the camera to the robot coordinates  HMI
         point = [-(world_coords[1]) + cam1[0], -(world_coords[0] ) + cam1[1],
                  (-world_coords[2] ) + cam1[2]]
     elif camera == 2:
-        cam2 = np.loadtxt('Cam_Off_2.txt')  # difference from the camera to the robot coordinates
+        cam2 = np.loadtxt('HMI\Cam_Off_2.txt')  # difference from the camera to the robot coordinates
         point = [-(world_coords[1]) + cam2[0], -(world_coords[0] ) + cam2[1],
                  (-world_coords[2] + cam2[2])]
     slope=0.07
