@@ -99,7 +99,7 @@
             90.0
           ],
           "id": "1_4",
-          "isActive": null,
+          "isActive": "true",
           "product_HSVRange": [
             10,
             81,
@@ -117,7 +117,7 @@
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "1",
+          "crateNumber": "2",
           "dropdown_coordinate": [
             609.86,
             -342.95,
@@ -127,7 +127,7 @@
             90.0
           ],
           "id": "1_5",
-          "isActive": null,
+          "isActive": "true",
           "product_HSVRange": [
             21,
             42,
@@ -155,7 +155,7 @@
             90.0
           ],
           "id": "1_6",
-          "isActive": null,
+          "isActive": "true",
           "product_HSVRange": [
             0,
             0,
@@ -169,11 +169,11 @@
           "product_minSize": 16,
           "product_name": "Bloemkool",
           "product_package": "Curry Madras",
-          "product_shape": "Round",
+          "product_shape": "Not round",
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "1",
+          "crateNumber": "3",
           "dropdown_coordinate": [
             437.49,
             -261.67,
@@ -211,7 +211,7 @@
             90.0
           ],
           "id": "1_8",
-          "isActive": null,
+          "isActive": "true",
           "product_HSVRange": [
             0,
             96,
@@ -229,7 +229,7 @@
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "4",
+          "crateNumber": "1",
           "dropdown_coordinate": [
             557.1,
             -325.08,
@@ -239,7 +239,7 @@
             90.0
           ],
           "id": "1_9",
-          "isActive": null,
+          "isActive": "true",
           "product_HSVRange": [
             0,
             100,

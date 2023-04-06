@@ -317,44 +317,44 @@ async def moveConveyerBelt():
 def crateOffset(crateNumber, suctionCupColor):
 
     if crateNumber == "1":
-        x_offset1 = 50.0
-        y_offset1 = 44.0
+        x_offset1 = 0.0
+        y_offset1 = 0.0
 
         if suctionCupColor == "Rood":
-            z_offset1 = 440.0
+            z_offset1 = 420.0
         elif suctionCupColor == "Blauw":
             z_offset1 = 440.0
 
         return [x_offset1, y_offset1, z_offset1]
     
     elif crateNumber == "2":
-        x_offset2 = 5.0
-        y_offset2 = -15.0
+        x_offset2 = -30.0
+        y_offset2 = 0.0
 
         if suctionCupColor == "Rood":
-            z_offset2 = 420.0
+            z_offset2 = 410.0
         elif suctionCupColor == "Blauw":
             z_offset2 = 400.0
 
         return [x_offset2, y_offset2, z_offset2]
     
     elif crateNumber == "3":
-        x_offset3 = -20.0
-        y_offset3 = 25.0
+        x_offset3 = 10.0
+        y_offset3 = 0.0
 
         if suctionCupColor == "Rood":
-            z_offset3 = 450.0
+            z_offset3 = 440.0
         elif suctionCupColor == "Blauw":
             z_offset3 = 405.0
 
         return [x_offset3, y_offset3, z_offset3]
     
     elif crateNumber == "4":
-        x_offset4 = -45.0
-        y_offset4 = 25.0
+        x_offset4 = 0.0
+        y_offset4 = 0.0
 
         if suctionCupColor == "Rood":
-            z_offset4 = 405.0
+            z_offset4 = 420.0
         elif suctionCupColor == "Blauw":
             z_offset4 = 415.0
 
@@ -430,7 +430,7 @@ def Start():
 
                                 if pickup_coordinates != []:
                                     location=make_3D_point(pickup_coordinates[0]+crop[2], pickup_coordinates[1]+crop[0],pipeline,camera)
-                                    print(location)
+                                    print("Location:", location)
                                     original_with_points=draw_original(original_color_frame, pickup_coordinates,crop[0],crop[2])
                                     got_frame = 1
                                 
