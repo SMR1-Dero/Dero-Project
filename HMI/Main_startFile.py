@@ -8,7 +8,7 @@ def main(debug=False):
     # Initialize Camera Intel Realsense
     pipeline1,pipeline2=initizalize_rs()
     #create trackbar and images
-    camera=2
+    camera=1
     robot_coordinates2=[-705,192,-200]
     robot_coordinates1=[-636,-663,-200]
     
@@ -26,7 +26,7 @@ def main(debug=False):
             "product_name": "Tomaat",
             "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
             "product_package": "Curry Madras",
-            "crateNumber": "4",
+            "crateNumber": "2",
             "isActive": "on",
             "product_shape": "Not round",
             "product_HSVRange": [hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3],
