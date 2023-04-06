@@ -205,12 +205,13 @@ def getpoint(pipeline1,pipeline2, vegetable):
     place : string
         Used to identify in which quadrant of the crate the vegetable is located
     '''
-    crop=[[(20),(700),(600),(1075)],[(20),(680),(150),(600)],[(0),(680),(630),(1100)],[(0),(680),(170),(630)]]
+    crop=[[(0),(600),(625),(1000)],[(50),(600),(250),(600)],[(50),(620),(640),(1000)],[(50),(630),(250),(600)],[(0),(1280),(0),(720)]]
     shape = vegetable["product_shape"]
     min_size = vegetable["product_minSize"]
     max_size = vegetable["product_maxSize"]
     hsv_range = vegetable["product_HSVRange"]
     crate_number = int(vegetable["crateNumber"])
+    highest_coordinate=[]
     CurrentHeighest=2000
     if (crate_number==1) or (crate_number==2):
         pipeline=pipeline1
@@ -290,17 +291,25 @@ def make_3D_point(x, y, pipeline, camera):
         An array containing the X, Y and Z coordinates of the point
     '''
     xmean, ymean, zmean = 0, 0, 0
-    number = 20
+    number = 50
+    count=1
+    depthmean=0
+    k=-1
     for i in range(number):
         # Wait for a coherent pair of frames: depth and color
         frames = pipeline.wait_for_frames()
         depth_frame = frames.get_depth_frame()
         color_frame = frames.get_color_frame()
-        # Get the depth value at the point of interest
+        #Get the depth value at the point of interest
+        # for k in range(-2,2):
+        #     for j in range(-2,2):
+        #         depthmean+=depth_frame.get_distance(x+k, y+j)
+        #         count+=1
         depth_value = depth_frame.get_distance(x, y)
         # Convert depth pixel coordinates to world coordinates
         depth_intrinsics = depth_frame.profile.as_video_stream_profile().intrinsics
         depth_to_color_extrinsics = depth_frame.profile.get_extrinsics_to(color_frame.profile)
+        
         world_coords = rs.rs2_deproject_pixel_to_point(depth_intrinsics, [x, y], depth_value)
         rotation = np.array(depth_to_color_extrinsics.rotation).reshape(3, 3)
         translation = np.array(depth_to_color_extrinsics.translation).reshape(3, 1)
@@ -308,26 +317,19 @@ def make_3D_point(x, y, pipeline, camera):
         world_coords = np.append(world_coords, [1])
         world_coords = np.dot(depth_to_color_extrinsics, world_coords)
         world_coords = world_coords[:3]*1000
-
+        
         xmean += world_coords[0]
         ymean += world_coords[1]
         zmean += world_coords[2]
     world_coords = np.array([xmean, ymean, zmean]) / number
     if camera == 1:
-        cam1 = np.loadtxt('HMI\Cam_Off_1.txt')  # difference from the camera to the robot coordinates  HMI
+        cam1 = np.loadtxt('Cam_Off_1.txt')  # difference from the camera to the robot coordinates  HMI
         point = [-(world_coords[1]) + cam1[0], -(world_coords[0] ) + cam1[1],
                  (-world_coords[2] ) + cam1[2]]
     elif camera == 2:
-        cam2 = np.loadtxt('HMI\Cam_Off_2.txt')  # difference from the camera to the robot coordinates
+        cam2 = np.loadtxt('Cam_Off_2.txt')  # difference from the camera to the robot coordinates
         point = [-(world_coords[1]) + cam2[0], -(world_coords[0] ) + cam2[1],
                  (-world_coords[2] + cam2[2])]
-    slope=0.05
-    intercept=40
-    slope=0.07
-    intercept=50
-    correction=+(slope*point[0]+intercept)
-    print(correction)
-    point[2]=point[2]+correction
     return point
 def calibrateXY(pipeline, robot_coordinates,camera):
     '''
