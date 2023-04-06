@@ -356,7 +356,7 @@ def crateOffset(crateNumber, suctionCupColor):
         if suctionCupColor == "Rood":
             z_offset4 = 420.0
         elif suctionCupColor == "Blauw":
-            z_offset4 = 415.0
+            z_offset4 = 395.0
 
         return [x_offset4, y_offset4, z_offset4]
 

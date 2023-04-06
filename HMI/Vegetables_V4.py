@@ -230,7 +230,7 @@ def getpoint(pipeline1,pipeline2, vegetable):
     #determine place in crate
     for i in range(len(pickup_coordinates)):
             depth_value = depth_cut[pickup_coordinates[i][0][1],pickup_coordinates[i][0][0]]
-            if depth_value<CurrentHeighest:
+            if depth_value>CurrentHeighest:
                 highest_coordinate=pickup_coordinates[i][0]
                 CurrentHeighest=depth_value
     if highest_coordinate!=[]:

@@ -1,7 +1,7 @@
 {
   "items": [
     {
-      "amount": 1,
+      "amount": 3,
       "package": "CurryMadras",
       "products": [
         {
@@ -61,7 +61,7 @@
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "2",
+          "crateNumber": "4",
           "dropdown_coordinate": [
             529.96,
             -320.28,
@@ -155,7 +155,7 @@
             90.0
           ],
           "id": "1_6",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             0,
             15,
@@ -229,7 +229,7 @@
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "1",
+          "crateNumber": "4",
           "dropdown_coordinate": [
             557.1,
             -325.08,
