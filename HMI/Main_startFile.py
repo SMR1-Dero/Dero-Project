@@ -3,23 +3,12 @@ import pyrealsense2 as rs
 import numpy as np
 import copy
 from Vegetables_V4 import *
-vegetabledict = {
-    "id": "1_8",
-    "product_name": "Tomaat",
-    "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
-    "product_package": "Curry Madras",
-    "crateNumber": "1",
-    "isActive": "on",
-    "product_shape": "Round",
-    "product_HSVRange": [21,42,40,64,255,255],
-    "product_minSize": 24,
-    "product_maxSize": 27
-}
+hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3=0,0,0,0,0,0
 def main(debug=False):
     # Initialize Camera Intel Realsense
     pipeline1,pipeline2=initizalize_rs()
     #create trackbar and images
-    camera=1
+    camera=2
     robot_coordinates2=[-705,192,-200]
     robot_coordinates1=[-636,-663,-200]
     
@@ -32,6 +21,18 @@ def main(debug=False):
     while True:
         #read info from trackbars
         hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3=readtrackbar()
+        vegetabledict = {
+            "id": "1_8",
+            "product_name": "Tomaat",
+            "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
+            "product_package": "Curry Madras",
+            "crateNumber": "4",
+            "isActive": "on",
+            "product_shape": "Not round",
+            "product_HSVRange": [hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3],
+            "product_minSize": 15,
+            "product_maxSize": 25
+        }
         #Use filters and circle detection to get center coordinate
         image_with_points,pickup_coordinates,gray_image,crop,original_color_frame,camera,pipeline,place=getpoint(pipeline1,pipeline2,vegetabledict)
         if pickup_coordinates != []:

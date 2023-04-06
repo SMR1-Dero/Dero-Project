@@ -158,10 +158,10 @@
           "isActive": null,
           "product_HSVRange": [
             0,
-            0,
-            165,
-            38,
-            118,
+            15,
+            85,
+            55,
+            125,
             255
           ],
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/bloemkool.png?raw=true",
@@ -169,7 +169,7 @@
           "product_minSize": 16,
           "product_name": "Bloemkool",
           "product_package": "Curry Madras",
-          "product_shape": "Round",
+          "product_shape": "Not round",
           "suctioncup": "Rood"
         },
         {
