@@ -212,7 +212,7 @@ def getpoint(pipeline1,pipeline2, vegetable):
     hsv_range = vegetable["product_HSVRange"]
     crate_number = int(vegetable["crateNumber"])
     highest_coordinate=[]
-    CurrentHeighest=0
+    CurrentHeighest=1100
     if (crate_number==1) or (crate_number==2):
         pipeline=pipeline1
         camera=1
@@ -228,10 +228,13 @@ def getpoint(pipeline1,pipeline2, vegetable):
     elif (shape == "Not round with stem"):
         image_with_points,pickup_coordinates,gray_image=getpoint_notround_withstem(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5],min_size,max_size)
     #determine place in crate
+    print(pickup_coordinates)
     for i in range(len(pickup_coordinates)):
             depth_value = depth_cut[pickup_coordinates[i][0][1],pickup_coordinates[i][0][0]]
-            if depth_value>CurrentHeighest:
+            print(depth_value)
+            if depth_value<CurrentHeighest:
                 highest_coordinate=pickup_coordinates[i][0]
+                print(highest_coordinate)
                 CurrentHeighest=depth_value
     if highest_coordinate!=[]:
         cv2.circle(image_with_points,(highest_coordinate[0],highest_coordinate[1]),10,(255,0,0),4)
@@ -292,19 +295,11 @@ def make_3D_point(x, y, pipeline, camera):
     '''
     xmean, ymean, zmean = 0, 0, 0
     number = 50
-    count=1
-    depthmean=0
-    k=-1
     for i in range(number):
         # Wait for a coherent pair of frames: depth and color
         frames = pipeline.wait_for_frames()
         depth_frame = frames.get_depth_frame()
         color_frame = frames.get_color_frame()
-        #Get the depth value at the point of interest
-        # for k in range(-2,2):
-        #     for j in range(-2,2):
-        #         depthmean+=depth_frame.get_distance(x+k, y+j)
-        #         count+=1
         depth_value = depth_frame.get_distance(x, y)
         # Convert depth pixel coordinates to world coordinates
         depth_intrinsics = depth_frame.profile.as_video_stream_profile().intrinsics
@@ -323,7 +318,7 @@ def make_3D_point(x, y, pipeline, camera):
         zmean += world_coords[2]
     world_coords = np.array([xmean, ymean, zmean]) / number
     if camera == 1:
-        cam1 = np.loadtxt('HMI\Cam_Off_1.txt')  # difference from the camera to the robot coordinates  HMI
+        cam1 = np.loadtxt('Cam_Off_1.txt')  # difference from the camera to the robot coordinates  HMI
         point = [-(world_coords[1]) + cam1[0], -(world_coords[0] ) + cam1[1],
                  (-world_coords[2] ) + cam1[2]]
     elif camera == 2:

@@ -26,12 +26,12 @@ def main(debug=False):
             "product_name": "Tomaat",
             "product_image": "https://github.com/ItsJarik/CobotHMI/blob/main/Tomaten.png?raw=true",
             "product_package": "Curry Madras",
-            "crateNumber": "2",
+            "crateNumber": "1",
             "isActive": "on",
-            "product_shape": "Not round",
-            "product_HSVRange": [hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3],
-            "product_minSize": 15,
-            "product_maxSize": 25
+            "product_shape": "Round",
+            "product_HSVRange": [0,96,88,255,255,255],
+            "product_minSize": 25,
+            "product_maxSize": 32
         }
         #Use filters and circle detection to get center coordinate
         image_with_points,pickup_coordinates,gray_image,crop,original_color_frame,camera,pipeline,place=getpoint(pipeline1,pipeline2,vegetabledict)
