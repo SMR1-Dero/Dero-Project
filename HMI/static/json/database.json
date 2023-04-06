@@ -2189,7 +2189,7 @@
       "package": "PompoenSoep",
       "products": [
         {
-          "crateNumber": "3",
+          "crateNumber": "2",
           "dropdown_coordinate": [
             487.66,
             -281.03,
@@ -2245,7 +2245,7 @@
           "suctioncup": "Blauw"
         },
         {
-          "crateNumber": "2",
+          "crateNumber": "3",
           "dropdown_coordinate": [
             508.01,
             -341.87,
@@ -2255,7 +2255,7 @@
             90.0
           ],
           "id": "8_3",
-          "isActive": null,
+          "isActive": "true",
           "product_HSVRange": [
             0,
             80,
@@ -2283,7 +2283,7 @@
             90.0
           ],
           "id": "8_4",
-          "isActive": null,
+          "isActive": "true",
           "product_HSVRange": [
             7,
             138,
@@ -2301,7 +2301,7 @@
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "3",
+          "crateNumber": "1",
           "dropdown_coordinate": [
             604.64,
             -276.81,
@@ -2311,7 +2311,7 @@
             90.0
           ],
           "id": "8_5",
-          "isActive": null,
+          "isActive": "true",
           "product_HSVRange": [
             0,
             63,
@@ -2456,8 +2456,8 @@
             0.0,
             90.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "9_1",
+          "isActive": null,
           "product_HSVRange": "",
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Kookrrom.jpg?raw=true",
           "product_maxSize": "",
@@ -2468,7 +2468,7 @@
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "2",
+          "crateNumber": "3",
           "dropdown_coordinate": [
             522.99,
             -264.66,
@@ -2477,8 +2477,8 @@
             0.0,
             90.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "9_2",
+          "isActive": "true",
           "product_HSVRange": [
             35,
             30,
@@ -2493,10 +2493,10 @@
           "product_name": "Courgette",
           "product_package": "Courgette Soep",
           "product_shape": "Not round",
-          "suctioncup": "Blauw"
+          "suctioncup": "Rood"
         },
         {
-          "crateNumber": "2",
+          "crateNumber": "3",
           "dropdown_coordinate": [
             527.77,
             -301.11,
@@ -2505,8 +2505,8 @@
             0.0,
             90.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "9_3",
+          "isActive": "true",
           "product_HSVRange": [
             35,
             30,
@@ -2521,10 +2521,10 @@
           "product_name": "Courgette",
           "product_package": "Courgette Soep",
           "product_shape": "Not round",
-          "suctioncup": "Blauw"
+          "suctioncup": "Rood"
         },
         {
-          "crateNumber": "2",
+          "crateNumber": "1",
           "dropdown_coordinate": [
             611.09,
             -277.82,
@@ -2533,8 +2533,8 @@
             0.0,
             90.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "9_4",
+          "isActive": "true",
           "product_HSVRange": [
             17,
             80,
@@ -2549,7 +2549,7 @@
           "product_name": "Citroen",
           "product_package": "Courgette Soep",
           "product_shape": "Round",
-          "suctioncup": "RoodBlauw"
+          "suctioncup": "Rood"
         },
         {
           "crateNumber": "2",
@@ -2561,8 +2561,8 @@
             0.0,
             90.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "9_5",
+          "isActive": null,
           "product_HSVRange": "",
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/sjalot.jpg?raw=true",
           "product_maxSize": "",
@@ -2582,8 +2582,8 @@
             0.0,
             90.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "9_6",
+          "isActive": null,
           "product_HSVRange": "",
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/sjalot.jpg?raw=true",
           "product_maxSize": "",
@@ -2603,8 +2603,8 @@
             0.0,
             90.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "9_7",
+          "isActive": "true",
           "product_HSVRange": [
             3,
             0,
@@ -2631,8 +2631,8 @@
             0.0,
             90.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "9_8",
+          "isActive": "true",
           "product_HSVRange": [
             3,
             0,
@@ -2659,8 +2659,8 @@
             0.0,
             0.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "9_9",
+          "isActive": null,
           "product_HSVRange": [
             2,
             3,
@@ -2671,7 +2671,7 @@
           ],
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Bouillonblok.jpg?raw=true",
           "product_maxSize": "",
-          "product_minSize": "100",
+          "product_minSize": 100,
           "product_name": "Bouillonblok",
           "product_package": "Courgette Soep",
           "product_shape": "Not round",
@@ -2687,8 +2687,8 @@
             0.0,
             0.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "9_10",
+          "isActive": null,
           "product_HSVRange": [
             0,
             71,
@@ -2699,7 +2699,7 @@
           ],
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Bouillonblok.jpg?raw=true",
           "product_maxSize": "",
-          "product_minSize": "100",
+          "product_minSize": 100,
           "product_name": "Bouillonblok",
           "product_package": "Courgette Soep",
           "product_shape": "Not round",
@@ -2715,8 +2715,8 @@
             0.0,
             0.0
           ],
-          "id": "89379832",
-          "isActive": "on",
+          "id": "9_11",
+          "isActive": null,
           "product_HSVRange": "",
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/tijm-kruiden-Veggipedia.png?raw=true",
           "product_maxSize": "",

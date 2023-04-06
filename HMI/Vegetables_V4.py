@@ -212,7 +212,7 @@ def getpoint(pipeline1,pipeline2, vegetable):
     hsv_range = vegetable["product_HSVRange"]
     crate_number = int(vegetable["crateNumber"])
     highest_coordinate=[]
-    CurrentHeighest=2000
+    CurrentHeighest=0
     if (crate_number==1) or (crate_number==2):
         pipeline=pipeline1
         camera=1
