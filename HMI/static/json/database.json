@@ -158,10 +158,10 @@
           "isActive": "true",
           "product_HSVRange": [
             0,
-            0,
-            165,
-            38,
-            118,
+            15,
+            85,
+            55,
+            125,
             255
           ],
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/bloemkool.png?raw=true",
