@@ -246,7 +246,7 @@ def getpoint(pipeline1,pipeline2, vegetable):
 
     return image_with_points,highest_coordinate,gray_image,crop[crate_number-1],orginal_color_frame,camera,pipeline,place
 def draw_original(original,coordinates,xcorrect=0,ycorrect=0):
-    cv2.circle(original,(coordinates[0][0][0]+xcorrect,coordinates[0][0][1]+ycorrect),1,(0,255,0),2)
+    cv2.circle(original,(coordinates[0]+xcorrect,coordinates[1]+ycorrect),1,(0,255,0),2)
     return original
 def initizalize_rs():
     # use the serial number of the camera to determine which camera is where

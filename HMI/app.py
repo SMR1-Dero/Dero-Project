@@ -317,8 +317,8 @@ async def moveConveyerBelt():
 def crateOffset(crateNumber, suctionCupColor):
 
     if crateNumber == "1":
-        x_offset1 = 15.0
-        y_offset1 = 5.0
+        x_offset1 = 50.0
+        y_offset1 = 44.0
 
         if suctionCupColor == "Rood":
             z_offset1 = 440.0
@@ -429,7 +429,8 @@ def Start():
                                 cv2.waitKey(100)
 
                                 if pickup_coordinates != []:
-                                    location=make_3D_point(pickup_coordinates[0][0][0]+crop[2], pickup_coordinates[0][0][1]+crop[0],pipeline,camera)
+                                    location=make_3D_point(pickup_coordinates[0]+crop[2], pickup_coordinates[1]+crop[0],pipeline,camera)
+                                    print(location)
                                     original_with_points=draw_original(original_color_frame, pickup_coordinates,crop[0],crop[2])
                                     got_frame = 1
                                 

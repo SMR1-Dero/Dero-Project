@@ -127,7 +127,7 @@
             90.0
           ],
           "id": "1_5",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             21,
             42,
@@ -173,7 +173,7 @@
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "3",
+          "crateNumber": "1",
           "dropdown_coordinate": [
             437.49,
             -261.67,
@@ -183,7 +183,7 @@
             90.0
           ],
           "id": "1_7",
-          "isActive": null,
+          "isActive": "true",
           "product_HSVRange": [
             0,
             96,
