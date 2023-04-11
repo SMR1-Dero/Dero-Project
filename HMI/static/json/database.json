@@ -1,7 +1,7 @@
 {
   "items": [
     {
-      "amount": 3,
+      "amount": 1,
       "package": "CurryMadras",
       "products": [
         {
@@ -89,7 +89,7 @@
           "suctioncup": "Blauw"
         },
         {
-          "crateNumber": "1",
+          "crateNumber": "3",
           "dropdown_coordinate": [
             551.38,
             -275.62,
@@ -145,7 +145,7 @@
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "4",
+          "crateNumber": "2",
           "dropdown_coordinate": [
             474.63,
             -339.83,
@@ -155,7 +155,7 @@
             90.0
           ],
           "id": "1_6",
-          "isActive": null,
+          "isActive": "true",
           "product_HSVRange": [
             0,
             15,
@@ -229,7 +229,7 @@
           "suctioncup": "Rood"
         },
         {
-          "crateNumber": "4",
+          "crateNumber": "1",
           "dropdown_coordinate": [
             557.1,
             -325.08,
@@ -239,7 +239,7 @@
             90.0
           ],
           "id": "1_9",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             0,
             100,
@@ -2022,7 +2022,7 @@
           "suctioncup": "Geen suctioncup"
         },
         {
-          "crateNumber": "2",
+          "crateNumber": "3",
           "dropdown_coordinate": [
             439.26,
             -344.6,
@@ -2032,7 +2032,7 @@
             90.0
           ],
           "id": "7_8",
-          "isActive": null,
+          "isActive": "true",
           "product_HSVRange": [
             11,
             32,
@@ -2088,7 +2088,7 @@
             90.0
           ],
           "id": "7_10",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             0,
             37,
@@ -2116,7 +2116,7 @@
             90.0
           ],
           "id": "7_11",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             0,
             142,
@@ -2144,7 +2144,7 @@
             90.0
           ],
           "id": "7_12",
-          "isActive": "true",
+          "isActive": null,
           "product_HSVRange": [
             0,
             142,
