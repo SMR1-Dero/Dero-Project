@@ -137,7 +137,7 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
     mask,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)
     for c in cnts:
         area= cv2.contourArea(c)
-        if area>200:
+        if area>400:
             M = cv2.moments(c)
             #print ("Area=",area)
             # Calculate the moments
@@ -172,6 +172,12 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
                 # Draw the line
                 cv2.line(color_frame, (x1, y1), (x2, y2), (255, 0, 255), 2)
                 cv2.putText(color_frame, f'{np.rad2deg(angle)}', (x1,y1-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,255), 1)
+                
+                x,y,w,h = cv2.boundingRect(c)
+                cv2.line(color_frame, (x,y), (x+w,y+h), (0,255,0), 2)
+                length = cv2.arcLength(c, True)
+                #cv2.putText(image, f'{lenght}', (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
+                
     return color_frame,coordinates,mask
 def getpoint(pipeline1,pipeline2, vegetable):
     '''

@@ -911,12 +911,12 @@
           "id": "3_7",
           "isActive": null,
           "product_HSVRange": [
-            2,
-            3,
-            191,
-            241,
-            55,
-            255
+            5,
+            0,
+            0,
+            255,
+            255,
+            50
           ],
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Aubergine-groente-veggipedia.png?raw=true",
           "product_maxSize": "",
@@ -1078,12 +1078,12 @@
           "id": "89379832",
           "isActive": "on",
           "product_HSVRange": [
+            5,
             0,
-            12,
-            19,
-            168,
+            0,
             255,
-            53
+            255,
+            50
           ],
           "product_image": "https://github.com/SMR1-Dero/Dero-Project/blob/main/HMI%20afbeeldingen/Aubergine-groente-veggipedia.png?raw=true",
           "product_maxSize": "",
