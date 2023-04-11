@@ -171,12 +171,14 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
 
                 # Draw the line
                 cv2.line(color_frame, (x1, y1), (x2, y2), (255, 0, 255), 2)
-                cv2.putText(color_frame, f'{np.rad2deg(angle)}', (x1,y1-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,255), 1)
-                
+
+                # Draw a line through each contour and print its length
                 x,y,w,h = cv2.boundingRect(c)
-                cv2.line(color_frame, (x,y), (x+w,y+h), (0,255,0), 2)
+                #cv2.line(color_frame, (x,y), (x+w,y+h), (0,255,0), 2)
                 length = cv2.arcLength(c, True)
-                #cv2.putText(image, f'{lenght}', (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
+                cv2.putText(color_frame, f'Length:{length:.2f}', (x1-20, y1-50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 1)
+
+                cv2.putText(color_frame, f'Angle:{np.rad2deg(angle):.2f}', (x1-20,y1-30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,255), 1)
                 
     return color_frame,coordinates,mask
 def getpoint(pipeline1,pipeline2, vegetable):
@@ -234,21 +236,18 @@ def getpoint(pipeline1,pipeline2, vegetable):
     elif (shape == "Not round with stem"):
         image_with_points,pickup_coordinates,gray_image=getpoint_notround_withstem(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5],min_size,max_size)
     #determine place in crate
-    print(pickup_coordinates)
     for i in range(len(pickup_coordinates)):
             depth_value = depth_cut[pickup_coordinates[i][0][1],pickup_coordinates[i][0][0]]
-            print(depth_value)
             if depth_value<CurrentHeighest:
                 highest_coordinate=pickup_coordinates[i][0]
-                print(highest_coordinate)
                 CurrentHeighest=depth_value
     if highest_coordinate!=[]:
         cv2.circle(image_with_points,(highest_coordinate[0],highest_coordinate[1]),10,(255,0,0),4)
     #determine place in crate
     if (pickup_coordinates != []):
-        if (pickup_coordinates[0][0][1]<(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
+        if (highest_coordinate[1]<(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
             place="Up"
-        elif(pickup_coordinates[0][0][1]>=(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
+        elif(highest_coordinate[1]>=(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
             place="Down"
     elif(pickup_coordinates == []):
         place=None
