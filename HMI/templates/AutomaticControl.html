@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Automatic Control</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/AutomaticControl.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+
+      <!-- Header -->
+      <div class="header">
+        <h1>{{package}}</h1>
+      </div>
+
+      <!-- Navigation Bar -->
+      <div class="btn-container">
+        <form action="/">
+            <button type="submit" class="btn">Home</button>
+        </form>
+
+        <form action="/AutomaticControlSettings" method="post">
+          <input type="hidden" name="package" value={{package}}>
+          <input type="hidden" name="link" value={{link}}>
+          <button type="submit" class="btn">Product Settings</button>
+        </form>
+        
+      </div>
+
+      <!-- Product Grid -->
+        <div class="ControlCentre">
+
+          <h1 class="grid_title">Products</h1>
+
+          <div class="grid">
+            {% for item in items %}
+              {% if item.package == package %}
+                {% for product in item.products %}
+                  {% if product.isActive %}
+                    <div class="grid-item">
+                      <div>
+                        <img src="{{ product.product_image }}">
+                        <div class="caption">{{ product.product_name }}</div>
+                      </div>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+          </div>
+
+        </div>
+
+      <!-- Manual Control -->
+      <div class="Control Centre">
+        
+        <h1 class="grid_title">Control Center</h1>
+
+        <!-- Working Bar -->
+        <div class="btn-container">
+
+          <form action="/Start" method="post">
+            <input type="hidden" name="package" value={{package}}>
+            <button type="submit" class="btn-WorkingBar">Start</button>
+          </form>
+
+          <form action="/CalibrateCamera1">
+            <button class="btn-WorkingBar">Calibrate Camera 1</button>
+          </form>
+
+          <form action="/CalibrateCamera2">
+            <button class="btn-WorkingBar">Calibrate Camera 2</button>
+          </form>
+
+          <form action="/GoToHomeBase">
+            <button class="btn-WorkingBar">Move to Home Base</button>
+          </form>
+
+          <form action="/resetConveyer">
+            <button class="btn-WorkingBar">Reset Conveyer</button>
+          </form>
+
+        </div>
+
+        <!-- Coordinates -->
+        <div class="coordinates">
+          <form action="/move_robot" method="post">
+            <input type="text" name="x" id="x" placeholder="x">
+            <input type="text" name="y" id="y" placeholder="y">
+            <input type="text" name="z" id="z" placeholder="z">
+            <input type="text" name="rx" id="rx" placeholder="rx">
+            <input type="text" name="ry" id="ry" placeholder="ry">
+            <input type="text" name="rz" id="rz" placeholder="rz">
+            <button type="submit">Move</button>
+          </form>
+        </div>
+
+        <!-- I/O Buttons -->
+        <div class="input_output">
+          <form action="/setOutput", method="post">
+            <select name="status" id="status">
+              <option value="1">ON</option>
+              <option value="0">OFF</option>
+            </select>
+            <button type="submit">Set Suction Cup</button>
+          </form>
+        </div>
+
+      </div>
+
+  </body>
+</html>
+
