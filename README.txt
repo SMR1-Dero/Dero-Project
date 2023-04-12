@@ -1,4 +1,4 @@
-The project is structured into four files(you can find this files in the HMI map and Static/Json mao):
+The project is structured into four files(you can find this files in the HMI map and Static/Json map):
 
 Vegetables_V4:
 This file contains various functions that can be used to filter data and calculate real-world coordinates.
