@@ -11,7 +11,6 @@ import copy
 import os
 import sys
 import math
-#sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
 from Vegetables_V4 import *
 
 # ---------------------------------------------------------------------
@@ -26,10 +25,13 @@ ip = '192.168.0.204'
 # ---------------------------------------------------------------------
 
 async def position(positionArray):
+    # Move Robot Arm position (positionArray: x,y,z,rx,ry,rz)
     async with techmanpy.connect_sct(robot_ip=ip) as conn:
         await conn.move_to_point_ptp(positionArray, 1, 1000)
 
 async def setSuctionCup(positionArray, status):
+    # Move Robot Arm position (positionArray: x,y,z,rx,ry,rz)
+    # Its's the same as with function position(positionArray), but now you give an queue tag with it for the suction cup
     async with techmanpy.connect_sct(robot_ip=ip) as conn:
         await conn.move_to_point_ptp(positionArray, 1, 1000)
 
@@ -46,6 +48,7 @@ async def setSuctionCup(positionArray, status):
 
 # --------------------------------------------------------------------------
 async def setSuctionCupTest(status):
+    # Set suction high or low (status: 1 or 0)
     async with techmanpy.connect_svr(robot_ip=ip) as conn:
             await conn.set_value("Ctrl_DO1", status)
 
@@ -55,16 +58,19 @@ async def setSuctionCupTest(status):
 async def calibrateCamera1_Position():
     calibrationCamera1 = [-636.0 , -663.0  , -200.0 , 180.0 , 0.0 , -90.0]
 
+    # Moves to calibration position
     async with techmanpy.connect_sct(robot_ip=ip) as conn:
         await conn.move_to_point_ptp(calibrationCamera1, 1, 1000)
 
 async def calibrateCamera1_GetCoordinates():
+    # Calibrating
     async with techmanpy.connect_svr(robot_ip=ip) as conn:
         coordinates = await conn.get_value("Coord_Robot_Flange")
     return coordinates
 
 @app.route('/CalibrateCamera1')
 def CalibrateCamera1():
+    # Opens Camera Pipeline 1 and 2
     pipeline1,pipeline2=initizalize_rs()
     asyncio.run(calibrateCamera1_Position())
 
@@ -75,6 +81,7 @@ def CalibrateCamera1():
 
     calibrateXY(pipeline1, coordinates, 1)
 
+    # Closes Camera Pipeline 1 and 2
     pipeline1.stop()
     pipeline2.stop()
 
@@ -117,6 +124,7 @@ def CalibrateCamera2():
 async def GoToHomeBase_Coordinates():
     HomeBase = [505.24 , -317.63 , 700.0 , 180.0 , 0.0 , 90.0]
 
+    # Moves to homebase
     async with techmanpy.connect_sct(robot_ip=ip) as conn:
         await conn.move_to_point_ptp(HomeBase, 1, 1000)
 
@@ -132,6 +140,8 @@ def GoToHomeBase():
 async def ResetConveyer():
 
     ir_status = False
+
+    # Moves conveyer until package is detected by IR
 
     async with techmanpy.connect_svr(robot_ip=ip) as conn:
         await conn.set_value("Ctrl_DO5", 1)
@@ -193,6 +203,8 @@ def AutomaticControlSettings():
 # Move Robot
 @app.route('/move_robot', methods=['POST'])
 def move_robot():
+
+    # Gets information from the HTML page by the user
     x = float(request.form['x'])
     y = float(request.form['y'])
     z = float(request.form['z'])
@@ -270,6 +282,7 @@ def updateAmount():
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def getHoverCoordinates(crateNumber, x, y, xOffset, yOffset):
 
+    # Depending of the crate, changes the x and y coordinates
     hoverCrate = [0.0 , 0.0 , 400.0 , -180.0 , 0.0 , -90.0]
 
     if crateNumber == "1":
@@ -316,6 +329,7 @@ async def moveConveyerBelt():
 
 def crateOffset(crateNumber, suctionCupColor):
 
+    # Depending on the crate 
     if crateNumber == "1":
         x_offset1 = 0.0
         y_offset1 = 0.0
