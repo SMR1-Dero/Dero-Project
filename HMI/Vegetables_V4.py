@@ -137,7 +137,7 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
     mask,cnts=image_edits(color_frame,hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3)
     for c in cnts:
         area= cv2.contourArea(c)
-        if area>400:
+        if area>200:
             M = cv2.moments(c)
             #print ("Area=",area)
             # Calculate the moments
@@ -171,15 +171,7 @@ def getpoint_notround(depth_frame,color_frame,hsvunder1,hsvunder2,hsvunder3,hsvu
 
                 # Draw the line
                 cv2.line(color_frame, (x1, y1), (x2, y2), (255, 0, 255), 2)
-
-                # Draw a line through each contour and print its length
-                x,y,w,h = cv2.boundingRect(c)
-                #cv2.line(color_frame, (x,y), (x+w,y+h), (0,255,0), 2)
-                length = cv2.arcLength(c, True)
-                cv2.putText(color_frame, f'Length:{length:.2f}', (x1-20, y1-50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 1)
-
-                cv2.putText(color_frame, f'Angle:{np.rad2deg(angle):.2f}', (x1-20,y1-30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,255), 1)
-                
+                cv2.putText(color_frame, f'{np.rad2deg(angle)}', (x1,y1-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,255), 1)
     return color_frame,coordinates,mask
 def getpoint(pipeline1,pipeline2, vegetable):
     '''
@@ -213,7 +205,7 @@ def getpoint(pipeline1,pipeline2, vegetable):
     place : string
         Used to identify in which quadrant of the crate the vegetable is located
     '''
-    crop=[[(0),(600),(625),(1000)],[(50),(600),(250),(600)],[(50),(620),(640),(1000)],[(50),(630),(250),(600)],[(0),(1280),(0),(720)]]
+    crop=[[(0),(600),(625),(1050)],[(50),(600),(250),(600)],[(50),(620),(640),(1000)],[(50),(630),(250),(600)],[(0),(1280),(0),(720)]]
     shape = vegetable["product_shape"]
     min_size = vegetable["product_minSize"]
     max_size = vegetable["product_maxSize"]
@@ -236,25 +228,25 @@ def getpoint(pipeline1,pipeline2, vegetable):
     elif (shape == "Not round with stem"):
         image_with_points,pickup_coordinates,gray_image=getpoint_notround_withstem(depth_cut,color_cut,hsv_range[0],hsv_range[1],hsv_range[2],hsv_range[3],hsv_range[4],hsv_range[5],min_size,max_size)
     #determine place in crate
+    print(pickup_coordinates)
     for i in range(len(pickup_coordinates)):
             depth_value = depth_cut[pickup_coordinates[i][0][1],pickup_coordinates[i][0][0]]
-            print("Diepte ",depth_value)
-            print("Coordinaat", pickup_coordinates[i][0])
+            print(depth_value)
             if depth_value<CurrentHeighest:
                 highest_coordinate=pickup_coordinates[i][0]
-                print("Hoogste Coordinaat ",highest_coordinate) 
+                print(highest_coordinate)
                 CurrentHeighest=depth_value
     if highest_coordinate!=[]:
         cv2.circle(image_with_points,(highest_coordinate[0],highest_coordinate[1]),10,(255,0,0),4)
     #determine place in crate
     if (pickup_coordinates != []):
-        if (highest_coordinate[1]<(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
+        if (pickup_coordinates[0][0][1]<(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
             place="Up"
-        elif(highest_coordinate[1]>=(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
+        elif(pickup_coordinates[0][0][1]>=(crop[crate_number-1][1]-crop[crate_number-1][0])/2):
             place="Down"
     elif(pickup_coordinates == []):
         place=None
-    print("Hoogste Coordinaat check ",highest_coordinate) 
+
     return image_with_points,highest_coordinate,gray_image,crop[crate_number-1],orginal_color_frame,camera,pipeline,place
 def draw_original(original,coordinates,xcorrect=0,ycorrect=0):
     cv2.circle(original,(coordinates[0]+xcorrect,coordinates[1]+ycorrect),1,(0,255,0),2)

@@ -21,3 +21,6 @@ The HMI code is the interface that allows the user to interact with the system.
 The app file imports all the functions from Vegetables_V4 and the database file.
 It uses the functions from Vegetables_V4 to filter the data and calculate real-world coordinates.
 It also uses the functions from the database file to store and retrieve information about the vegetables and their freshness.
+
+app.py:
+When you run this file it will start the Flask Server. You can enter the following link in your browser to enter the HMI website (http://127.0.0.1:5000)
