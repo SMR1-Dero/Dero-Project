@@ -3,7 +3,7 @@ import pyrealsense2 as rs
 import numpy as np
 import copy
 from Vegetables_V4 import *
-hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3=0,0,0,0,0,0
+hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3=5,0,0,255,255,50
 def main(debug=False):
     # Initialize Camera Intel Realsense
     pipeline1,pipeline2=initizalize_rs()
@@ -28,8 +28,8 @@ def main(debug=False):
             "product_package": "Curry Madras",
             "crateNumber": "1",
             "isActive": "on",
-            "product_shape": "Round",
-            "product_HSVRange": [0,96,88,255,255,255],
+            "product_shape": "Not round",
+            "product_HSVRange": [5,0,0,255,255,50],
             "product_minSize": 25,
             "product_maxSize": 32
         }
