@@ -3,7 +3,12 @@ import pyrealsense2 as rs
 import numpy as np
 import copy
 from Vegetables_V4 import *
+from flask import jsonify, json
+
 hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3=5,0,0,255,255,50
+with open('static\json\database.json', 'r') as f:
+    data = json.load(f)
+    
 def main(debug=False):
     # Initialize Camera Intel Realsense
     pipeline1,pipeline2=initizalize_rs()
@@ -20,7 +25,7 @@ def main(debug=False):
     makeframe()
     while True:
         #read info from trackbars
-        hsvunder1,hsvunder2,hsvunder3,hsvupper1,hsvupper2,hsvupper3=readtrackbar()
+        minsize,maxsize,hsvunder3,hsvupper1,hsvupper2,hsvupper3=readtrackbar()
         vegetabledict = {
             "id": "1_8",
             "product_name": "Tomaat",
@@ -28,10 +33,10 @@ def main(debug=False):
             "product_package": "Curry Madras",
             "crateNumber": "1",
             "isActive": "on",
-            "product_shape": "Not round",
-            "product_HSVRange": [5,0,0,255,255,50],
-            "product_minSize": 25,
-            "product_maxSize": 32
+            "product_shape": "Round",
+            "product_HSVRange": [0,80,90,255,255,255],
+            "product_minSize": minsize,
+            "product_maxSize": maxsize
         }
         #Use filters and circle detection to get center coordinate
         image_with_points,pickup_coordinates,gray_image,crop,original_color_frame,camera,pipeline,place=getpoint(pipeline1,pipeline2,vegetabledict)

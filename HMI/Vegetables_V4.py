@@ -238,8 +238,11 @@ def getpoint(pipeline1,pipeline2, vegetable):
     #determine place in crate
     for i in range(len(pickup_coordinates)):
             depth_value = depth_cut[pickup_coordinates[i][0][1],pickup_coordinates[i][0][0]]
+            print("Diepte ",depth_value)
+            print("Coordinaat", pickup_coordinates[i][0])
             if depth_value<CurrentHeighest:
                 highest_coordinate=pickup_coordinates[i][0]
+                print("Hoogste Coordinaat ",highest_coordinate) 
                 CurrentHeighest=depth_value
     if highest_coordinate!=[]:
         cv2.circle(image_with_points,(highest_coordinate[0],highest_coordinate[1]),10,(255,0,0),4)
@@ -251,7 +254,7 @@ def getpoint(pipeline1,pipeline2, vegetable):
             place="Down"
     elif(pickup_coordinates == []):
         place=None
-
+    print("Hoogste Coordinaat check ",highest_coordinate) 
     return image_with_points,highest_coordinate,gray_image,crop[crate_number-1],orginal_color_frame,camera,pipeline,place
 def draw_original(original,coordinates,xcorrect=0,ycorrect=0):
     cv2.circle(original,(coordinates[0]+xcorrect,coordinates[1]+ycorrect),1,(0,255,0),2)
